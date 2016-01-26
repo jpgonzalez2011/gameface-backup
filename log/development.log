@@ -1840,3 +1840,10 @@ Started GET "/" for ::1 at 2016-01-26 15:43:15 -0500
 Processing by StaticPagesController#root as HTML
   Rendered static_pages/root.html within layouts/application (0.0ms)
 Completed 200 OK in 108ms (Views: 107.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2016-01-26 18:34:11 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (8.0ms)
+Completed 200 OK in 2140ms (Views: 2139.3ms | ActiveRecord: 0.0ms)
