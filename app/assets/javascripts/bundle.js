@@ -24315,19 +24315,50 @@
 
 	var React = __webpack_require__(1);
 
+	var NavSearchField = __webpack_require__(209);
+
 	var NavHeader = React.createClass({
 	  displayName: 'NavHeader',
 
 	  render: function () {
 	    return React.createElement(
-	      'div',
-	      null,
-	      'HELLO FROM NAV HEADER'
+	      'header',
+	      { className: 'header group' },
+	      React.createElement(
+	        'nav',
+	        { className: 'nav-header group' },
+	        React.createElement(
+	          'header',
+	          { className: 'left-side-header' },
+	          React.createElement('h1', { className: 'header-logo' }),
+	          React.createElement(NavSearchField, null)
+	        )
+	      )
 	    );
 	  }
 	});
 
 	module.exports = NavHeader;
+
+/***/ },
+/* 209 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var NavSearchField = React.createClass({
+	  displayName: "NavSearchField",
+
+	  getInitialState: function () {
+	    return { search: "Search Field" };
+	  },
+
+	  render: function () {
+	    return React.createElement("input", { className: "nav-search-field", type: "text", value: this.state.search });
+	  }
+	});
+
+	module.exports = NavSearchField;
 
 /***/ }
 /******/ ]);

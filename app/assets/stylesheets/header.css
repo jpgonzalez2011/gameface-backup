@@ -1,0 +1,32 @@
+.header {
+  background-color: blue;
+}
+
+.nav-header {
+  width: 980px;
+  margin: 0 auto;
+  background-color: green;
+  padding: 5px;
+}
+
+.left-side-header {
+  float: left
+}
+
+.header-logo {
+  margin: 5px;
+  width: 28px;
+  height: 28px;
+  border: 1px solid black;
+  float: left;
+}
+
+.nav-search-field {
+  margin: 5px;
+  width: 400px;
+  height: 25px;
+  background: white;
+  border: 1px solid black;
+  border-radius: 4px;
+  float: left;
+}
