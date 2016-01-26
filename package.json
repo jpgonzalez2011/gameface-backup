@@ -8,7 +8,7 @@
     "test": "test"
   },
   "engines": { "node": "4.1.1", "npm": "2.1.x" },
-  "scripts": { "postinstall": "./node_modules/.bin/webpack" },
+  "scripts": { "start": "node index.js", "postinstall": "./node_modules/.bin/webpack" },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jpgonzalez2011/gameface.git"
