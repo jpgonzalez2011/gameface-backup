@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       )
     if @user
       sign_in!(@user)
-      redirect_to user_url(@user) #redirect to timeline when feature implemented
+      redirect_to root_url
     else
       flash.now[:errors] = "Invalid Credentials!"
       render :new
