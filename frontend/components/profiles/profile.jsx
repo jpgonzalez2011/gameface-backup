@@ -9,7 +9,7 @@ var Profile = React.createClass({
 
   getStateFromStore: function (props) {
     return (
-    { profile: ProfileStore.find(props.params.userId) }
+      { profile: ProfileStore.find(this.props.params.userId) }
     );
   },
 
