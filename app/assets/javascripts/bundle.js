@@ -24433,6 +24433,11 @@
 	            null,
 	            ' Friends '
 	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'profile-picture-box' },
+	          React.createElement('img', { src: this.state.profile.profile_photo })
 	        )
 	      )
 	    );

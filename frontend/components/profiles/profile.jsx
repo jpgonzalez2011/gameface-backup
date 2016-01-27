@@ -40,6 +40,9 @@ var Profile = React.createClass({
             <li> About </li>
             <li> Friends </li>
           </ul>
+          <div className="profile-picture-box">
+            <img src={this.state.profile.profile_photo} />
+          </div>
         </header>
       </div>
     );
