@@ -1,4 +1,7 @@
 class StaticPagesController < ApplicationController
-  def index
+
+  before_action :ensure_sign_in
+
+  def root
   end
 end
