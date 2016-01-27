@@ -12,4 +12,10 @@
   <input type="password" name="user[password]" id="password" value="">
 
   <button>Submit</button>
+
+  <form class="guest" action="<%= session_url %>" method="post">
+    <input type="hidden" name="user[username]" value="Mario">
+    <input type="hidden" name="user[password]" value="password">
+    <button> Log in as Mario! </button>
+  </form>
 </form>
