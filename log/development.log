@@ -6083,3 +6083,393 @@ Processing by Api::UsersController#show as JSON
   [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 26]]
   Rendered api/users/show.json.jbuilder (0.2ms)
 Completed 200 OK in 4ms (Views: 1.9ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:02:07 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.8ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (11.3ms)
+Completed 200 OK in 738ms (Views: 724.6ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:02:08 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.6ms)
+Completed 200 OK in 4ms (Views: 2.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:03:57 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (32.4ms)
+Completed 200 OK in 607ms (Views: 605.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:03:58 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.2ms)
+Completed 200 OK in 4ms (Views: 2.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:04:18 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (0.9ms)
+Completed 200 OK in 352ms (Views: 350.6ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:04:19 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.2ms)
+Completed 200 OK in 3ms (Views: 1.9ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:05:49 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (10.5ms)
+Completed 200 OK in 343ms (Views: 341.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:05:50 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (1.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (1.8ms)
+Completed 200 OK in 11ms (Views: 6.4ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:07:28 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.8ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (11.9ms)
+Completed 200 OK in 280ms (Views: 258.2ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:07:29 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (1.6ms)
+Completed 200 OK in 6ms (Views: 3.8ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:08:48 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (12.3ms)
+Completed 200 OK in 305ms (Views: 271.4ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:08:49 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.4ms)
+Completed 200 OK in 4ms (Views: 2.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:12:31 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (1.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (12.1ms)
+Completed 200 OK in 752ms (Views: 729.0ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:12:32 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (1.1ms)
+Completed 200 OK in 8ms (Views: 5.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:12:41 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (9.7ms)
+Completed 200 OK in 149ms (Views: 147.7ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:12:41 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.4ms)
+Completed 200 OK in 5ms (Views: 3.6ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:13:26 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (10.0ms)
+Completed 200 OK in 239ms (Views: 237.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:13:27 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.2ms)
+Completed 200 OK in 3ms (Views: 2.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:14:15 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (10.0ms)
+Completed 200 OK in 508ms (Views: 506.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:14:16 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.3ms)
+Completed 200 OK in 3ms (Views: 2.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:15:06 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (10.3ms)
+Completed 200 OK in 228ms (Views: 226.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:15:07 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.3ms)
+Completed 200 OK in 4ms (Views: 2.5ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:15:30 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (32.1ms)
+Completed 200 OK in 250ms (Views: 248.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:15:31 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.2ms)
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:15:39 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (0.9ms)
+Completed 200 OK in 41ms (Views: 39.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:15:39 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.4ms)
+Completed 200 OK in 4ms (Views: 2.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:15:50 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (0.8ms)
+Completed 200 OK in 44ms (Views: 42.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:15:50 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.2ms)
+Completed 200 OK in 3ms (Views: 1.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:16:31 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (9.9ms)
+Completed 200 OK in 162ms (Views: 160.7ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:16:32 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.2ms)
+Completed 200 OK in 3ms (Views: 1.9ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:16:35 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (0.8ms)
+Completed 200 OK in 18ms (Views: 17.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:16:35 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.4ms)
+Completed 200 OK in 7ms (Views: 4.7ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:17:56 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (9.7ms)
+Completed 200 OK in 446ms (Views: 444.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:17:57 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (1.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.7ms)
+Completed 200 OK in 8ms (Views: 4.4ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:19:37 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (10.4ms)
+Completed 200 OK in 313ms (Views: 311.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:19:38 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.4ms)
+Completed 200 OK in 6ms (Views: 3.8ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:20:31 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (10.3ms)
+Completed 200 OK in 221ms (Views: 218.4ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:20:32 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.6ms)
+Completed 200 OK in 5ms (Views: 3.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:21:13 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (10.0ms)
+Completed 200 OK in 223ms (Views: 221.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:21:13 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.4ms)
+Completed 200 OK in 5ms (Views: 3.1ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:21:27 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (9.8ms)
+Completed 200 OK in 149ms (Views: 147.0ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:21:28 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.2ms)
+Completed 200 OK in 4ms (Views: 2.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:22:07 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (11.3ms)
+Completed 200 OK in 211ms (Views: 209.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:22:08 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.2ms)
+Completed 200 OK in 3ms (Views: 2.0ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:22:36 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (9.9ms)
+Completed 200 OK in 234ms (Views: 232.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:22:36 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.4ms)
+Completed 200 OK in 5ms (Views: 3.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:23:00 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (10.1ms)
+Completed 200 OK in 223ms (Views: 221.7ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:23:01 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.3ms)
+Completed 200 OK in 3ms (Views: 2.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:23:12 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (0.9ms)
+Completed 200 OK in 39ms (Views: 37.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:23:12 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.3ms)
+Completed 200 OK in 3ms (Views: 1.9ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 17:24:00 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "x3eNgsZ-kkYJpHv0_1OtAw"]]
+  Rendered static_pages/root.html within layouts/application (9.7ms)
+Completed 200 OK in 475ms (Views: 473.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/25" for ::1 at 2016-01-27 17:24:01 -0500
+Processing by Api::UsersController#show as JSON
+  Parameters: {"id"=>"25"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  Rendered api/users/show.json.jbuilder (0.2ms)
+Completed 200 OK in 4ms (Views: 2.6ms | ActiveRecord: 0.4ms)

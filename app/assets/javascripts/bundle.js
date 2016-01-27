@@ -24393,7 +24393,6 @@
 	    this.storeCBToken = ProfileStore.addListener(function () {
 	      this.setState(this.getStateFromStore(this.props));
 	    }.bind(this));
-	    // apiUtil.fetchSingleProfile(this.props.params.userId);
 	  },
 
 	  componentWillUnmount: function () {
@@ -24402,7 +24401,6 @@
 
 	  componentWillReceiveProps: function (newProps) {
 	    this.setState(this.getStateFromStore(newProps));
-	    // apiUtil.fetchSingleProfile(newProps.params.userId);
 	  },
 
 	  render: function () {
@@ -24411,11 +24409,30 @@
 	      null,
 	      React.createElement(
 	        'header',
-	        { className: 'profile-header-box' },
+	        { className: 'profile-header-box group' },
 	        React.createElement(
 	          'div',
 	          { className: 'cover-photo-box' },
 	          React.createElement('img', { src: this.state.profile.cover_photo })
+	        ),
+	        React.createElement(
+	          'ul',
+	          { className: 'profile-nav group' },
+	          React.createElement(
+	            'li',
+	            null,
+	            ' Timeline '
+	          ),
+	          React.createElement(
+	            'li',
+	            null,
+	            ' About '
+	          ),
+	          React.createElement(
+	            'li',
+	            null,
+	            ' Friends '
+	          )
 	        )
 	      )
 	    );

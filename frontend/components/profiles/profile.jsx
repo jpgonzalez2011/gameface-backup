@@ -18,7 +18,6 @@ var Profile = React.createClass({
     this.storeCBToken = ProfileStore.addListener( function () {
       this.setState(this.getStateFromStore(this.props));
     }.bind(this));
-    // apiUtil.fetchSingleProfile(this.props.params.userId);
   },
 
   componentWillUnmount: function () {
@@ -27,16 +26,20 @@ var Profile = React.createClass({
 
   componentWillReceiveProps: function (newProps) {
     this.setState(this.getStateFromStore(newProps));
-    // apiUtil.fetchSingleProfile(newProps.params.userId);
   },
 
   render: function () {
     return (
       <div>
-        <header className="profile-header-box">
+        <header className="profile-header-box group">
           <div className="cover-photo-box">
             <img src={this.state.profile.cover_photo} />
           </div>
+          <ul className="profile-nav group">
+            <li> Timeline </li>
+            <li> About </li>
+            <li> Friends </li>
+          </ul>
         </header>
       </div>
     );
