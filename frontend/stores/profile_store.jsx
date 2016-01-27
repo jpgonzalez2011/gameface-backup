@@ -16,7 +16,7 @@ ProfileStore.all = function () {
 };
 
 ProfileStore.find = function (id) {
-  if (_profiles.length === 0){
+  if (typeof _profiles[id] === "undefined"){
     ApiUtil.fetchSingleProfile(id);
   }
   return _profiles[id] || {};

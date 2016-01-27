@@ -18,7 +18,7 @@ var Profile = React.createClass({
     this.storeCBToken = ProfileStore.addListener( function () {
       this.setState(this.getStateFromStore(this.props));
     }.bind(this));
-    apiUtil.fetchSingleProfile(this.props.params.userId);
+    // apiUtil.fetchSingleProfile(this.props.params.userId);
   },
 
   componentWillUnmount: function () {
@@ -26,8 +26,8 @@ var Profile = React.createClass({
   },
 
   componentWillReceiveProps: function (newProps) {
-    // this.setState(this.getStateFromStore(newProps));
-    apiUtil.fetchSingleProfile(newProps.params.userId);
+    this.setState(this.getStateFromStore(newProps));
+    // apiUtil.fetchSingleProfile(newProps.params.userId);
   },
 
   render: function () {
