@@ -33,7 +33,7 @@ var Profile = React.createClass({
       <div>
         <header className="profile-header-box">
           <div className="cover-photo-box">
-            <h1>{this.props.params.userId}</h1>
+            <img src={this.state.profile.cover_photo} />
           </div>
         </header>
       </div>

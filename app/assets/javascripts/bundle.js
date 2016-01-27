@@ -24411,11 +24411,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'cover-photo-box' },
-	          React.createElement(
-	            'h1',
-	            null,
-	            this.props.params.userId
-	          )
+	          React.createElement('img', { src: this.state.profile.cover_photo })
 	        )
 	      )
 	    );
