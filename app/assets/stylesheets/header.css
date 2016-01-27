@@ -1,11 +1,11 @@
 .header {
-  background-color: blue;
+  background-color: #3a5795;
 }
 
 .nav-header {
   width: 980px;
   margin: 0 auto;
-  background-color: green;
+  background-color: #3a5795;
   padding: 5px;
 }
 

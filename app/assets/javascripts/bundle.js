@@ -24350,7 +24350,7 @@
 	  displayName: "NavSearchField",
 
 	  getInitialState: function () {
-	    return { search: "Search Field" };
+	    return { search: "" };
 	  },
 
 	  render: function () {
