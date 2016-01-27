@@ -3,13 +3,15 @@ var React = require('react'),
     Router = require('react-router').Router,
     Route = require('react-router').Route;
 
-var NavHeader = require('./components/nav_header');
+var NavHeader = require('./components/nav_header'),
+    Profile = require('./components/profile');
 
 var GameFace = React.createClass({
   render: function () {
     return (
       <div id="gamefaces">
         <NavHeader />
+        {this.props.children}
       </div>
     );
   }
@@ -18,6 +20,7 @@ var GameFace = React.createClass({
 var router = (
   <Router>
     <Route path="/" component={GameFace}>
+      <Route path="users/:userID" component={Profile} />
     </Route>
   </Router>
 );

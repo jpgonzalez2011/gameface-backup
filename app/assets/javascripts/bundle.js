@@ -49,7 +49,8 @@
 	    Router = __webpack_require__(159).Router,
 	    Route = __webpack_require__(159).Route;
 
-	var NavHeader = __webpack_require__(208);
+	var NavHeader = __webpack_require__(208),
+	    Profile = __webpack_require__(210);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
@@ -58,7 +59,8 @@
 	    return React.createElement(
 	      'div',
 	      { id: 'gamefaces' },
-	      React.createElement(NavHeader, null)
+	      React.createElement(NavHeader, null),
+	      this.props.children
 	    );
 	  }
 	});
@@ -66,7 +68,11 @@
 	var router = React.createElement(
 	  Router,
 	  null,
-	  React.createElement(Route, { path: '/', component: GameFace })
+	  React.createElement(
+	    Route,
+	    { path: '/', component: GameFace },
+	    React.createElement(Route, { path: 'users/:userID', component: Profile })
+	  )
 	);
 
 	document.addEventListener('DOMContentLoaded', function () {
@@ -24359,6 +24365,30 @@
 	});
 
 	module.exports = NavSearchField;
+
+/***/ },
+/* 210 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var Profile = React.createClass({
+	  displayName: "Profile",
+
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      null,
+	      React.createElement(
+	        "header",
+	        { className: "profile-header-box" },
+	        React.createElement("div", { className: "cover-photo-box" })
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Profile;
 
 /***/ }
 /******/ ]);

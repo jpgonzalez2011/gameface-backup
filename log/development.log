@@ -4004,3 +4004,742 @@ Started GET "/session/new" for ::1 at 2016-01-27 10:06:14 -0500
 Processing by SessionsController#new as HTML
   Rendered sessions/new.html.erb within layouts/application (1.1ms)
 Completed 200 OK in 62ms (Views: 61.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/session/new" for ::1 at 2016-01-27 10:11:14 -0500
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 400ms (Views: 400.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/session" for ::1 at 2016-01-27 10:11:16 -0500
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"SwjTPqNfJIinb+Zt+Fp0n4rC3EqozSBcBrLO19TjraMD76Gy+2D1q/OYGAQcvubcn9DHA/MRh3h51+T9nUFIyg==", "user"=>{"username"=>"Mario", "password"=>"[FILTERED]"}}
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT 1  [["username", "Mario"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."username" = 'Mario' AND "users"."id" != 4) LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "ADhJ4y2MPU7Nq5qwvcMG7Q"], ["updated_at", "2016-01-27 15:11:16.983268"], ["id", 4]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Redirected to http://localhost:3000/static_pages
+Completed 302 Found in 83ms (ActiveRecord: 1.9ms)
+
+
+Started GET "/static_pages" for ::1 at 2016-01-27 10:11:16 -0500
+
+AbstractController::ActionNotFound - The action 'index' could not be found for StaticPagesController:
+  actionpack (4.2.5) lib/abstract_controller/base.rb:132:in `process'
+  actionview (4.2.5) lib/action_view/rendering.rb:30:in `process'
+  actionpack (4.2.5) lib/action_controller/metal.rb:196:in `dispatch'
+  actionpack (4.2.5) lib/action_controller/metal/rack_delegation.rb:13:in `dispatch'
+  actionpack (4.2.5) lib/action_controller/metal.rb:237:in `block in action'
+  actionpack (4.2.5) lib/action_dispatch/routing/route_set.rb:76:in `dispatch'
+  actionpack (4.2.5) lib/action_dispatch/routing/route_set.rb:45:in `serve'
+  actionpack (4.2.5) lib/action_dispatch/journey/router.rb:43:in `block in serve'
+  actionpack (4.2.5) lib/action_dispatch/journey/router.rb:30:in `serve'
+  actionpack (4.2.5) lib/action_dispatch/routing/route_set.rb:817:in `call'
+  rack (1.6.4) lib/rack/etag.rb:24:in `call'
+  rack (1.6.4) lib/rack/conditionalget.rb:25:in `call'
+  rack (1.6.4) lib/rack/head.rb:13:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/params_parser.rb:27:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/flash.rb:260:in `call'
+  rack (1.6.4) lib/rack/session/abstract/id.rb:225:in `context'
+  rack (1.6.4) lib/rack/session/abstract/id.rb:220:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/cookies.rb:560:in `call'
+  activerecord (4.2.5) lib/active_record/query_cache.rb:36:in `call'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:653:in `call'
+  activerecord (4.2.5) lib/active_record/migration.rb:377:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.5) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  better_errors (2.1.1) lib/better_errors/middleware.rb:84:in `protected_app_call'
+  better_errors (2.1.1) lib/better_errors/middleware.rb:79:in `better_errors_call'
+  better_errors (2.1.1) lib/better_errors/middleware.rb:57:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  web-console (2.2.1) lib/web_console/middleware.rb:39:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.5) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `call'
+  quiet_assets (1.1.0) lib/quiet_assets.rb:27:in `call_with_quiet_assets'
+  actionpack (4.2.5) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.5) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.5) lib/rails/engine.rb:518:in `call'
+  railties (4.2.5) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /usr/local/var/rbenv/versions/2.1.2/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /usr/local/var/rbenv/versions/2.1.2/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /usr/local/var/rbenv/versions/2.1.2/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+
+Started POST "/__better_errors/b27ccf4f9422d2c6/variables" for ::1 at 2016-01-27 10:11:17 -0500
+
+
+Started GET "/session/new" for ::1 at 2016-01-27 10:11:54 -0500
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 113ms (Views: 112.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/session" for ::1 at 2016-01-27 10:11:56 -0500
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"c82li/Z4HJlAQaAKvqAO7IF9uV3YdL8SHfq3nd4oddM7KtcHrkfNuhS2XmNaRJyvlG+iFIOoGDZin523l4qQug==", "user"=>{"username"=>"Mario", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT 1[0m  [["username", "Mario"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."username" = 'Mario' AND "users"."id" != 4) LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  UPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3  [["session_token", "SvotAAFf3HSfGc3XV5cVFQ"], ["updated_at", "2016-01-27 15:11:56.436988"], ["id", 4]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 107ms (ActiveRecord: 5.3ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 10:11:56 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "SvotAAFf3HSfGc3XV5cVFQ"]]
+  Rendered static_pages/root.html within layouts/application (14.1ms)
+Completed 200 OK in 47ms (Views: 44.7ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 10:13:38 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1[0m  [["session_token", "SvotAAFf3HSfGc3XV5cVFQ"]]
+  Rendered static_pages/root.html within layouts/application (10.1ms)
+Completed 200 OK in 130ms (Views: 127.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 10:13:55 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "SvotAAFf3HSfGc3XV5cVFQ"]]
+  Rendered static_pages/root.html within layouts/application (0.9ms)
+Completed 200 OK in 77ms (Views: 75.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 10:14:16 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1[0m  [["session_token", "SvotAAFf3HSfGc3XV5cVFQ"]]
+  Rendered static_pages/root.html within layouts/application (1.1ms)
+Completed 200 OK in 55ms (Views: 52.7ms | ActiveRecord: 0.4ms)
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mUser Load (0.8ms)[0m  SELECT "users".* FROM "users"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  DELETE FROM "users" WHERE "users"."id" = $1  [["id", 5]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = $1[0m  [["id", 6]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "users" WHERE "users"."id" = $1  [["id", 7]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = $1[0m  [["id", 4]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (20.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Mario' LIMIT 1
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Mario"], ["password_digest", "$2a$10$PeaflUBxpVh8ZkwhTf4k6.0Bi.pVWeR4H3XKqf6vF3rZH2p/ybvGO"], ["fname", "Mario"], ["lname", "Mario"], ["date_of_birth", "1981-09-07"], ["session_token", "K-JYTCOZwihWaDQRxB_jxA"], ["created_at", "2016-01-27 15:28:06.057354"], ["updated_at", "2016-01-27 15:28:06.057354"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Luigi' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Link' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Zelda' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Bowser' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ganondorf' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'SolidSnake' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "SolidSnake"], ["password_digest", "$2a$10$ZhQ/vjSOOd36TfsHWLAgB.a4hMipYRa9/NwHfJu82cZSdM2W/90Bi"], ["fname", "Iroquois"], ["lname", "Pliskin"], ["date_of_birth", "1987-07-07"], ["session_token", "vM9RCrpSoEzCT___iZgEYA"], ["created_at", "2016-01-27 15:28:06.576774"], ["updated_at", "2016-01-27 15:28:06.576774"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Peach' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Toad' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Toad"], ["password_digest", "$2a$10$OM8BICJYjdqglJWPSaoyEeAUsveayK1riyxEvOopztaaWH0Z91GU."], ["fname", "Toad"], ["lname", ""], ["date_of_birth", "1988-09-10"], ["session_token", "6HINIVYwXtY7TwRxufVZdw"], ["created_at", "2016-01-27 15:28:06.736845"], ["updated_at", "2016-01-27 15:28:06.736845"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ryu' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ken' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "Ken"], ["password_digest", "$2a$10$bpikVP0.mlZKZ5Pdf0NUhOu2CYGbw57XXxWN8Q7CUdGQWS0Wsh8GC"], ["fname", "Ken"], ["lname", "Masters"], ["date_of_birth", "1981-09-07"], ["session_token", "i_WIBjjjHpck5jYIpjeUhQ"], ["created_at", "2016-01-27 15:28:06.899479"], ["updated_at", "2016-01-27 15:28:06.899479"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.6ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", nil]]
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT 1[0m  [["username", "Zelda"]]
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT 1  [["username", "Ken"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Luigi' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35mUser Load (0.5ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT 1[0m  [["username", "Luigi"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Luigi' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (5073.5ms)[0m  [1mDROP DATABASE IF EXISTS "gameface_development"[0m
+  [1m[35m (187.5ms)[0m  DROP DATABASE IF EXISTS "gameface_test"
+  [1m[36m (0.7ms)[0m  [1mCREATE DATABASE "gameface_development" ENCODING = 'unicode'[0m
+  [1m[35m (503.1ms)[0m  CREATE DATABASE "gameface_test" ENCODING = 'unicode'
+  [1m[36mSQL (0.3ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (95.7ms)[0m  DROP TABLE "users" CASCADE
+  [1m[36m (21.6ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "username" character varying NOT NULL, "password_digest" character varying NOT NULL, "session_token" character varying NOT NULL, "fname" character varying NOT NULL, "lname" character varying, "date_of_birth" date NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (3.1ms)[0m  CREATE UNIQUE INDEX  "index_users_on_username" ON "users" USING btree ("username")
+  [1m[36m (0.4ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35mSQL (0.5ms)[0m  CREATE EXTENSION IF NOT EXISTS "plpgsql"
+  [1m[36m (24.4ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "username" character varying NOT NULL, "password_digest" character varying NOT NULL, "session_token" character varying NOT NULL, "fname" character varying NOT NULL, "lname" character varying, "date_of_birth" date NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (2.0ms)[0m  CREATE UNIQUE INDEX  "index_users_on_username" ON "users" USING btree ("username")
+  [1m[36m (3.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (1.5ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36m (0.6ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160127133316')
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160126162313')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (1.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (1.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Mario' LIMIT 1[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "Mario"], ["password_digest", "$2a$10$rz3OFLqYqBaPhWUkVJ5oIupqlhuzl3rEqOxpzufbcHDeR4iZ68Yry"], ["fname", "Mario"], ["lname", "Mario"], ["date_of_birth", "1981-09-07"], ["session_token", "h-jV6qnrTdO655YjK7xlFA"], ["created_at", "2016-01-27 15:33:07.240992"], ["updated_at", "2016-01-27 15:33:07.240992"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Luigi' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Link' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Zelda' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Bowser' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ganondorf' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'SolidSnake' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "SolidSnake"], ["password_digest", "$2a$10$7PX9Y1PTJb5vjBFjn77YQ.FXQf8XZF/LG5lv4QikhaenMbxrre3Vy"], ["fname", "Iroquois"], ["lname", "Pliskin"], ["date_of_birth", "1987-07-07"], ["session_token", "WlBdGJOkiuYQtluMbV-IXQ"], ["created_at", "2016-01-27 15:33:07.764563"], ["updated_at", "2016-01-27 15:33:07.764563"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Peach' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Toad' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "Toad"], ["password_digest", "$2a$10$A7xL6AJGsdV4BAag38yf0..csmLyWwP.Dv8VB91ulfs7vmVQvTUzW"], ["fname", "Toad"], ["lname", ""], ["date_of_birth", "1988-09-10"], ["session_token", "xriNB5CC0sKNRc64lCvdTw"], ["created_at", "2016-01-27 15:33:07.925497"], ["updated_at", "2016-01-27 15:33:07.925497"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ryu' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ken' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Ken"], ["password_digest", "$2a$10$xwKu7XkpC/OGsA/B4UkSGOdTxipodnTKCMle3VADD45NXoJvny6Ae"], ["fname", "Ken"], ["lname", "Masters"], ["date_of_birth", "1981-09-07"], ["session_token", "om4gWxsCneKToym0ZlX4SQ"], ["created_at", "2016-01-27 15:33:08.086683"], ["updated_at", "2016-01-27 15:33:08.086683"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[36m (498.8ms)[0m  [1mDROP DATABASE IF EXISTS "gameface_development"[0m
+  [1m[35m (118.8ms)[0m  DROP DATABASE IF EXISTS "gameface_test"
+  [1m[36m (295.0ms)[0m  [1mCREATE DATABASE "gameface_development" ENCODING = 'unicode'[0m
+  [1m[35m (435.5ms)[0m  CREATE DATABASE "gameface_test" ENCODING = 'unicode'
+  [1m[36mSQL (0.4ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (24.2ms)[0m  CREATE TABLE "users" ("id" serial primary key, "username" character varying NOT NULL, "password_digest" character varying NOT NULL, "session_token" character varying NOT NULL, "fname" character varying NOT NULL, "lname" character varying, "date_of_birth" date NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (2.1ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_username" ON "users" USING btree ("username")[0m
+  [1m[35m (2.7ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying NOT NULL) 
+  [1m[36m (2.9ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.6ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160127133316')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160126162313')
+  [1m[36mSQL (0.4ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (31.9ms)[0m  CREATE TABLE "users" ("id" serial primary key, "username" character varying NOT NULL, "password_digest" character varying NOT NULL, "session_token" character varying NOT NULL, "fname" character varying NOT NULL, "lname" character varying, "date_of_birth" date NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (2.1ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_username" ON "users" USING btree ("username")[0m
+  [1m[35m (2.6ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying NOT NULL) 
+  [1m[36m (2.0ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.6ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160127133316')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160126162313')
+  [1m[36mActiveRecord::SchemaMigration Load (1.9ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mUser Load (0.7ms)[0m  SELECT "users".* FROM "users"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (1.5ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Mario' LIMIT 1
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Mario"], ["password_digest", "$2a$10$zcwIHViTFZ5HkrlYfaKe9.1UXmk7ehj8vZDVGAmBrc2t6cfdEsXye"], ["fname", "Mario"], ["lname", "Mario"], ["date_of_birth", "1981-09-07"], ["session_token", "ZFN1e28W7gH0SVoFKtNHQg"], ["created_at", "2016-01-27 15:33:55.245268"], ["updated_at", "2016-01-27 15:33:55.245268"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Luigi' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Link' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Zelda' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Bowser' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ganondorf' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'SolidSnake' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "SolidSnake"], ["password_digest", "$2a$10$XY6NKZC9/b25.4fZTBbw2ObEpFAcfU2yJmpGMO9YbzQ5Hk1A1cIJi"], ["fname", "Iroquois"], ["lname", "Pliskin"], ["date_of_birth", "1987-07-07"], ["session_token", "Ms2_RzYStpXFlHBQ2O8Ivg"], ["created_at", "2016-01-27 15:33:55.729737"], ["updated_at", "2016-01-27 15:33:55.729737"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Peach' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Toad' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Toad"], ["password_digest", "$2a$10$gbL1WDC5Lt.Nr7ynlqhv8.MJxk46JHod6QNIsmER/sleacL0f53xu"], ["fname", "Toad"], ["lname", ""], ["date_of_birth", "1988-09-10"], ["session_token", "oa5ZyiwlcfOlZZcMNvMnLA"], ["created_at", "2016-01-27 15:33:55.886781"], ["updated_at", "2016-01-27 15:33:55.886781"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ryu' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ken' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "Ken"], ["password_digest", "$2a$10$bWZJBLL0fERGQcoUNowq.eL66DkThBXn.AfzZmIGG2LTI8qSO8eQy"], ["fname", "Ken"], ["lname", "Masters"], ["date_of_birth", "1981-09-07"], ["session_token", "jhHffIxe30K830WYrOjcjA"], ["created_at", "2016-01-27 15:33:56.040022"], ["updated_at", "2016-01-27 15:33:56.040022"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mUser Load (1.6ms)[0m  SELECT "users".* FROM "users"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  DELETE FROM "users" WHERE "users"."id" = $1  [["id", 1]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "users" WHERE "users"."id" = $1  [["id", 3]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = $1[0m  [["id", 4]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (17.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Mario' LIMIT 1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Mario"], ["password_digest", "$2a$10$P//sqalsoVH20VR5me1CvOUUFV44THqmQ1S3rrVxLw8IAAcv86UIu"], ["fname", "Mario"], ["lname", "Mario"], ["date_of_birth", "1981-09-07"], ["session_token", "_9ohj23wxyKZ6GTcadbGLw"], ["created_at", "2016-01-27 15:34:40.697671"], ["updated_at", "2016-01-27 15:34:40.697671"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Luigi' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Link' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Zelda' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Bowser' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ganondorf' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'SolidSnake' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "SolidSnake"], ["password_digest", "$2a$10$QWU9PgwS0ujIllgwq.bwjOS3nJ4CmaYlWa6Sx/bfHoXI/aelLWX2S"], ["fname", "Iroquois"], ["lname", "Pliskin"], ["date_of_birth", "1987-07-07"], ["session_token", "ZAcgvAZFfdJoS4y1QBUK8g"], ["created_at", "2016-01-27 15:34:41.250229"], ["updated_at", "2016-01-27 15:34:41.250229"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Peach' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Toad' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Toad"], ["password_digest", "$2a$10$hp8tGNpxb7OSHZJyTmWHLuNYaK3S5I7./Fo1BoS1FAcIpr5MAFEUq"], ["fname", "Toad"], ["lname", ""], ["date_of_birth", "1988-09-10"], ["session_token", "ksXKaVw6IrC-2zuwZTKzbw"], ["created_at", "2016-01-27 15:34:41.406908"], ["updated_at", "2016-01-27 15:34:41.406908"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ryu' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ken' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "Ken"], ["password_digest", "$2a$10$Ykk5utWXODQHwd6rtsbT7e1KHPDIVwrJPoIbzUWS9jfKEk2wb25WC"], ["fname", "Ken"], ["lname", "Masters"], ["date_of_birth", "1981-09-07"], ["session_token", "t4ku-gQB_ZNRoKADaWHfUg"], ["created_at", "2016-01-27 15:34:41.557017"], ["updated_at", "2016-01-27 15:34:41.557017"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[36mSQL (0.4ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (8.5ms)[0m  CREATE TABLE "users" ("id" serial primary key, "username" character varying NOT NULL, "password_digest" character varying NOT NULL, "session_token" character varying NOT NULL, "fname" character varying NOT NULL, "lname" character varying, "date_of_birth" date NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.9ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_username" ON "users" USING btree ("username")[0m
+  [1m[35m (2.9ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying NOT NULL) 
+  [1m[36m (1.5ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.5ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160127133316')[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160126162313')
+  [1m[36mSQL (0.4ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (36.4ms)[0m  CREATE TABLE "users" ("id" serial primary key, "username" character varying NOT NULL, "password_digest" character varying NOT NULL, "session_token" character varying NOT NULL, "fname" character varying NOT NULL, "lname" character varying, "date_of_birth" date NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.7ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_username" ON "users" USING btree ("username")[0m
+  [1m[35m (2.8ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying NOT NULL) 
+  [1m[36m (1.4ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.4ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160127133316')[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160126162313')
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mUser Load (1.3ms)[0m  SELECT "users".* FROM "users"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (1.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Mario' LIMIT 1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Mario"], ["password_digest", "$2a$10$uGc07skiL0KTC84JntViRulvFbsh214SzUu4PY/mCZ1FB10JikkNK"], ["fname", "Mario"], ["lname", "Mario"], ["date_of_birth", "1981-09-07"], ["session_token", "ekGSqjy_EsyUrLhA4o6Bnw"], ["created_at", "2016-01-27 15:36:53.506647"], ["updated_at", "2016-01-27 15:36:53.506647"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.7ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Luigi' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Link' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Zelda' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Bowser' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ganondorf' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'SolidSnake' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "SolidSnake"], ["password_digest", "$2a$10$jTQmYs5XIghisJ2UwnBUmuMkkdMo7YDqj4UI.Wa29w3vQNvYAuDGu"], ["fname", "Iroquois"], ["lname", "Pliskin"], ["date_of_birth", "1987-07-07"], ["session_token", "nli6t2ifTArDJ0iZyL243A"], ["created_at", "2016-01-27 15:36:54.053680"], ["updated_at", "2016-01-27 15:36:54.053680"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Peach' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Toad' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Toad"], ["password_digest", "$2a$10$FTmTYsqW3YjkCCDqJqRpyu..nKnBQrXuGwHdB7Cdlq9sllW5BxFUq"], ["fname", "Toad"], ["lname", ""], ["date_of_birth", "1988-09-10"], ["session_token", "mm7Td9sheFIRNccI0m7HCg"], ["created_at", "2016-01-27 15:36:54.208165"], ["updated_at", "2016-01-27 15:36:54.208165"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ryu' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ken' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "Ken"], ["password_digest", "$2a$10$HFhDnLEQxtIeirPwV0oKL.KMvxlpcDKnUMXWnNL8PAK52Ph6BP3/G"], ["fname", "Ken"], ["lname", "Masters"], ["date_of_birth", "1981-09-07"], ["session_token", "Z4EJ04cZOtvnU2MncY1ixg"], ["created_at", "2016-01-27 15:36:54.367442"], ["updated_at", "2016-01-27 15:36:54.367442"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[36mUser Load (1.4ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[36m (119.4ms)[0m  [1mDROP DATABASE IF EXISTS "gameface_development"[0m
+  [1m[35m (119.5ms)[0m  DROP DATABASE IF EXISTS "gameface_test"
+  [1m[36m (286.4ms)[0m  [1mCREATE DATABASE "gameface_development" ENCODING = 'unicode'[0m
+  [1m[35m (269.4ms)[0m  CREATE DATABASE "gameface_test" ENCODING = 'unicode'
+  [1m[36mSQL (0.4ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (12.2ms)[0m  CREATE TABLE "users" ("id" serial primary key, "username" character varying NOT NULL, "password_digest" character varying NOT NULL, "session_token" character varying NOT NULL, "fname" character varying NOT NULL, "lname" character varying, "date_of_birth" date NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (2.1ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_username" ON "users" USING btree ("username")[0m
+  [1m[35m (2.6ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying NOT NULL) 
+  [1m[36m (2.1ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.5ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160127133316')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160126162313')
+  [1m[36mSQL (0.4ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (7.7ms)[0m  CREATE TABLE "users" ("id" serial primary key, "username" character varying NOT NULL, "password_digest" character varying NOT NULL, "session_token" character varying NOT NULL, "fname" character varying NOT NULL, "lname" character varying, "date_of_birth" date NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.8ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_username" ON "users" USING btree ("username")[0m
+  [1m[35m (2.6ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying NOT NULL) 
+  [1m[36m (1.4ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.4ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160127133316')[0m
+  [1m[35m (0.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160126162313')
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mUser Load (0.7ms)[0m  SELECT "users".* FROM "users"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (1.0ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Mario' LIMIT 1
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Mario"], ["password_digest", "$2a$10$RKpB6iTJXoAhphhHi8wi..FuLA.DZ8IedPZocvv2CMDC9H459WV/m"], ["fname", "Mario"], ["lname", "Mario"], ["date_of_birth", "1981-09-07"], ["session_token", "eA0SLUi0dS7NYFUGWHaUKg"], ["created_at", "2016-01-27 15:37:24.230762"], ["updated_at", "2016-01-27 15:37:24.230762"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Luigi' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Link' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Zelda' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Bowser' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ganondorf' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'SolidSnake' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "SolidSnake"], ["password_digest", "$2a$10$8H6OUcYw5Ko2SkNfawOXB.RgGwoNspcEtI35L8NmNLKwxDre4EyLu"], ["fname", "Iroquois"], ["lname", "Pliskin"], ["date_of_birth", "1987-07-07"], ["session_token", "fWAokAgT66ASJllyZMCsqQ"], ["created_at", "2016-01-27 15:37:24.738309"], ["updated_at", "2016-01-27 15:37:24.738309"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Peach' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Toad' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Toad"], ["password_digest", "$2a$10$v02Y8WEP.YUZCvvvoJrRxuNwJyQjl4Nk5s.E3BF0tj6yx5pdM2eEm"], ["fname", "Toad"], ["lname", ""], ["date_of_birth", "1988-09-10"], ["session_token", "AcSjPx85NQbNbsgaimHtmQ"], ["created_at", "2016-01-27 15:37:24.900056"], ["updated_at", "2016-01-27 15:37:24.900056"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ryu' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ken' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "Ken"], ["password_digest", "$2a$10$R2Z7bqS7PznwAu2.gOPlAuo73Mr71Na0uS0ovDZBc96eVY7B1v866"], ["fname", "Ken"], ["lname", "Masters"], ["date_of_birth", "1981-09-07"], ["session_token", "y3VslFsjEbtE7rMLYlbgXQ"], ["created_at", "2016-01-27 15:37:25.060432"], ["updated_at", "2016-01-27 15:37:25.060432"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mUser Load (0.8ms)[0m  SELECT "users".* FROM "users"
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  DELETE FROM "users" WHERE "users"."id" = $1  [["id", 1]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "users" WHERE "users"."id" = $1  [["id", 3]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = $1[0m  [["id", 4]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (1.0ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Mario' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Mario"], ["password_digest", "$2a$10$XdJb9QetM7WiXeI0mxNl7uQq/pjhr5PHypNi92Ui7PfHcIIgN/sBy"], ["fname", "Mario"], ["lname", "Mario"], ["date_of_birth", "1981-09-07"], ["session_token", "kGbY_zpc8-PoVSMFU8yGmQ"], ["created_at", "2016-01-27 15:37:39.441945"], ["updated_at", "2016-01-27 15:37:39.441945"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Luigi' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Link' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Zelda' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Bowser' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ganondorf' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'SolidSnake' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "SolidSnake"], ["password_digest", "$2a$10$QKb8NGy760wQHJZLwEocIOI/65nwGDmQsBPjFybHShr9IjGVd7g3O"], ["fname", "Iroquois"], ["lname", "Pliskin"], ["date_of_birth", "1987-07-07"], ["session_token", "Uzj_Y9cStXVnkO_UQUXXuw"], ["created_at", "2016-01-27 15:37:39.935686"], ["updated_at", "2016-01-27 15:37:39.935686"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Peach' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Toad' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Toad"], ["password_digest", "$2a$10$MQfGsj101xf63ngB03Uxse3neR.F9bPi0C2eT8WeIGLHJnorAFjQS"], ["fname", "Toad"], ["lname", ""], ["date_of_birth", "1988-09-10"], ["session_token", "lvMu7ZIfrQiVNZ27bixckw"], ["created_at", "2016-01-27 15:37:40.089517"], ["updated_at", "2016-01-27 15:37:40.089517"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ryu' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ken' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "Ken"], ["password_digest", "$2a$10$.INV9C.Uo5C4jjYBzsOziuKSH8EEifAD.fUiJR3n9kT8t66cjKpyO"], ["fname", "Ken"], ["lname", "Masters"], ["date_of_birth", "1981-09-07"], ["session_token", "iRWVxwm9rQlAM1oFQe8Sjw"], ["created_at", "2016-01-27 15:37:40.248315"], ["updated_at", "2016-01-27 15:37:40.248315"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mUser Load (0.8ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT 1  [["username", "Luigi"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Luigi' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35mUser Exists (0.7ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Luigi' LIMIT 1
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = $1[0m  [["id", 5]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  DELETE FROM "users" WHERE "users"."id" = $1  [["id", 6]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = $1[0m  [["id", 7]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "users" WHERE "users"."id" = $1  [["id", 8]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (1.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Mario' LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "Mario"], ["password_digest", "$2a$10$EEaVdsO6EH0rg/gErnvRx.HfYLFCZpluzLZZS6LiIKMHYFfIJGDXO"], ["fname", "Mario"], ["lname", "Mario"], ["date_of_birth", "1981-09-07"], ["session_token", "M4iVtxIPY3LWwlnwQL7ieA"], ["created_at", "2016-01-27 15:46:33.445055"], ["updated_at", "2016-01-27 15:46:33.445055"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Luigi' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mUser Load (0.7ms)[0m  SELECT "users".* FROM "users"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  DELETE FROM "users" WHERE "users"."id" = $1  [["id", 9]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (10.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Mario' LIMIT 1[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "Mario"], ["password_digest", "$2a$10$I8cKQ0ANro2nbx/H7PZ4k.jz4BZZNjhLXTI6q91/IgaDeCZgxkdx2"], ["fname", "Mario"], ["lname", "Mario"], ["date_of_birth", "1981-09-07"], ["session_token", "vNRZUAhU0CGBxArHNxWbJQ"], ["created_at", "2016-01-27 15:49:10.493074"], ["updated_at", "2016-01-27 15:49:10.493074"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Luigi' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mUser Load (0.9ms)[0m  SELECT "users".* FROM "users"
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  DELETE FROM "users" WHERE "users"."id" = $1  [["id", 10]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Mario' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "Mario"], ["password_digest", "$2a$10$DtqEJs8xbWl028nnuspE8erRGms1yltSbPscQTzGYphBFII7CqUU6"], ["fname", "Mario"], ["lname", "Mario"], ["date_of_birth", "1981-09-07"], ["session_token", "nwtmloLc9qLTBkoBaN7sLg"], ["created_at", "2016-01-27 15:49:19.024638"], ["updated_at", "2016-01-27 15:49:19.024638"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Luigi' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mUser Load (0.9ms)[0m  SELECT "users".* FROM "users"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  DELETE FROM "users" WHERE "users"."id" = $1  [["id", 11]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Mario' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "Mario"], ["password_digest", "$2a$10$TU3FUUMEZXjGxohlOxwmCet2Rzl2vMn5dMs08kS9KVgcUkNJWAXuS"], ["fname", "Mario"], ["lname", "Mario"], ["date_of_birth", "1981-09-07"], ["session_token", "bnafyPH7lT5Z9_erDxfruw"], ["created_at", "2016-01-27 15:50:05.075284"], ["updated_at", "2016-01-27 15:50:05.075284"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Luigi' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["username", "Luigi"], ["password_digest", "$2a$10$niIq04QI7HrbVySnUId07OAZU9uQkndQleEoc5mZtzTdQBDzBNLdi"], ["fname", "Luigi"], ["lname", "Mario"], ["date_of_birth", "1981-09-07"], ["session_token", "6VH_q9jIBQFsLNipAPflLg"], ["created_at", "2016-01-27 15:50:05.154496"], ["updated_at", "2016-01-27 15:50:05.154496"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'Link' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mUser Load (1.4ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mUser Load (0.7ms)[0m  SELECT "users".* FROM "users"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  DELETE FROM "users" WHERE "users"."id" = $1  [["id", 12]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = $1[0m  [["id", 13]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (1.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Mario' LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Mario"], ["password_digest", "$2a$10$x8rjHPJsESR4S/LQySlAReBQD6nwwcEgw94fnN4cYwI0ZngeAu5aG"], ["fname", "Mario"], ["lname", "Mario"], ["date_of_birth", "1981-07-09"], ["session_token", "rM-oo_NIu0Ee95fni6x0sw"], ["created_at", "2016-01-27 15:52:46.838256"], ["updated_at", "2016-01-27 15:52:46.838256"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Luigi' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Luigi"], ["password_digest", "$2a$10$pholuec0KNLfmKr0tGDX3.ISW9orHH1UrP3FZ09hr9zzD./QxKVom"], ["fname", "Luigi"], ["lname", "Mario"], ["date_of_birth", "1983-07-14"], ["session_token", "4WXiPQqwJfHegsy8zu1DQA"], ["created_at", "2016-01-27 15:52:46.918863"], ["updated_at", "2016-01-27 15:52:46.918863"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Link' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Link"], ["password_digest", "$2a$10$.jnCHyr7A4bcm5BmA.tFKeNOh091WTyrvOERB30eTgzNwSqleKSbe"], ["fname", "Link"], ["lname", ""], ["date_of_birth", "1986-02-21"], ["session_token", "V8B9nyvEIsuR9UTzFCqxFw"], ["created_at", "2016-01-27 15:52:46.995777"], ["updated_at", "2016-01-27 15:52:46.995777"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Zelda' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Zelda"], ["password_digest", "$2a$10$tqE2rZ66eButmU81MJw9Juk0eGM2twCRBeLsTy03mVERMHmUDBtyG"], ["fname", "Princess"], ["lname", "Zelda"], ["date_of_birth", "1986-02-21"], ["session_token", "SKTaMfJ3jQSA8fsMO1YCLA"], ["created_at", "2016-01-27 15:52:47.073756"], ["updated_at", "2016-01-27 15:52:47.073756"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Bowser' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Bowser"], ["password_digest", "$2a$10$FEBbWHr37SWmmjHeYIKEHu0WGwyk57sLpSykqYnbXLTDi9VRlEyAK"], ["fname", "Bowser"], ["lname", "Koopa"], ["date_of_birth", "1985-09-13"], ["session_token", "t7s67m6v5DjPxRmyTrTjnA"], ["created_at", "2016-01-27 15:52:47.157130"], ["updated_at", "2016-01-27 15:52:47.157130"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ganondorf' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Ganondorf"], ["password_digest", "$2a$10$QWckg4IkUpfLMIPaN2ql0uz0xmElzlFLHrEkwFQdgfEewC5x8GWxW"], ["fname", "Ganondorf"], ["lname", "Dragmire"], ["date_of_birth", "1998-11-21"], ["session_token", "Njy6uk3dCsw4hl3DMJJL5A"], ["created_at", "2016-01-27 15:52:47.233681"], ["updated_at", "2016-01-27 15:52:47.233681"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'SolidSnake' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "SolidSnake"], ["password_digest", "$2a$10$Kt9WpIccpTxQqjZKOBhIxeG8tuV4Fj.tsJtPSzuMZO1ITDV34A6EW"], ["fname", "Iroquois"], ["lname", "Pliskin"], ["date_of_birth", "1987-07-07"], ["session_token", "dVDtOu1T7o_H6jwEgZFZIg"], ["created_at", "2016-01-27 15:52:47.314931"], ["updated_at", "2016-01-27 15:52:47.314931"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Peach' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Peach"], ["password_digest", "$2a$10$Olm7s8qC6/msG6twN.G/Jey8NXZodwSgiJTcaCxJSqGq8oldmDpV6"], ["fname", "Peach"], ["lname", "Toadstool"], ["date_of_birth", "1985-09-13"], ["session_token", "LZsqi0M9ocqdgnO1XNGKIw"], ["created_at", "2016-01-27 15:52:47.398861"], ["updated_at", "2016-01-27 15:52:47.398861"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Toad' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Toad"], ["password_digest", "$2a$10$Y8UCIax.3m6DsWils/wDvegO1uQt7CD5FI/1.XbFQow1TJWqpeKau"], ["fname", "Toad"], ["lname", ""], ["date_of_birth", "1988-10-09"], ["session_token", "jXPflv0R1FaO4_pJ6T_XoA"], ["created_at", "2016-01-27 15:52:47.481478"], ["updated_at", "2016-01-27 15:52:47.481478"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ryu' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Ryu"], ["password_digest", "$2a$10$9hTDOv1vvaSU5bdlxBT0NuvM8s4dmRddKOGHQ0R4oRKrZaA/sqQmi"], ["fname", "Ryu"], ["lname", "Hoshi"], ["date_of_birth", "1987-08-30"], ["session_token", "VixiDTCMyQjyLLz4e0oTIQ"], ["created_at", "2016-01-27 15:52:47.561046"], ["updated_at", "2016-01-27 15:52:47.561046"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'Ken' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("username", "password_digest", "fname", "lname", "date_of_birth", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "Ken"], ["password_digest", "$2a$10$y7IuAN3lV92ge2WBOrLETe1ixWUaHDGRC7BIX5mcKIS2M4.4SuHbW"], ["fname", "Ken"], ["lname", "Masters"], ["date_of_birth", "1981-07-09"], ["session_token", "-Jx5pQYnWZYxbRirmF1syQ"], ["created_at", "2016-01-27 15:52:47.641594"], ["updated_at", "2016-01-27 15:52:47.641594"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[35mUser Load (0.7ms)[0m  SELECT "users".* FROM "users"
+
+
+Started GET "/" for ::1 at 2016-01-27 11:00:56 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (1.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "SvotAAFf3HSfGc3XV5cVFQ"]]
+Redirected to http://localhost:3000/session/new
+Filter chain halted as :ensure_sign_in rendered or redirected
+Completed 302 Found in 62ms (ActiveRecord: 3.6ms)
+
+
+Started GET "/session/new" for ::1 at 2016-01-27 11:00:56 -0500
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (3.8ms)
+Completed 200 OK in 1017ms (Views: 1016.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/session" for ::1 at 2016-01-27 11:01:00 -0500
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"kIZBt4y5YnvJGob9iF3uLNwOqaIYnlI890E8vbq+K87YYTM71IazWJ3teJRsuXxvyRyy60NC9RiIJBaX8xzOpw==", "user"=>{"username"=>"Mario", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT 1[0m  [["username", "Mario"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.8ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."username" = 'Mario' AND "users"."id" != 14) LIMIT 1[0m
+  [1m[35mSQL (0.7ms)[0m  UPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3  [["session_token", "gmYoBRrSOTTL3F94p0cHrQ"], ["updated_at", "2016-01-27 16:01:00.896058"], ["id", 14]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 131ms (ActiveRecord: 5.3ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 11:01:00 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "gmYoBRrSOTTL3F94p0cHrQ"]]
+  Rendered static_pages/root.html within layouts/application (1.2ms)
+Completed 200 OK in 18ms (Views: 16.3ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 11:02:38 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1[0m  [["session_token", "gmYoBRrSOTTL3F94p0cHrQ"]]
+  Rendered static_pages/root.html within layouts/application (9.9ms)
+Completed 200 OK in 388ms (Views: 385.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 11:05:53 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "gmYoBRrSOTTL3F94p0cHrQ"]]
+  Rendered static_pages/root.html within layouts/application (11.7ms)
+Completed 200 OK in 440ms (Views: 426.8ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 11:16:10 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1[0m  [["session_token", "gmYoBRrSOTTL3F94p0cHrQ"]]
+  Rendered static_pages/root.html within layouts/application (10.0ms)
+Completed 200 OK in 784ms (Views: 781.8ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 11:19:27 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "gmYoBRrSOTTL3F94p0cHrQ"]]
+  Rendered static_pages/root.html within layouts/application (10.0ms)
+Completed 200 OK in 614ms (Views: 611.4ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 11:20:03 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1[0m  [["session_token", "gmYoBRrSOTTL3F94p0cHrQ"]]
+  Rendered static_pages/root.html within layouts/application (9.7ms)
+Completed 200 OK in 228ms (Views: 227.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 11:20:15 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "gmYoBRrSOTTL3F94p0cHrQ"]]
+  Rendered static_pages/root.html within layouts/application (0.9ms)
+Completed 200 OK in 45ms (Views: 43.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 11:22:07 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1[0m  [["session_token", "gmYoBRrSOTTL3F94p0cHrQ"]]
+  Rendered static_pages/root.html within layouts/application (9.8ms)
+Completed 200 OK in 641ms (Views: 639.5ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2016-01-27 11:22:26 -0500
+Processing by StaticPagesController#root as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT 1  [["session_token", "gmYoBRrSOTTL3F94p0cHrQ"]]
+  Rendered static_pages/root.html within layouts/application (10.1ms)
+Completed 200 OK in 191ms (Views: 189.5ms | ActiveRecord: 0.4ms)

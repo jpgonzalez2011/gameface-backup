@@ -1,5 +1,4 @@
 .header {
-  display: none;
   background-color: #3a5795;
 }
 
@@ -18,11 +17,12 @@
   margin: 5px;
   width: 28px;
   height: 28px;
-  border: 1px solid black;
+  border: 1px solid #3a5795;
   float: left;
 }
 
 .nav-search-field {
+  display: none;
   margin: 5px;
   width: 400px;
   height: 25px;
