@@ -9,7 +9,8 @@ User.destroy_all
 
 User.create!(
   username: "Mario", password: "password",
-  fname: "Mario", lname: "Mario", date_of_birth: "09/07/1981"
+  fname: "Mario", lname: "Mario", date_of_birth: "09/07/1981",
+  cover_photo: "https://upload.wikimedia.org/wikipedia/en/9/99/MarioSMBW.png"
 )
 User.create!(
   username: "Luigi", password: "luigimansion",

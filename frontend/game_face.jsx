@@ -4,7 +4,7 @@ var React = require('react'),
     Route = require('react-router').Route;
 
 var NavHeader = require('./components/nav_header'),
-    Profile = require('./components/profile');
+    Profile = require('./components/profiles/profile');
 
 var GameFace = React.createClass({
   render: function () {
@@ -20,7 +20,7 @@ var GameFace = React.createClass({
 var router = (
   <Router>
     <Route path="/" component={GameFace}>
-      <Route path="users/:userID" component={Profile} />
+      <Route path="users/:userId" component={Profile} />
     </Route>
   </Router>
 );

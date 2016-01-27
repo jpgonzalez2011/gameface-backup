@@ -50,7 +50,7 @@
 	    Route = __webpack_require__(159).Route;
 
 	var NavHeader = __webpack_require__(208),
-	    Profile = __webpack_require__(210);
+	    Profile = __webpack_require__(211);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
@@ -71,7 +71,7 @@
 	  React.createElement(
 	    Route,
 	    { path: '/', component: GameFace },
-	    React.createElement(Route, { path: 'users/:userID', component: Profile })
+	    React.createElement(Route, { path: 'users/:userId', component: Profile })
 	  )
 	);
 
@@ -24367,28 +24367,74 @@
 	module.exports = NavSearchField;
 
 /***/ },
-/* 210 */
+/* 210 */,
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
+	var React = __webpack_require__(1),
+	    ProfileStore = __webpack_require__(212),
+	    apiUtil = __webpack_require__(213);
 
 	var Profile = React.createClass({
-	  displayName: "Profile",
+	  displayName: 'Profile',
+
+	  getInitialState: function () {
+	    return this.getStateFromStore(this.props);
+	  },
+
+	  getStateFromStore: function (props) {
+	    return { profile: ProfileStore.find(props.params.userId) };
+	  },
+
+	  componentDidMount: function () {
+	    this.storeCBToken = ProfileStore.addListener(function () {
+	      this.setState(this.getStateFromStore());
+	    }.bind(this));
+	    apiUtil.fetchSingleProfile(this.props.params.userId);
+	  },
+
+	  componentWillUnmount: function () {
+	    this.storeCBToken.remove();
+	  },
+
+	  componentWillReceiveProps: function (newProps) {
+	    this.setState(this.getStateFromStore(newProps));
+	  },
 
 	  render: function () {
 	    return React.createElement(
-	      "div",
+	      'div',
 	      null,
 	      React.createElement(
-	        "header",
-	        { className: "profile-header-box" },
-	        React.createElement("div", { className: "cover-photo-box" })
+	        'header',
+	        { className: 'profile-header-box' },
+	        React.createElement(
+	          'div',
+	          { className: 'cover-photo-box' },
+	          React.createElement(
+	            'h1',
+	            null,
+	            this.props.params.userId
+	          )
+	        )
 	      )
 	    );
 	  }
 	});
 
 	module.exports = Profile;
+
+/***/ },
+/* 212 */
+/***/ function(module, exports) {
+
+	
+
+/***/ },
+/* 213 */
+/***/ function(module, exports) {
+
+	
 
 /***/ }
 /******/ ]);
