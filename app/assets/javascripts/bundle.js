@@ -24383,10 +24383,7 @@
 	  },
 
 	  getStateFromStore: function (props) {
-	    return(
-	      // { profile: ProfileStore.find(this.props.params.userId) }
-	      { profile: ProfileStore.find(props.params.userId) }
-	    );
+	    return { profile: ProfileStore.find(props.params.userId) };
 	  },
 
 	  componentDidMount: function () {
