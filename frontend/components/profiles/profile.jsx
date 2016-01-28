@@ -1,6 +1,9 @@
 var React = require('react'),
     ProfileStore = require('../../stores/profile_store'),
     apiUtil = require('../../util/api_util');
+    Router = require('react-router').Router,
+    Route = require('react-router').Route,
+    Link = require('react-router').Link;
 
 var Profile = React.createClass({
   getInitialState: function () {
@@ -35,14 +38,16 @@ var Profile = React.createClass({
             <img src={this.state.profile.cover_photo} />
           </div>
           <ul className="profile-nav group">
-            <li> Timeline </li>
-            <li> About </li>
-            <li> Friends </li>
+            <li> <Link to="users/12/photos"> About </Link> </li>
+            <li> <a href="timeline"> Timeline </a> </li>
+            <li> <a href="#users/:userId/photos"> Photos </a> </li>
+            <li> <a href="friends"> Friends </a> </li>
           </ul>
           <div className="profile-picture-box">
             <img src={this.state.profile.profile_photo} />
           </div>
         </header>
+        {this.props.children}
       </div>
     );
   }

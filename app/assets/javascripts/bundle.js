@@ -50,7 +50,8 @@
 	    Route = __webpack_require__(159).Route;
 
 	var NavHeader = __webpack_require__(208),
-	    Profile = __webpack_require__(210);
+	    Profile = __webpack_require__(210),
+	    PhotosIndex = __webpack_require__(236);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
@@ -71,7 +72,11 @@
 	  React.createElement(
 	    Route,
 	    { path: '/', component: GameFace },
-	    React.createElement(Route, { path: 'users/:userId', component: Profile })
+	    React.createElement(
+	      Route,
+	      { path: 'users/:userId', component: Profile },
+	      React.createElement(Route, { path: 'photos', component: PhotosIndex })
+	    )
 	  )
 	);
 
@@ -24373,6 +24378,7 @@
 	var React = __webpack_require__(1),
 	    ProfileStore = __webpack_require__(211),
 	    apiUtil = __webpack_require__(234);
+	Router = __webpack_require__(159).Router, Route = __webpack_require__(159).Route, Link = __webpack_require__(159).Link;
 
 	var Profile = React.createClass({
 	  displayName: 'Profile',
@@ -24417,17 +24423,46 @@
 	          React.createElement(
 	            'li',
 	            null,
-	            ' Timeline '
+	            ' ',
+	            React.createElement(
+	              Link,
+	              { to: 'users/12/photos' },
+	              ' About '
+	            ),
+	            ' '
 	          ),
 	          React.createElement(
 	            'li',
 	            null,
-	            ' About '
+	            ' ',
+	            React.createElement(
+	              'a',
+	              { href: 'timeline' },
+	              ' Timeline '
+	            ),
+	            ' '
 	          ),
 	          React.createElement(
 	            'li',
 	            null,
-	            ' Friends '
+	            ' ',
+	            React.createElement(
+	              'a',
+	              { href: '#users/:userId/photos' },
+	              ' Photos '
+	            ),
+	            ' '
+	          ),
+	          React.createElement(
+	            'li',
+	            null,
+	            ' ',
+	            React.createElement(
+	              'a',
+	              { href: 'friends' },
+	              ' Friends '
+	            ),
+	            ' '
 	          )
 	        ),
 	        React.createElement(
@@ -24435,7 +24470,8 @@
 	          { className: 'profile-picture-box' },
 	          React.createElement('img', { src: this.state.profile.profile_photo })
 	        )
-	      )
+	      ),
+	      this.props.children
 	    );
 	  }
 	});
@@ -31297,6 +31333,30 @@
 	};
 
 	module.exports = ProfileActions;
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var PhotosIndex = React.createClass({
+	  displayName: 'PhotosIndex',
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h1',
+	        null,
+	        '"We made it!"'
+	      )
+	    );
+	  }
+	});
+
+	module.exports = PhotosIndex;
 
 /***/ }
 /******/ ]);
