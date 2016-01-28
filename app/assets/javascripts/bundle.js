@@ -24376,9 +24376,11 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    ProfileStore = __webpack_require__(211),
-	    apiUtil = __webpack_require__(234);
-	Router = __webpack_require__(159).Router, Route = __webpack_require__(159).Route, Link = __webpack_require__(159).Link;
+	    ProfileStore = __webpack_require__(211);
+	// apiUtil = require('../../util/api_util');
+	// Router = require('react-router').Router,
+	// Route = require('react-router').Route,
+	// Link = require('react-router').Link;
 
 	var Profile = React.createClass({
 	  displayName: 'Profile',
@@ -31343,25 +31345,74 @@
 /* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
+	var React = __webpack_require__(1),
+	    PhotoStore = __webpack_require__(237);
 
 	var PhotosIndex = React.createClass({
 	  displayName: 'PhotosIndex',
+
+	  getInitialState: function () {
+	    return this.getStateFromStore(this.props);
+	  },
+
+	  getStateFromStore: function (props) {
+	    return { photos: PhotoStore.findByOwner(props.params.userId) };
+	  },
+
+	  componentDidMount: function () {
+	    this.storeCBToken = PhotoStore.addListener(function () {
+	      this.setState(this.getStateFromStore(this.props));
+	    }.bind(this));
+	  },
 
 	  render: function () {
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(
-	        'h1',
+	        'ul',
 	        null,
-	        '"We made it!"'
+	        this.state.photos.map(function (photo, i) {
+	          return React.createElement(
+	            'li',
+	            { key: i },
+	            ' ',
+	            React.createElement('img', { src: photo }),
+	            ' '
+	          );
+	        })
 	      )
 	    );
 	  }
 	});
 
 	module.exports = PhotosIndex;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(212),
+	    Store = __webpack_require__(216).Store,
+	    ProfileConstants = __webpack_require__(233),
+	    ApiUtil = __webpack_require__(234);
+
+	var _photos = {};
+
+	var PhotoStore = new Store(Dispatcher);
+
+	PhotoStore.findByOwner = function () {
+	  return ["https://upload.wikimedia.org/wikipedia/en/9/99/MarioSMBW.png", "http://vignette1.wikia.nocookie.net/mario/images/1/15/MarioNSMB2.png/revision/latest?cb=20120816162009"];
+	};
+
+	PhotoStore.__onDispatch = function (payload) {
+	  if (payload.actionType === "Not going to fire!") {
+	    _photos = payload.profile;
+	    this.__emitChange();
+	  }
+	};
+
+	module.exports = PhotoStore;
 
 /***/ }
 /******/ ]);

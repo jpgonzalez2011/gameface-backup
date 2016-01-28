@@ -1,9 +1,9 @@
 var React = require('react'),
-    ProfileStore = require('../../stores/profile_store'),
-    apiUtil = require('../../util/api_util');
-    Router = require('react-router').Router,
-    Route = require('react-router').Route,
-    Link = require('react-router').Link;
+    ProfileStore = require('../../stores/profile_store');
+    // apiUtil = require('../../util/api_util');
+    // Router = require('react-router').Router,
+    // Route = require('react-router').Route,
+    // Link = require('react-router').Link;
 
 var Profile = React.createClass({
   getInitialState: function () {
