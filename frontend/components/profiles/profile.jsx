@@ -31,6 +31,11 @@ var Profile = React.createClass({
   },
 
   render: function () {
+    var photos = "#/users/" + this.props.params.userId + "/photos",
+        about = "#/about/" + this.props.params.userId + "/about",
+        timeline = "#/about/" + this.props.params.userId + "timeline",
+        friends = "#/about/" + this.props.params.userId + "friends";
+
     return (
       <div>
         <header className="profile-header-box group">
@@ -38,10 +43,10 @@ var Profile = React.createClass({
             <img src={this.state.profile.cover_photo} />
           </div>
           <ul className="profile-nav group">
-            <li> <Link to="users/12/photos"> About </Link> </li>
-            <li> <a href="timeline"> Timeline </a> </li>
-            <li> <a href="#users/:userId/photos"> Photos </a> </li>
-            <li> <a href="friends"> Friends </a> </li>
+            <li> <a href={about}> About </a> </li>
+            <li> <a href={timeline}> Timeline </a> </li>
+            <li> <a href={photos}> Photos </a> </li>
+            <li> <a href={friends}> Friends </a> </li>
           </ul>
           <div className="profile-picture-box">
             <img src={this.state.profile.profile_photo} />

@@ -24406,6 +24406,11 @@
 	  },
 
 	  render: function () {
+	    var photos = "#/users/" + this.props.params.userId + "/photos",
+	        about = "#/about/" + this.props.params.userId + "/about",
+	        timeline = "#/about/" + this.props.params.userId + "timeline",
+	        friends = "#/about/" + this.props.params.userId + "friends";
+
 	    return React.createElement(
 	      'div',
 	      null,
@@ -24425,8 +24430,8 @@
 	            null,
 	            ' ',
 	            React.createElement(
-	              Link,
-	              { to: 'users/12/photos' },
+	              'a',
+	              { href: about },
 	              ' About '
 	            ),
 	            ' '
@@ -24437,7 +24442,7 @@
 	            ' ',
 	            React.createElement(
 	              'a',
-	              { href: 'timeline' },
+	              { href: timeline },
 	              ' Timeline '
 	            ),
 	            ' '
@@ -24448,7 +24453,7 @@
 	            ' ',
 	            React.createElement(
 	              'a',
-	              { href: '#users/:userId/photos' },
+	              { href: photos },
 	              ' Photos '
 	            ),
 	            ' '
@@ -24459,7 +24464,7 @@
 	            ' ',
 	            React.createElement(
 	              'a',
-	              { href: 'friends' },
+	              { href: friends },
 	              ' Friends '
 	            ),
 	            ' '
