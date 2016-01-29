@@ -31,9 +31,11 @@ ProfileStore.resetProfiles = function (profiles) {
 };
 
 ProfileStore.__onDispatch = function (payload) {
-  if (payload.actionType === ProfileConstants.SINGLE_PROFILE_RECEIVED) {
-    _profiles[payload.profile.id] = payload.profile;
-    this.__emitChange();
+  switch (payload.actionType) {
+    case ProfileConstants.SINGLE_PROFILE_RECEIVED:
+      _profiles[payload.profile.id] = payload.profile;
+      this.__emitChange();
+      break;
   }
 };
 

@@ -8,47 +8,47 @@
 User.destroy_all
 
 User.create!(
-  username: "Mario", password: "password",
+  username: "mario", password: "password",
   fname: "Mario", lname: "Mario", date_of_birth: "09/07/1981",
   cover_photo: "https://upload.wikimedia.org/wikipedia/en/9/99/MarioSMBW.png"
 )
 User.create!(
-  username: "Luigi", password: "luigimansion",
+  username: "luigi", password: "luigimansion",
   fname: "Luigi", lname: "Mario", date_of_birth: "14/7/1983"
 )
 User.create!(
-  username: "Link", password: "ocarina",
+  username: "link", password: "ocarina",
   fname: "Link", lname: "", date_of_birth: "21/2/1986"
 )
 User.create!(
-  username: "Zelda", password: "hyrule",
+  username: "zelda", password: "hyrule",
   fname: "Princess", lname: "Zelda", date_of_birth: "21/2/1986"
 )
 User.create!(
-  username: "Bowser", password: "koopas",
+  username: "bowser", password: "koopas",
   fname: "Bowser", lname: "Koopa", date_of_birth: "13/9/1985"
 )
 User.create!(
-  username: "Ganondorf", password: "triforce",
+  username: "ganondorf", password: "triforce",
   fname: "Ganondorf", lname: "Dragmire", date_of_birth: "21/11/1998"
 )
 User.create!(
-  username: "SolidSnake", password: "metalgear",
+  username: "solidsnake", password: "metalgear",
   fname: "Iroquois", lname: "Pliskin", date_of_birth: "07/07/1987"
 )
 User.create!(
-  username: "Peach", password: "toadstool",
+  username: "peach", password: "toadstool",
   fname: "Peach", lname: "Toadstool", date_of_birth: "13/9/1985"
 )
 User.create!(
-  username: "Toad", password: "supertoad",
+  username: "toad", password: "supertoad",
   fname: "Toad", lname: "", date_of_birth: "9/10/1988"
 )
 User.create!(
-  username: "Ryu", password: "hadouken",
+  username: "ryu", password: "hadouken",
   fname: "Ryu", lname: "Hoshi", date_of_birth: "30/8/1987"
 )
 User.create!(
-  username: "Ken", password: "shoryuken",
+  username: "ken", password: "shoryuken",
   fname: "Ken", lname: "Masters", date_of_birth: "09/07/1981"
 )

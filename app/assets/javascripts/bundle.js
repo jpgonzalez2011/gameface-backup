@@ -49,20 +49,47 @@
 	    Router = __webpack_require__(159).Router,
 	    Route = __webpack_require__(159).Route;
 
-	var NavHeader = __webpack_require__(208),
+	var LoggedInNavHeader = __webpack_require__(246),
+	    LoggedOutNavHeader = __webpack_require__(247),
 	    Profile = __webpack_require__(210),
-	    PhotosIndex = __webpack_require__(236);
+	    PhotosIndex = __webpack_require__(236),
+	    CurrentUserStore = __webpack_require__(241);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
 
+	  getInitialState: function () {
+	    return {
+	      currentUser: CurrentUserStore.currentUser() };
+	  },
+
+	  getCurrentUserFromStore: function () {
+	    this.setState({ currentUser: CurrentUserStore.currentUser() });
+	  },
+
+	  userReceived: function () {
+	    this.getCurrentUserFromStore();
+	  },
+
+	  componentDidMount: function () {
+	    CurrentUserStore.addListener(this.userReceived);
+	  },
+
 	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { id: 'gamefaces' },
-	      React.createElement(NavHeader, null),
-	      this.props.children
-	    );
+	    if (CurrentUserStore.loggedIn()) {
+	      return React.createElement(
+	        'div',
+	        { id: 'gamefaces' },
+	        React.createElement(LoggedInNavHeader, null),
+	        this.props.children
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { id: 'gamefaces' },
+	        React.createElement(LoggedOutNavHeader, null)
+	      );
+	    }
 	  }
 	});
 
@@ -75,6 +102,7 @@
 	    React.createElement(
 	      Route,
 	      { path: 'users/:userId', component: Profile },
+	      ' //ensure login here',
 	      React.createElement(Route, { path: 'photos', component: PhotosIndex })
 	    )
 	  )
@@ -9341,6 +9369,7 @@
 	 */
 	var EventInterface = {
 	  type: null,
+	  target: null,
 	  // currentTarget is set when dispatching; no use in copying it here
 	  currentTarget: emptyFunction.thatReturnsNull,
 	  eventPhase: null,
@@ -9374,8 +9403,6 @@
 	  this.dispatchConfig = dispatchConfig;
 	  this.dispatchMarker = dispatchMarker;
 	  this.nativeEvent = nativeEvent;
-	  this.target = nativeEventTarget;
-	  this.currentTarget = nativeEventTarget;
 
 	  var Interface = this.constructor.Interface;
 	  for (var propName in Interface) {
@@ -9386,7 +9413,11 @@
 	    if (normalize) {
 	      this[propName] = normalize(nativeEvent);
 	    } else {
-	      this[propName] = nativeEvent[propName];
+	      if (propName === 'target') {
+	        this.target = nativeEventTarget;
+	      } else {
+	        this[propName] = nativeEvent[propName];
+	      }
 	    }
 	  }
 
@@ -13235,7 +13266,10 @@
 	      }
 	    });
 
-	    nativeProps.children = content;
+	    if (content) {
+	      nativeProps.children = content;
+	    }
+
 	    return nativeProps;
 	  }
 
@@ -18708,7 +18742,7 @@
 
 	'use strict';
 
-	module.exports = '0.14.6';
+	module.exports = '0.14.7';
 
 /***/ },
 /* 147 */
@@ -24321,37 +24355,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 208 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-
-	var NavSearchField = __webpack_require__(209);
-
-	var NavHeader = React.createClass({
-	  displayName: 'NavHeader',
-
-	  render: function () {
-	    return React.createElement(
-	      'header',
-	      { className: 'header group' },
-	      React.createElement(
-	        'nav',
-	        { className: 'nav-header group' },
-	        React.createElement(
-	          'header',
-	          { className: 'left-side-header' },
-	          React.createElement('h1', { className: 'header-logo' }),
-	          React.createElement(NavSearchField, null)
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = NavHeader;
-
-/***/ },
+/* 208 */,
 /* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -24488,7 +24492,7 @@
 	var Dispatcher = __webpack_require__(212),
 	    Store = __webpack_require__(216).Store,
 	    ProfileConstants = __webpack_require__(233),
-	    ProfileApiUtil = __webpack_require__(238);
+	    ProfileApiUtil = __webpack_require__(234);
 
 	var _profiles = {};
 
@@ -24518,9 +24522,11 @@
 	};
 
 	ProfileStore.__onDispatch = function (payload) {
-	  if (payload.actionType === ProfileConstants.SINGLE_PROFILE_RECEIVED) {
-	    _profiles[payload.profile.id] = payload.profile;
-	    this.__emitChange();
+	  switch (payload.actionType) {
+	    case ProfileConstants.SINGLE_PROFILE_RECEIVED:
+	      _profiles[payload.profile.id] = payload.profile;
+	      this.__emitChange();
+	      break;
 	  }
 	};
 
@@ -31299,7 +31305,27 @@
 	};
 
 /***/ },
-/* 234 */,
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ProfileActions = __webpack_require__(235);
+
+	var ProfileApiUtil = {
+	  fetchSingleProfile: function (id) {
+	    $.ajax({
+	      type: 'GET',
+	      url: '/api/users/' + id,
+	      dataType: 'json',
+	      success: function (data) {
+	        ProfileActions.receiveSingleProfile(data);
+	      }
+	    });
+	  }
+	};
+
+	module.exports = ProfileApiUtil;
+
+/***/ },
 /* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -31370,7 +31396,7 @@
 
 	var Dispatcher = __webpack_require__(212),
 	    Store = __webpack_require__(216).Store,
-	    PhotoConstants = __webpack_require__(241),
+	    PhotoConstants = __webpack_require__(238),
 	    PhotoApiUtil = __webpack_require__(239);
 
 	var photos = [];
@@ -31385,9 +31411,12 @@
 	};
 
 	PhotoStore.__onDispatch = function (payload) {
-	  if (payload.actionType === PhotoConstants.RECEIVED_PHOTOS) {
-	    photos = payload.photos;
-	    this.__emitChange();
+	  switch (payload.actionType) {
+
+	    case PhotoConstants.RECEIVED_PHOTOS:
+	      photos = payload.photos;
+	      this.__emitChange();
+	      break;
 	  }
 	};
 
@@ -31395,24 +31424,11 @@
 
 /***/ },
 /* 238 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	var ProfileActions = __webpack_require__(235);
-
-	var ProfileApiUtil = {
-	  fetchSingleProfile: function (id) {
-	    $.ajax({
-	      type: 'GET',
-	      url: '/api/users/' + id,
-	      dataType: 'json',
-	      success: function (data) {
-	        ProfileActions.receiveSingleProfile(data);
-	      }
-	    });
-	  }
+	module.exports = {
+	  RECEIVED_PHOTOS: "RECEIVED_PHOTOS"
 	};
-
-	module.exports = ProfileApiUtil;
 
 /***/ },
 /* 239 */
@@ -31440,7 +31456,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(212),
-	    PhotoConstants = __webpack_require__(241);
+	    PhotoConstants = __webpack_require__(238);
 
 	var PhotoActions = {
 	  receivePhotos: function (photos) {
@@ -31455,11 +31471,293 @@
 
 /***/ },
 /* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(212),
+	    Store = __webpack_require__(216).Store,
+	    CurrentUserConstants = __webpack_require__(242),
+	    CurrentUserApiUtil = __webpack_require__(243);
+
+	var _currentUser = {};
+	var _loginFailure = false;
+
+	var CurrentUserStore = new Store(Dispatcher);
+
+	CurrentUserStore.currentUser = function () {
+	  if (_currentUser.id) {
+	    return $.extend({}, _currentUser);
+	  } else {
+	    CurrentUserApiUtil.checkForExistingUser();
+	    return {};
+	  }
+	};
+
+	CurrentUserStore.loginFailure = function () {
+	  return _loginFailure;
+	};
+
+	CurrentUserStore.loggedIn = function () {
+	  return !!_currentUser.id;
+	};
+
+	CurrentUserStore.logOut = function () {
+	  CurrentUserApiUtil.logOut();
+	};
+
+	CurrentUserStore.acceptCredentials = function (credentials) {
+	  CurrentUserApiUtil.transmitCredentials(credentials);
+	};
+
+	CurrentUserStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case CurrentUserConstants.CURRENT_USER_RECEIVED:
+	      _currentUser = payload.currentUser[0];
+	      this.__emitChange();
+	      break;
+	    case CurrentUserConstants.LOGIN_FAILURE:
+	      _loginFailure = true;
+	      break;
+	    case CurrentUserConstants.LOG_OUT:
+	      _currentUser = {};
+	      this.__emitChange();
+	      break;
+	  }
+	};
+
+	module.exports = CurrentUserStore;
+
+/***/ },
+/* 242 */
 /***/ function(module, exports) {
 
 	module.exports = {
-	  RECEIVED_PHOTOS: "RECEIVED_PHOTOS"
+	  CURRENT_USER_RECEIVED: "CURRENT_USER_RECEIVED",
+	  LOGIN_FAILURE: "LOGIN_FAILURE",
+	  LOG_OUT: "LOG_OUT"
 	};
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var CurrentUserActions = __webpack_require__(244);
+
+	var CurrentUserApiUtil = {
+	  transmitCredentials: function (credentials) {
+	    $.ajax({
+	      type: "POST",
+	      url: "/api/session",
+	      dataType: 'json',
+	      data: credentials,
+	      success: function (data) {
+	        CurrentUserActions.currentUserReceived(data);
+	      }
+	    });
+	  },
+
+	  // error: function () {
+	  //   CurrentUserActions.logInFailure();
+	  // }
+	  checkForExistingUser: function () {
+	    $.ajax({
+	      type: "GET",
+	      url: "api/session",
+	      dataType: 'json',
+	      success: function (data) {
+	        CurrentUserActions.currentUserReceived(data);
+	      }
+	    });
+	  },
+
+	  logOut: function () {
+	    $.ajax({
+	      type: "DELETE",
+	      url: "api/session",
+	      dataType: 'json',
+	      success: function () {
+	        CurrentUserActions.logOut();
+	      }
+	    });
+	  }
+	};
+
+	module.exports = CurrentUserApiUtil;
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(212),
+	    CurrentUserConstants = __webpack_require__(242);
+
+	var CurrentUserActions = {
+	  currentUserReceived: function (currentUser) {
+	    Dispatcher.dispatch({
+	      actionType: CurrentUserConstants.CURRENT_USER_RECEIVED,
+	      currentUser: currentUser
+	    });
+	  },
+
+	  logOut: function () {
+	    Dispatcher.dispatch({
+	      actionType: CurrentUserConstants.LOG_OUT
+	    });
+	  }
+	};
+
+	module.exports = CurrentUserActions;
+
+/***/ },
+/* 245 */,
+/* 246 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    CurrentUserStore = __webpack_require__(241);
+
+	var NavSearchField = __webpack_require__(209);
+
+	var LoggedInNavHeader = React.createClass({
+	  displayName: 'LoggedInNavHeader',
+
+	  logOut: function (e) {
+	    CurrentUserStore.logOut();
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'header',
+	      { className: 'header group' },
+	      React.createElement(
+	        'nav',
+	        { className: 'nav-header group' },
+	        React.createElement(
+	          'header',
+	          { className: 'header-text' },
+	          React.createElement(
+	            'a',
+	            { href: '#/' },
+	            'GameFaces!'
+	          )
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.logOut, className: 'log-out' },
+	          ' Sign Out! '
+	        ),
+	        React.createElement(
+	          'header',
+	          { className: 'signed-in-header group' },
+	          React.createElement(
+	            'h1',
+	            null,
+	            ' Signed in as ',
+	            CurrentUserStore.currentUser().username,
+	            ' '
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = LoggedInNavHeader;
+
+/***/ },
+/* 247 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    CurrentUserStore = __webpack_require__(241);
+
+	var NavSearchField = __webpack_require__(209);
+
+	var LoggedOutNavHeader = React.createClass({
+	  displayName: 'LoggedOutNavHeader',
+
+	  getInitialState: function () {
+	    return {
+	      currentUser: CurrentUserStore.currentUser() };
+	  },
+
+	  getCurrentUserFromStore: function () {
+	    this.setState({ currentUser: CurrentUserStore.currentUser() });
+	  },
+
+	  submitCredentials: function (e) {
+	    e.preventDefault();
+	    CurrentUserStore.acceptCredentials({ username: this.state.username, password: this.state.password });
+	  },
+
+	  // userReceived: function () {
+	  //   this.getCurrentUserFromStore();
+	  // },
+
+	  updateUsername: function (e) {
+	    this.setState({ username: e.target.value.toLowerCase() });
+	  },
+
+	  updatePassword: function (e) {
+	    this.setState({ password: e.target.value });
+	  },
+
+	  // componentDidMount: function () {
+	  //   CurrentUserStore.addListener(this.userReceived);
+	  // },
+
+	  render: function () {
+	    return React.createElement(
+	      'header',
+	      { className: 'header group' },
+	      React.createElement(
+	        'nav',
+	        { className: 'nav-header group' },
+	        React.createElement(
+	          'header',
+	          { className: 'header-text' },
+	          React.createElement(
+	            'a',
+	            { href: '#/' },
+	            'GameFaces!'
+	          )
+	        ),
+	        React.createElement(
+	          'button',
+	          { className: 'mario-log-in' },
+	          ' Log in as Mario! '
+	        ),
+	        React.createElement(
+	          'header',
+	          { className: 'sign-in-header group' },
+	          React.createElement(
+	            'form',
+	            { onSubmit: this.submitCredentials, className: 'sign-in-header-form group' },
+	            React.createElement(
+	              'label',
+	              { 'for': 'username' },
+	              'Username'
+	            ),
+	            React.createElement(
+	              'label',
+	              { 'for': 'password' },
+	              'Password'
+	            ),
+	            React.createElement('br', null),
+	            React.createElement('input', { onChange: this.updateUsername, type: 'text', name: 'user[username]', id: 'username' }),
+	            React.createElement('input', { onChange: this.updatePassword, type: 'password', name: 'user[password]', id: 'password' }),
+	            React.createElement(
+	              'button',
+	              null,
+	              'Submit'
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = LoggedOutNavHeader;
 
 /***/ }
 /******/ ]);

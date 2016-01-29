@@ -3,25 +3,52 @@ var React = require('react'),
     Router = require('react-router').Router,
     Route = require('react-router').Route;
 
-var NavHeader = require('./components/nav_header'),
+var LoggedInNavHeader = require('./components/logged_in_nav_header'),
+    LoggedOutNavHeader = require('./components/logged_out_nav_header'),
     Profile = require('./components/profiles/profile'),
-    PhotosIndex = require('./components/photos/photos_index');
+    PhotosIndex = require('./components/photos/photos_index'),
+    CurrentUserStore = require('./stores/current_user_store');
 
 var GameFace = React.createClass({
+  getInitialState: function () {
+    return ({
+      currentUser: CurrentUserStore.currentUser() });
+  },
+
+  getCurrentUserFromStore: function () {
+     this.setState({currentUser: CurrentUserStore.currentUser()});
+  },
+
+  userReceived: function () {
+    this.getCurrentUserFromStore();
+  },
+
+  componentDidMount: function () {
+    CurrentUserStore.addListener(this.userReceived);
+  },
+
   render: function () {
-    return (
-      <div id="gamefaces">
-        <NavHeader />
-        {this.props.children}
-      </div>
-    );
+    if (CurrentUserStore.loggedIn()) {
+      return (
+        <div id="gamefaces">
+          <LoggedInNavHeader />
+          {this.props.children}
+        </div>
+      );
+    } else {
+      return (
+        <div id="gamefaces">
+          <LoggedOutNavHeader />
+        </div>
+      );
+    }
   }
 });
 
 var router = (
   <Router>
     <Route path="/" component={GameFace}>
-      <Route path="users/:userId" component={Profile}>
+      <Route path="users/:userId" component={Profile}> //ensure login here
         <Route path="photos" component={PhotosIndex} />
       </Route>
     </Route>

@@ -1,5 +1,6 @@
 .header {
   background-color: #3a5795;
+  height: 82px;
 }
 
 .nav-header {
@@ -7,6 +8,7 @@
   margin: 0 auto;
   background-color: #3a5795;
   padding: 5px;
+  height: 72px;
 }
 
 .left-side-header {
@@ -21,6 +23,19 @@
   float: left;
 }
 
+.header-text {
+  float: left;
+  margin-top: 20px;
+}
+
+.header-text > a {
+  text-decoration: none;
+  font-family: helvetica, arial, sans-serif;
+  font-weight: 600;
+  font-size: 36px;
+  color: white;
+}
+
 .nav-search-field {
   display: none;
   margin: 5px;
@@ -30,4 +45,85 @@
   border: 1px solid black;
   border-radius: 4px;
   float: left;
+}
+
+.sign-in-header{
+  float: right;
+  width: 500px;
+}
+
+.sign-in-header-form {
+  float: left;
+  margin-top: 10px;
+  margin-left: 115px;
+}
+
+
+.mario-log-in {
+  margin: auto;
+  background-color: #3a5795;
+  color: #fff;
+  border: 1px solid black;
+  font-weight: 700;
+  font-family: helvetica, arial, sans-serif;
+  line-height: 13px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+  font-size: 16px;
+  margin-left: 125px;
+  margin-top: 30px;
+  height: 40px;
+}
+
+.log-out {
+  margin: auto;
+  background-color: #3a5795;
+  color: #fff;
+  border: 1px solid black;
+  font-weight: 700;
+  font-family: helvetica, arial, sans-serif;
+  line-height: 13px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+  font-size: 16px;
+  margin-left: 125px;
+  margin-top: 30px;
+  height: 40px;
+}
+
+.mario-log-in:hover {
+  background-color: red;
+}
+
+.log-out:hover {
+  background-color: red;
+}
+
+.sign-in-header-form > label {
+  float: left;
+  font-family: helvetica, arial, sans-serif;
+  font-size: 12px;
+  line-height: 16.08px;
+  width: 160px;
+  color: #fff;
+}
+
+.sign-in-header-form > button {
+  float :right;
+  margin-right: 10px;
+  background-color: #3a5795;
+  color: #fff;
+  border: 1px solid black;
+  font-weight: 700;
+  font-family: helvetica, arial, sans-serif;
+  line-height: 13px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+  font-size: 12px;
+}
+
+.sign-in-header-form > input {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: 1px solid black;
+  height: 14px;
+  width: 142px;
+  padding: 3px 3px 4px 3px;
 }

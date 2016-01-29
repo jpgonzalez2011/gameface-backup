@@ -15,9 +15,12 @@ PhotoStore.findByOwner = function (ownerId) {
 };
 
 PhotoStore.__onDispatch = function (payload) {
-  if (payload.actionType === PhotoConstants.RECEIVED_PHOTOS) {
-    photos = payload.photos;
-    this.__emitChange();
+  switch (payload.actionType) {
+
+    case PhotoConstants.RECEIVED_PHOTOS:
+      photos = payload.photos;
+      this.__emitChange();
+      break;
   }
 };
 
