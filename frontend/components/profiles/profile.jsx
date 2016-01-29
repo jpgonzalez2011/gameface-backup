@@ -3,7 +3,7 @@ var React = require('react'),
 
 var Profile = React.createClass({
   getInitialState: function () {
-    return this.getStateFromStore(this.props);
+    return { profile: {} };
   },
 
   getStateFromStore: function (props) {

@@ -4,16 +4,16 @@ var React = require('react'),
 
 var PhotosIndex = React.createClass({
   getInitialState: function () {
-    return ( this.getStateFromStore(this.props) );
+    return ({ photos: PhotoStore.findByOwner(this.props.params.userId) });
   },
 
-  getStateFromStore: function (props) {
-    return ( { photos: PhotoStore.findByOwner(props.params.userId) });
+  getStateFromStore: function (userId) {
+    return ( { photos: PhotoStore.findByOwner(this.props.params.userId) });
   },
 
   componentDidMount: function () {
     this.storeCBToken = PhotoStore.addListener( function () {
-      this.setState(this.getStateFromStore(this.props));
+      this.setState(this.getStateFromStore);
     }.bind(this));
   },
 
