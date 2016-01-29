@@ -9,7 +9,7 @@ var CurrentUserApiUtil = {
       dataType: 'json',
       data: credentials,
       success: function (data) {
-        CurrentUserActions.currentUserReceived(data);
+        CurrentUserActions.newUserReceived(data);
       },
       // error: function () {
       //   CurrentUserActions.logInFailure();
@@ -23,7 +23,10 @@ var CurrentUserApiUtil = {
       url: "api/session",
       dataType: 'json',
       success: function (data) {
-        CurrentUserActions.currentUserReceived(data);
+        CurrentUserActions.existingUserReceived(data);
+      },
+      error: function () {
+        console.log("No existing user to fetch so killed here to avoid error");
       }
     });
   },

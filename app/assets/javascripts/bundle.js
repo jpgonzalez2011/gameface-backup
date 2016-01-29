@@ -47,7 +47,8 @@
 	var React = __webpack_require__(1),
 	    ReactDOM = __webpack_require__(158),
 	    Router = __webpack_require__(159).Router,
-	    Route = __webpack_require__(159).Route;
+	    Route = __webpack_require__(159).Route,
+	    History = __webpack_require__(159).History;
 
 	var LoggedInNavHeader = __webpack_require__(246),
 	    LoggedOutNavHeader = __webpack_require__(247),
@@ -57,6 +58,8 @@
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
+
+	  mixins: [History],
 
 	  getInitialState: function () {
 	    return {
@@ -69,6 +72,8 @@
 
 	  userReceived: function () {
 	    this.getCurrentUserFromStore();
+	    var url = "#/users/" + CurrentUserStore.currentUser().id;
+	    window.location.hash = url;
 	  },
 
 	  componentDidMount: function () {
@@ -31510,7 +31515,11 @@
 
 	CurrentUserStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
-	    case CurrentUserConstants.CURRENT_USER_RECEIVED:
+	    case CurrentUserConstants.NEW_USER_RECEIVED:
+	      _currentUser = payload.currentUser[0];
+	      this.__emitChange();
+	      break;
+	    case CurrentUserConstants.EXISTING_USER_RECEIVED:
 	      _currentUser = payload.currentUser[0];
 	      this.__emitChange();
 	      break;
@@ -31531,7 +31540,8 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-	  CURRENT_USER_RECEIVED: "CURRENT_USER_RECEIVED",
+	  NEW_USER_RECEIVED: "NEW_USER_RECEIVED",
+	  EXISTING_USER_RECEIVED: "EXISTING_USER_RECEIVED",
 	  LOGIN_FAILURE: "LOGIN_FAILURE",
 	  LOG_OUT: "LOG_OUT"
 	};
@@ -31550,7 +31560,7 @@
 	      dataType: 'json',
 	      data: credentials,
 	      success: function (data) {
-	        CurrentUserActions.currentUserReceived(data);
+	        CurrentUserActions.newUserReceived(data);
 	      }
 	    });
 	  },
@@ -31564,7 +31574,10 @@
 	      url: "api/session",
 	      dataType: 'json',
 	      success: function (data) {
-	        CurrentUserActions.currentUserReceived(data);
+	        CurrentUserActions.existingUserReceived(data);
+	      },
+	      error: function () {
+	        console.log("No existing user to fetch so killed here to avoid error");
 	      }
 	    });
 	  },
@@ -31591,9 +31604,16 @@
 	    CurrentUserConstants = __webpack_require__(242);
 
 	var CurrentUserActions = {
-	  currentUserReceived: function (currentUser) {
+	  newUserReceived: function (currentUser) {
 	    Dispatcher.dispatch({
-	      actionType: CurrentUserConstants.CURRENT_USER_RECEIVED,
+	      actionType: CurrentUserConstants.NEW_USER_RECEIVED,
+	      currentUser: currentUser
+	    });
+	  },
+
+	  existingUserReceived: function (currentUser) {
+	    Dispatcher.dispatch({
+	      actionType: CurrentUserConstants.EXISTING_USER_RECEIVED,
 	      currentUser: currentUser
 	    });
 	  },

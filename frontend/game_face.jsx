@@ -1,7 +1,8 @@
 var React = require('react'),
     ReactDOM = require('react-dom'),
     Router = require('react-router').Router,
-    Route = require('react-router').Route;
+    Route = require('react-router').Route,
+    History = require('react-router').History;
 
 var LoggedInNavHeader = require('./components/logged_in_nav_header'),
     LoggedOutNavHeader = require('./components/logged_out_nav_header'),
@@ -10,6 +11,9 @@ var LoggedInNavHeader = require('./components/logged_in_nav_header'),
     CurrentUserStore = require('./stores/current_user_store');
 
 var GameFace = React.createClass({
+
+  mixins: [History],
+
   getInitialState: function () {
     return ({
       currentUser: CurrentUserStore.currentUser() });
@@ -21,6 +25,8 @@ var GameFace = React.createClass({
 
   userReceived: function () {
     this.getCurrentUserFromStore();
+    var url = "#/users/" + CurrentUserStore.currentUser().id;
+    window.location.hash = url;
   },
 
   componentDidMount: function () {

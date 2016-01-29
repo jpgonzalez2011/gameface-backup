@@ -35,7 +35,11 @@ CurrentUserStore.acceptCredentials = function (credentials) {
 
 CurrentUserStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
-    case CurrentUserConstants.CURRENT_USER_RECEIVED:
+    case CurrentUserConstants.NEW_USER_RECEIVED:
+      _currentUser = payload.currentUser[0];
+      this.__emitChange();
+      break;
+    case CurrentUserConstants.EXISTING_USER_RECEIVED:
       _currentUser = payload.currentUser[0];
       this.__emitChange();
       break;
