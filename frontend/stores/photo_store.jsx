@@ -1,22 +1,22 @@
 var Dispatcher = require('../dispatcher/dispatcher'),
     Store = require('flux/utils').Store,
-    ProfileConstants = require('../constants/profile_constants'),
-    ApiUtil = require('../util/api_util');
+    PhotoConstants = require('../constants/photo_constants'),
+    PhotoApiUtil = require('../util/photo_api_util');
 
-var _photos = {};
+var photos = [];
 
 var PhotoStore = new Store(Dispatcher);
 
-PhotoStore.findByOwner = function () {
-  return (
-    ["https://upload.wikimedia.org/wikipedia/en/9/99/MarioSMBW.png",
-    "http://vignette1.wikia.nocookie.net/mario/images/1/15/MarioNSMB2.png/revision/latest?cb=20120816162009"]
-  );
+PhotoStore.findByOwner = function (ownerId) {
+  if (photos.length === 0) {
+    PhotoApiUtil.fetchOwnedPhotos(ownerId);
+  }
+  return photos;
 };
 
 PhotoStore.__onDispatch = function (payload) {
-  if (payload.actionType === "Not going to fire!") {
-    _photos = payload.profile;
+  if (payload.actionType === PhotoConstants.RECEIVED_PHOTOS) {
+    photos = payload.photos;
     this.__emitChange();
   }
 };

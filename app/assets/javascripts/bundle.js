@@ -24377,10 +24377,6 @@
 
 	var React = __webpack_require__(1),
 	    ProfileStore = __webpack_require__(211);
-	// apiUtil = require('../../util/api_util');
-	// Router = require('react-router').Router,
-	// Route = require('react-router').Route,
-	// Link = require('react-router').Link;
 
 	var Profile = React.createClass({
 	  displayName: 'Profile',
@@ -24492,7 +24488,7 @@
 	var Dispatcher = __webpack_require__(212),
 	    Store = __webpack_require__(216).Store,
 	    ProfileConstants = __webpack_require__(233),
-	    ApiUtil = __webpack_require__(234);
+	    ProfileApiUtil = __webpack_require__(238);
 
 	var _profiles = {};
 
@@ -24508,7 +24504,7 @@
 
 	ProfileStore.find = function (id) {
 	  if (typeof _profiles[id] === "undefined") {
-	    ApiUtil.fetchSingleProfile(id);
+	    ProfileApiUtil.fetchSingleProfile(id);
 	  }
 	  return _profiles[id] || {};
 	};
@@ -31303,27 +31299,7 @@
 	};
 
 /***/ },
-/* 234 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var ProfileActions = __webpack_require__(235);
-
-	var ApiUtil = {
-	  fetchSingleProfile: function (id) {
-	    $.ajax({
-	      type: 'GET',
-	      url: '/api/users/' + id,
-	      dataType: 'json',
-	      success: function (data) {
-	        ProfileActions.receiveSingleProfile(data);
-	      }
-	    });
-	  }
-	};
-
-	module.exports = ApiUtil;
-
-/***/ },
+/* 234 */,
 /* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -31368,16 +31344,16 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'photo-index-container group' },
 	      React.createElement(
 	        'ul',
-	        null,
+	        { className: 'photo-index-list group' },
 	        this.state.photos.map(function (photo, i) {
 	          return React.createElement(
 	            'li',
 	            { key: i },
 	            ' ',
-	            React.createElement('img', { src: photo }),
+	            React.createElement('img', { className: 'photo-preview', src: photo.image }),
 	            ' '
 	          );
 	        })
@@ -31394,25 +31370,96 @@
 
 	var Dispatcher = __webpack_require__(212),
 	    Store = __webpack_require__(216).Store,
-	    ProfileConstants = __webpack_require__(233),
-	    ApiUtil = __webpack_require__(234);
+	    PhotoConstants = __webpack_require__(241),
+	    PhotoApiUtil = __webpack_require__(239);
 
-	var _photos = {};
+	var photos = [];
 
 	var PhotoStore = new Store(Dispatcher);
 
-	PhotoStore.findByOwner = function () {
-	  return ["https://upload.wikimedia.org/wikipedia/en/9/99/MarioSMBW.png", "http://vignette1.wikia.nocookie.net/mario/images/1/15/MarioNSMB2.png/revision/latest?cb=20120816162009"];
+	PhotoStore.findByOwner = function (ownerId) {
+	  if (photos.length === 0) {
+	    PhotoApiUtil.fetchOwnedPhotos(ownerId);
+	  }
+	  return photos;
 	};
 
 	PhotoStore.__onDispatch = function (payload) {
-	  if (payload.actionType === "Not going to fire!") {
-	    _photos = payload.profile;
+	  if (payload.actionType === PhotoConstants.RECEIVED_PHOTOS) {
+	    photos = payload.photos;
 	    this.__emitChange();
 	  }
 	};
 
 	module.exports = PhotoStore;
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ProfileActions = __webpack_require__(235);
+
+	var ProfileApiUtil = {
+	  fetchSingleProfile: function (id) {
+	    $.ajax({
+	      type: 'GET',
+	      url: '/api/users/' + id,
+	      dataType: 'json',
+	      success: function (data) {
+	        ProfileActions.receiveSingleProfile(data);
+	      }
+	    });
+	  }
+	};
+
+	module.exports = ProfileApiUtil;
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var PhotoActions = __webpack_require__(240);
+
+	var PhotoApiUtil = {
+	  fetchOwnedPhotos: function (ownerId) {
+	    $.ajax({
+	      type: "GET",
+	      url: "api/users/" + ownerId + "/photos",
+	      dataType: "json",
+	      success: function (data) {
+	        PhotoActions.receivePhotos(data);
+	      }
+	    });
+	  }
+	};
+
+	module.exports = PhotoApiUtil;
+
+/***/ },
+/* 240 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(212),
+	    PhotoConstants = __webpack_require__(241);
+
+	var PhotoActions = {
+	  receivePhotos: function (photos) {
+	    Dispatcher.dispatch({
+	      actionType: PhotoConstants.RECEIVED_PHOTOS,
+	      photos: photos
+	    });
+	  }
+	};
+
+	module.exports = PhotoActions;
+
+/***/ },
+/* 241 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVED_PHOTOS: "RECEIVED_PHOTOS"
+	};
 
 /***/ }
 /******/ ]);

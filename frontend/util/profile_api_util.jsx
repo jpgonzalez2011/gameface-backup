@@ -1,6 +1,6 @@
 var ProfileActions = require('../actions/profile_actions');
 
-var ApiUtil = {
+var ProfileApiUtil = {
   fetchSingleProfile: function (id) {
     $.ajax({
       type: 'GET',
@@ -13,4 +13,4 @@ var ApiUtil = {
   }
 };
 
-module.exports = ApiUtil;
+module.exports = ProfileApiUtil;

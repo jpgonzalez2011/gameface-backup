@@ -4,6 +4,13 @@ class User < ActiveRecord::Base
             :fname, :date_of_birth, presence: true
   validates :password, length: { minimum: 6, allow_nil: true }
 
+  has_many(
+    :photos,
+    primary_key: :id,
+    foreign_key: :uploader_id,
+    class_name: "Photo"
+  )
+
   attr_reader :password
 
   after_initialize :ensure_session_token

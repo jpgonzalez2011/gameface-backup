@@ -1,7 +1,7 @@
 var Dispatcher = require('../dispatcher/dispatcher'),
     Store = require('flux/utils').Store,
     ProfileConstants = require('../constants/profile_constants'),
-    ApiUtil = require('../util/api_util');
+    ProfileApiUtil = require('../util/profile_api_util');
 
 var _profiles = {};
 
@@ -17,7 +17,7 @@ ProfileStore.all = function () {
 
 ProfileStore.find = function (id) {
   if (typeof _profiles[id] === "undefined"){
-    ApiUtil.fetchSingleProfile(id);
+    ProfileApiUtil.fetchSingleProfile(id);
   }
   return _profiles[id] || {};
 };
