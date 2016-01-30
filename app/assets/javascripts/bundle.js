@@ -31693,6 +31693,7 @@
 	  },
 
 	  componentWillUnmount: function () {
+	    PhotoStore.emptyPhotos();
 	    this.storeCBToken.remove();
 	  },
 
@@ -31705,6 +31706,18 @@
 	  },
 
 	  render: function () {
+	    if (this.state.photos.length === 0) {
+	      return React.createElement(
+	        'div',
+	        { className: 'photo-index-container group' },
+	        _photoForm,
+	        React.createElement(
+	          'h1',
+	          null,
+	          ' No Photos yet! '
+	        )
+	      );
+	    }
 	    return React.createElement(
 	      'div',
 	      { className: 'photo-index-container group' },
@@ -31750,10 +31763,14 @@
 	  PhotoApiUtil.acceptNewPhoto(photo, resetCallback);
 	};
 
+	PhotoStore.emptyPhotos = function () {
+	  photos = [];
+	};
+
 	PhotoStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case PhotoConstants.RECEIVED_PHOTOS:
-	      if (photos.length !== payload.photos.length && payload.photos.length !== 0) {
+	      if (photos.length !== payload.photos.length || payload.photos.length !== 0) {
 	        photos = payload.photos;
 	        this.__emitChange();
 	      }

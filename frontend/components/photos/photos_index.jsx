@@ -22,6 +22,7 @@ var PhotosIndex = React.createClass({
   },
 
   componentWillUnmount: function () {
+    PhotoStore.emptyPhotos();
     this.storeCBToken.remove();
   },
 
@@ -34,6 +35,14 @@ var PhotosIndex = React.createClass({
   },
 
   render: function () {
+    if (this.state.photos.length === 0) {
+      return (
+        <div className="photo-index-container group">
+          {_photoForm}
+          <h1> No Photos yet! </h1>
+        </div>
+      );
+    }
     return (
       <div className="photo-index-container group">
         {_photoForm}
