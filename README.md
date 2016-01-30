@@ -11,13 +11,15 @@ GameFaces is an app inspired by Facebook for the Faces of Video Games:
 <!-- This is a Markdown checklist. Use it to keep track of your progress! -->
 
 - [ ] Users can create an account.
-- [ ] Users can login and logout.
+- [x] Users can login and logout.
 - [ ] Users have profile pages.
       - Personal Information (About)
       - Profile Picture
       - Cover Picture
       - Display Area for Posts
 - [ ] Users can make posts (text).
+- [x] Users can upload pictures.
+- [x] User pictures are displayed in main index.
 - [ ] Users can comment on posts (text).
 - [ ] Users can like posts.
 - [ ] Users can become friends with other users.
