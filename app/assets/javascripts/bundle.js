@@ -107,11 +107,19 @@
 	    React.createElement(
 	      Route,
 	      { path: 'users/:userId', component: Profile },
-	      ' //ensure login here',
+	      '  //ensure login here',
 	      React.createElement(Route, { path: 'photos', component: PhotosIndex })
 	    )
 	  )
 	);
+
+	function _ensureLoggedIn() {
+	  if (CurrentUserStore.loggedIn) {
+	    return {};
+	  } else {
+	    this.history.pushState({}, "/");
+	  }
+	}
 
 	document.addEventListener('DOMContentLoaded', function () {
 	  ReactDOM.render(router, document.getElementById('root'));
@@ -31462,6 +31470,10 @@
 	    this.storeCBToken = ProfileStore.addListener(function () {
 	      this.setState(this.getStateFromStore(this.props));
 	    }.bind(this));
+	  },
+
+	  componentWillMount: function () {
+	    this.getStateFromStore(this.props);
 	  },
 
 	  componentWillUnmount: function () {

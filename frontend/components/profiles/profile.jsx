@@ -22,6 +22,10 @@ var Profile = React.createClass({
     }.bind(this));
   },
 
+  componentWillMount: function () {
+    this.getStateFromStore(this.props);
+  },
+
   componentWillUnmount: function () {
     this.storeCBToken.remove();
   },

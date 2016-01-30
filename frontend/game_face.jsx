@@ -54,12 +54,20 @@ var GameFace = React.createClass({
 var router = (
   <Router>
     <Route path="/" component={GameFace}>
-      <Route path="users/:userId" component={Profile}> //ensure login here
+      <Route path="users/:userId" component={Profile}>  //ensure login here
         <Route path="photos" component={PhotosIndex} />
       </Route>
     </Route>
   </Router>
 );
+
+function _ensureLoggedIn () {
+  if (CurrentUserStore.loggedIn) {
+    return {};
+  } else  {
+    this.history.pushState({}, "/");
+  }
+}
 
 document.addEventListener('DOMContentLoaded', function () {
   ReactDOM.render( router, document.getElementById('root'));
