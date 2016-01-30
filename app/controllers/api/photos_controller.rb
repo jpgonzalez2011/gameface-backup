@@ -7,7 +7,7 @@ class Api::PhotosController < ApplicationController
   def create
     @photo = Photo.new(photo_params)
     if @photo.uploader_id == current_user.id  &&  @photo.save
-      render :index
+      render :show
     else
       render json: {}, status: 420
     end

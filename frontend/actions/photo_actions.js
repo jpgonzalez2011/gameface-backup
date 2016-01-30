@@ -9,10 +9,10 @@ var PhotoActions = {
     });
   },
 
-  receiveUpdatedPhotos: function(photos) {
+  receiveUpdatedPhoto: function(photo) {
     Dispatcher.dispatch({
-      actionType: PhotoConstants.RECEIVE_UPDATED_PHOTOS,
-      photos: photos
+      actionType: PhotoConstants.RECEIVE_UPDATED_PHOTO,
+      photo: photo
     });
   }
 };

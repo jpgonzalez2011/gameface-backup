@@ -21,7 +21,7 @@ var PhotoApiUtil = {
       dataType: "json",
       data: photo,
       success: function (data) {
-        PhotoActions.receiveUpdatedPhotos(data);
+        PhotoActions.receiveUpdatedPhoto(data);
       }
     });
   }

@@ -31740,11 +31740,13 @@
 	PhotoStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case PhotoConstants.RECEIVED_PHOTOS:
-	      photos = payload.photos;
-	      this.__emitChange();
+	      if (photos.length !== payload.photos.length && payload.photos.length !== 0) {
+	        photos = payload.photos;
+	        this.__emitChange();
+	      }
 	      break;
-	    case PhotoConstants.RECEIVE_UPDATED_PHOTOS:
-	      photos = payload.photos;
+	    case PhotoConstants.RECEIVE_UPDATED_PHOTO:
+	      photos.push(payload.photo);
 	      this.__emitChange();
 	      break;
 	  }
@@ -31758,7 +31760,7 @@
 
 	module.exports = {
 	  RECEIVED_PHOTOS: "RECEIVED_PHOTOS",
-	  RECEIVE_UPDATED_PHOTOS: "RECEIVE_UPDATED_PHOTOS"
+	  RECEIVE_UPDATED_PHOTO: "RECEIVE_UPDATED_PHOTO"
 	};
 
 /***/ },
@@ -31788,7 +31790,7 @@
 	      dataType: "json",
 	      data: photo,
 	      success: function (data) {
-	        PhotoActions.receiveUpdatedPhotos(data);
+	        PhotoActions.receiveUpdatedPhoto(data);
 	      }
 	    });
 	  }
@@ -31811,10 +31813,10 @@
 	    });
 	  },
 
-	  receiveUpdatedPhotos: function (photos) {
+	  receiveUpdatedPhoto: function (photo) {
 	    Dispatcher.dispatch({
-	      actionType: PhotoConstants.RECEIVE_UPDATED_PHOTOS,
-	      photos: photos
+	      actionType: PhotoConstants.RECEIVE_UPDATED_PHOTO,
+	      photo: photo
 	    });
 	  }
 	};
