@@ -54,7 +54,7 @@ var GameFace = React.createClass({
 var router = (
   <Router>
     <Route path="/" component={GameFace}>
-      <Route path="users/:userId" component={Profile}>  //ensure login here
+      <Route path="users/:userId" component={Profile} onEnter={_ensureLoggedIn}>  //ensure login here
         <Route path="photos" component={PhotosIndex} />
       </Route>
     </Route>
@@ -62,10 +62,10 @@ var router = (
 );
 
 function _ensureLoggedIn () {
-  if (CurrentUserStore.loggedIn) {
+  if (CurrentUserStore.loggedIn()) {
     return {};
   } else  {
-    this.history.pushState({}, "/");
+    window.location.hash = "/";
   }
 }
 

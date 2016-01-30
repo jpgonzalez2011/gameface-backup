@@ -106,7 +106,7 @@
 	    { path: '/', component: GameFace },
 	    React.createElement(
 	      Route,
-	      { path: 'users/:userId', component: Profile },
+	      { path: 'users/:userId', component: Profile, onEnter: _ensureLoggedIn },
 	      '  //ensure login here',
 	      React.createElement(Route, { path: 'photos', component: PhotosIndex })
 	    )
@@ -114,10 +114,10 @@
 	);
 
 	function _ensureLoggedIn() {
-	  if (CurrentUserStore.loggedIn) {
+	  if (CurrentUserStore.loggedIn()) {
 	    return {};
 	  } else {
-	    this.history.pushState({}, "/");
+	    window.location.hash = "/";
 	  }
 	}
 
@@ -31375,6 +31375,10 @@
 	    CurrentUserStore.acceptCredentials({ username: this.state.username, password: this.state.password });
 	  },
 
+	  logInAsMario: function () {
+	    CurrentUserStore.acceptCredentials({ username: "mario", password: "password" });
+	  },
+
 	  // userReceived: function () {
 	  //   this.getCurrentUserFromStore();
 	  // },
@@ -31409,7 +31413,7 @@
 	        ),
 	        React.createElement(
 	          'button',
-	          { className: 'mario-log-in' },
+	          { onClick: this.logInAsMario, className: 'mario-log-in' },
 	          ' Log in as Mario! '
 	        ),
 	        React.createElement(
@@ -31459,7 +31463,7 @@
 	  mixins: [History],
 
 	  getInitialState: function () {
-	    return { profile: {} };
+	    return { profile: ProfileStore.find(this.props.params.userId) };
 	  },
 
 	  getStateFromStore: function (props) {

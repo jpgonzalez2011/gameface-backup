@@ -7,7 +7,7 @@ var Profile = React.createClass({
   mixins: [History],
 
   getInitialState: function () {
-    return { profile: {} };
+    return { profile: ProfileStore.find(this.props.params.userId) };
   },
 
   getStateFromStore: function (props) {
@@ -33,7 +33,6 @@ var Profile = React.createClass({
   componentWillReceiveProps: function (newProps) {
     this.setState(this.getStateFromStore(newProps));
   },
-
 
   render: function () {
     var photos = "#/users/" + this.props.params.userId + "/photos",

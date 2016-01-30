@@ -20,6 +20,12 @@ var LoggedOutNavHeader = React.createClass({
     );
   },
 
+  logInAsMario: function () {
+    CurrentUserStore.acceptCredentials(
+      { username: "mario", password: "password"}
+    );
+  },
+
   // userReceived: function () {
   //   this.getCurrentUserFromStore();
   // },
@@ -43,7 +49,7 @@ var LoggedOutNavHeader = React.createClass({
           <header className="header-text">
             <a href="#/">GameFaces!</a>
           </header>
-            <button className="mario-log-in"> Log in as Mario! </button>
+            <button onClick={this.logInAsMario} className="mario-log-in"> Log in as Mario! </button>
           <header className="sign-in-header group">
             <form onSubmit={this.submitCredentials} className="sign-in-header-form group">
                 <label for="username">Username</label>
