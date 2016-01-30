@@ -24,7 +24,7 @@ var GameFace = React.createClass({
   },
 
   userReceived: function () {
-    this.getCurrentUserFromStore();
+    // this.getCurrentUserFromStore();
     var url = "/users/" + CurrentUserStore.currentUser().id;
     this.history.pushState({}, url, CurrentUserStore.currentUser.id);
   },

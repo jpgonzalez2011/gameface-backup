@@ -40,6 +40,9 @@ CurrentUserStore.__onDispatch = function (payload) {
       this.__emitChange();
       break;
     case CurrentUserConstants.EXISTING_USER_RECEIVED:
+      if (payload.currentUser[0].id === "no-user-found") {
+        break;
+      }
       _currentUser = payload.currentUser[0];
       this.__emitChange();
       break;

@@ -71,7 +71,7 @@
 	  },
 
 	  userReceived: function () {
-	    this.getCurrentUserFromStore();
+	    // this.getCurrentUserFromStore();
 	    var url = "/users/" + CurrentUserStore.currentUser().id;
 	    this.history.pushState({}, url, CurrentUserStore.currentUser.id);
 	  },
@@ -24458,6 +24458,9 @@
 	      this.__emitChange();
 	      break;
 	    case CurrentUserConstants.EXISTING_USER_RECEIVED:
+	      if (payload.currentUser[0].id === "no-user-found") {
+	        break;
+	      }
 	      _currentUser = payload.currentUser[0];
 	      this.__emitChange();
 	      break;

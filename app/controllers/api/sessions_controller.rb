@@ -5,7 +5,7 @@ class Api::SessionsController < ApplicationController
       @user = current_user
       render json: [{id: @user.id, username: @user.username}]
     else
-      render json: {}, status: 401
+      render json: [{id: "no-user-found"}]
     end
   end
 
