@@ -36,12 +36,12 @@ var Profile = React.createClass({
 
   render: function () {
     var photos = "#/users/" + this.props.params.userId + "/photos",
-        about = "#/about/" + this.props.params.userId + "/about",
-        timeline = "#/about/" + this.props.params.userId + "timeline",
-        friends = "#/about/" + this.props.params.userId + "friends";
+        about = "#/users/" + this.props.params.userId + "/about",
+        timeline = "#/users/" + this.props.params.userId + "/timeline",
+        friends = "#/users/" + this.props.params.userId + "/friends";
 
     return (
-      <div>
+      <div className="main-div">
         <header className="profile-header-box group">
           <div className="cover-photo-box">
             <img src={this.state.profile.cover_photo} />

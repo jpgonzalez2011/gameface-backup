@@ -4,8 +4,8 @@ var Dispatcher = require('../dispatcher/dispatcher'),
 var PhotoActions = {
   receivePhotos: function (photos) {
       Dispatcher.dispatch({
-      actionType: PhotoConstants.RECEIVED_PHOTOS,
-      photos: photos
+        actionType: PhotoConstants.RECEIVED_PHOTOS,
+        photos: photos
     });
   },
 

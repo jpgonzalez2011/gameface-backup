@@ -1,0 +1,18 @@
+.about-container {
+  idth: 851px;
+  margin: auto;
+}
+
+.about-container > ul {
+  width: 850px;
+  padding: 0px;
+  margin: auto;
+}
+
+.about-container > li {
+  float: left;
+}
+
+.about-container > li > p {
+  float: left;
+}

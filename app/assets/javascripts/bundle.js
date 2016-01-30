@@ -54,6 +54,7 @@
 	    LoggedOutNavHeader = __webpack_require__(235),
 	    Profile = __webpack_require__(236),
 	    PhotosIndex = __webpack_require__(241),
+	    About = __webpack_require__(247),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var GameFace = React.createClass({
@@ -108,7 +109,8 @@
 	      Route,
 	      { path: 'users/:userId', component: Profile, onEnter: _ensureLoggedIn },
 	      '  //ensure login here',
-	      React.createElement(Route, { path: 'photos', component: PhotosIndex })
+	      React.createElement(Route, { path: 'photos', component: PhotosIndex }),
+	      React.createElement(Route, { path: 'about', component: About })
 	    )
 	  )
 	);
@@ -31493,13 +31495,13 @@
 
 	  render: function () {
 	    var photos = "#/users/" + this.props.params.userId + "/photos",
-	        about = "#/about/" + this.props.params.userId + "/about",
-	        timeline = "#/about/" + this.props.params.userId + "timeline",
-	        friends = "#/about/" + this.props.params.userId + "friends";
+	        about = "#/users/" + this.props.params.userId + "/about",
+	        timeline = "#/users/" + this.props.params.userId + "/timeline",
+	        friends = "#/users/" + this.props.params.userId + "/friends";
 
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'main-div' },
 	      React.createElement(
 	        'header',
 	        { className: 'profile-header-box group' },
@@ -31781,7 +31783,7 @@
 	      }
 	      break;
 	    case PhotoConstants.RECEIVE_UPDATED_PHOTO:
-	      photos.push(payload.photo);
+	      photos.unshift(payload.photo);
 	      this.__emitChange();
 	      break;
 	  }
@@ -31922,6 +31924,159 @@
 	});
 
 	module.exports = PhotoForm;
+
+/***/ },
+/* 247 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    AboutStore = __webpack_require__(248);
+
+	var About = React.createClass({
+	  displayName: 'About',
+
+	  getInitialState: function () {
+	    return this.getStateFromStore(this.props);
+	  },
+
+	  getStateFromStore: function (props) {
+	    return { aboutInfo: AboutStore.findByUserId(props.params.userId) };
+	  },
+
+	  componentDidMount: function () {
+	    this.storeCBToken = AboutStore.addListener(function () {
+	      this.setState(this.getStateFromStore(this.props));
+	    }.bind(this));
+	  },
+
+	  componentWillUnMount: function () {
+	    this.storeCBToken.remove();
+	  },
+
+	  componentWillMount: function () {
+	    AboutStore.emptyAboutInfo(this.props.params.userId);
+	  },
+
+	  render: function () {
+	    if (typeof this.state.aboutInfo === "undefined") {
+	      return React.createElement(
+	        'div',
+	        { className: 'about-container group' },
+	        'rendering...'
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { className: 'about-container group' },
+	        React.createElement(
+	          'ul',
+	          { className: 'about-list group' },
+	          React.createElement(
+	            'li',
+	            { group: true },
+	            'Full Name: ',
+	            this.state.aboutInfo.fname,
+	            ' ',
+	            this.state.aboutInfo.lname
+	          ),
+	          React.createElement(
+	            'li',
+	            null,
+	            'Occupation ',
+	            this.state.aboutInfo.occupation
+	          )
+	        )
+	      );
+	    }
+	  }
+	});
+
+	module.exports = About;
+
+/***/ },
+/* 248 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    Store = __webpack_require__(214).Store,
+	    AboutConstants = __webpack_require__(249),
+	    AboutApiUtil = __webpack_require__(250);
+
+	var aboutInfo = {};
+
+	var AboutStore = new Store(Dispatcher);
+
+	AboutStore.findByUserId = function (userId) {
+	  if (parseInt(aboutInfo.id) !== parseInt(userId)) {
+	    AboutApiUtil.fetchAboutInfo(userId);
+	  } else {
+	    return aboutInfo;
+	  }
+	};
+
+	AboutStore.emptyAboutInfo = function (userId) {
+	  if (aboutInfo.length > 0 && aboutInfo.id !== userId) {
+	    aboutInfo = {};
+	  }
+	};
+
+	AboutStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case AboutConstants.ABOUT_INFO_RECEIVED:
+	      aboutInfo = payload.aboutInfo;
+	      this.__emitChange();
+	      break;
+	  }
+	};
+
+	module.exports = AboutStore;
+
+/***/ },
+/* 249 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  ABOUT_INFO_RECEIVED: "ABOUT_INFO_RECEIVED"
+	};
+
+/***/ },
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AboutActions = __webpack_require__(251);
+
+	var AboutApiUtil = {
+	  fetchAboutInfo: function (id) {
+	    $.ajax({
+	      type: "GET",
+	      url: "api/users/" + id + "/about/",
+	      dataType: "json",
+	      success: function (data) {
+	        AboutActions.receiveAboutInfo(data);
+	      }
+	    });
+	  }
+	};
+
+	module.exports = AboutApiUtil;
+
+/***/ },
+/* 251 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    AboutConstants = __webpack_require__(249);
+
+	var AboutActions = {
+	  receiveAboutInfo: function (aboutInfo) {
+	    Dispatcher.dispatch({
+	      actionType: AboutConstants.ABOUT_INFO_RECEIVED,
+	      aboutInfo: aboutInfo
+	    });
+	  }
+	};
+
+	module.exports = AboutActions;
 
 /***/ }
 /******/ ]);

@@ -8,6 +8,7 @@ var LoggedInNavHeader = require('./components/logged_in_nav_header'),
     LoggedOutNavHeader = require('./components/logged_out_nav_header'),
     Profile = require('./components/profiles/profile'),
     PhotosIndex = require('./components/photos/photos_index'),
+    About = require('./components/about/about'),
     CurrentUserStore = require('./stores/current_user_store');
 
 var GameFace = React.createClass({
@@ -56,6 +57,7 @@ var router = (
     <Route path="/" component={GameFace}>
       <Route path="users/:userId" component={Profile} onEnter={_ensureLoggedIn}>  //ensure login here
         <Route path="photos" component={PhotosIndex} />
+        <Route path="about" component={About} />
       </Route>
     </Route>
   </Router>

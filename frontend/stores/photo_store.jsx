@@ -33,7 +33,7 @@ PhotoStore.__onDispatch = function (payload) {
     }
       break;
     case PhotoConstants.RECEIVE_UPDATED_PHOTO:
-      photos.push(payload.photo);
+      photos.unshift(payload.photo);
       this.__emitChange();
       break;
   }
