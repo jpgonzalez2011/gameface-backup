@@ -31665,8 +31665,11 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
+	    CurrentUserStore = __webpack_require__(209),
 	    PhotoStore = __webpack_require__(242),
 	    PhotoForm = __webpack_require__(246);
+
+	var _photoForm;
 
 	var PhotosIndex = React.createClass({
 	  displayName: 'PhotosIndex',
@@ -31676,6 +31679,7 @@
 	  },
 
 	  getStateFromStore: function (props) {
+	    this.checkForOwner();
 	    return { photos: PhotoStore.findByOwner(props.params.userId) };
 	  },
 
@@ -31689,11 +31693,19 @@
 	    this.storeCBToken.remove();
 	  },
 
+	  checkForOwner: function () {
+	    if (CurrentUserStore.currentUser().id == this.props.params.userId) {
+	      _photoForm = React.createElement(PhotoForm, null);
+	    } else {
+	      _photoForm = "";
+	    }
+	  },
+
 	  render: function () {
 	    return React.createElement(
 	      'div',
 	      { className: 'photo-index-container group' },
-	      React.createElement(PhotoForm, null),
+	      _photoForm,
 	      React.createElement(
 	        'ul',
 	        { className: 'photo-index-list group' },
@@ -31701,9 +31713,7 @@
 	          return React.createElement(
 	            'li',
 	            { key: i },
-	            ' ',
-	            React.createElement('img', { className: 'photo-preview', src: photo.image }),
-	            ' '
+	            React.createElement('img', { className: 'photo-preview', src: photo.medium_size_url })
 	          );
 	        })
 	      )

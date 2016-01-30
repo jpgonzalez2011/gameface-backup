@@ -16,3 +16,8 @@
   margin: 5px;
   float: left;
 }
+
+.photo-index-container > ul > li > img {
+  width: 100%;
+  height: 100%;
+}

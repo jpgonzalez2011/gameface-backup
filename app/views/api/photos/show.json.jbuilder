@@ -1,4 +1,4 @@
 json.extract!(
   @photo,
-  :id, :image
+  :id, :medium_size_url
 )

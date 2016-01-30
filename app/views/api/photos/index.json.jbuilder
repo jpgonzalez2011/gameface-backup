@@ -1,6 +1,6 @@
 json.array!(@photos) do |photo|
   json.extract!(
     photo,
-    :id, :image
+    :id, :medium_size_url
   )
 end

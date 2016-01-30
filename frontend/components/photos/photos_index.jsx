@@ -1,7 +1,9 @@
 var React = require('react'),
+    CurrentUserStore = require('../../stores/current_user_store'),
     PhotoStore = require('../../stores/photo_store'),
     PhotoForm = require('./photo_form');
 
+var _photoForm;
 
 var PhotosIndex = React.createClass({
   getInitialState: function () {
@@ -9,6 +11,7 @@ var PhotosIndex = React.createClass({
   },
 
   getStateFromStore: function (props) {
+    this.checkForOwner();
     return ( { photos: PhotoStore.findByOwner(props.params.userId) });
   },
 
@@ -22,14 +25,24 @@ var PhotosIndex = React.createClass({
     this.storeCBToken.remove();
   },
 
+  checkForOwner: function () {
+    if (CurrentUserStore.currentUser().id == this.props.params.userId) {
+      _photoForm = <PhotoForm />;
+    } else {
+      _photoForm = "";
+    }
+  },
+
   render: function () {
     return (
       <div className="photo-index-container group">
-        <PhotoForm />
+        {_photoForm}
         <ul className="photo-index-list group">
           {this.state.photos.map( function (photo, i) {
             return (
-              <li key={i}> <img className="photo-preview" src={photo.image} /> </li>
+              <li key={i}>
+                <img className="photo-preview" src={photo.medium_size_url} />
+              </li>
             );
           })}
         </ul>
