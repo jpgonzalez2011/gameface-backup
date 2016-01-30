@@ -31665,7 +31665,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PhotoStore = __webpack_require__(242);
+	    PhotoStore = __webpack_require__(242),
+	    PhotoForm = __webpack_require__(250);
 
 	var PhotosIndex = React.createClass({
 	  displayName: 'PhotosIndex',
@@ -31692,6 +31693,7 @@
 	    return React.createElement(
 	      'div',
 	      { className: 'photo-index-container group' },
+	      React.createElement(PhotoForm, null),
 	      React.createElement(
 	        'ul',
 	        { className: 'photo-index-list group' },
@@ -31731,10 +31733,20 @@
 	  return photos;
 	};
 
+	PhotoStore.acceptNewPhoto = function (photo, resetCallback) {
+	  PhotoApiUtil.acceptNewPhoto(photo, resetCallback);
+	};
+
 	PhotoStore.__onDispatch = function (payload) {
-	  if (payload.actionType === PhotoConstants.RECEIVED_PHOTOS) {
-	    photos = payload.photos;
-	    this.__emitChange();
+	  switch (payload.actionType) {
+	    case PhotoConstants.RECEIVED_PHOTOS:
+	      photos = payload.photos;
+	      this.__emitChange();
+	      break;
+	    case PhotoConstants.RECEIVE_UPDATED_PHOTOS:
+	      photos = payload.photos;
+	      this.__emitChange();
+	      break;
 	  }
 	};
 
@@ -31745,7 +31757,8 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-	  RECEIVED_PHOTOS: "RECEIVED_PHOTOS"
+	  RECEIVED_PHOTOS: "RECEIVED_PHOTOS",
+	  RECEIVE_UPDATED_PHOTOS: "RECEIVE_UPDATED_PHOTOS"
 	};
 
 /***/ },
@@ -31762,6 +31775,20 @@
 	      dataType: "json",
 	      success: function (data) {
 	        PhotoActions.receivePhotos(data);
+	      }
+	    });
+	  },
+
+	  acceptNewPhoto: function (photo, resetCallback) {
+	    $.ajax({
+	      type: "POST",
+	      url: "api/users/" + photo.ownerId + "/photos",
+	      processData: false,
+	      contentType: false,
+	      dataType: "json",
+	      data: photo,
+	      success: function (data) {
+	        PhotoActions.receiveUpdatedPhotos(data);
 	      }
 	    });
 	  }
@@ -31782,10 +31809,86 @@
 	      actionType: PhotoConstants.RECEIVED_PHOTOS,
 	      photos: photos
 	    });
+	  },
+
+	  receiveUpdatedPhotos: function (photos) {
+	    Dispatcher.dispatch({
+	      actionType: PhotoConstants.RECEIVE_UPDATED_PHOTOS,
+	      photos: photos
+	    });
 	  }
 	};
 
 	module.exports = PhotoActions;
+
+/***/ },
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    PhotoStore = __webpack_require__(242),
+	    CurrentUserStore = __webpack_require__(209);
+
+	var PhotoForm = React.createClass({
+	  displayName: 'PhotoForm',
+
+	  getInitialState: function () {
+	    return { title: "", imageFile: null, imageUrl: "" };
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'form',
+	        { className: 'photo-upload-form', onSubmit: this.handleSubmit },
+	        React.createElement(
+	          'label',
+	          { 'for': 'photo' },
+	          'Photo'
+	        ),
+	        React.createElement('input', { type: 'file', id: 'photo', onChange: this.changeFile }),
+	        React.createElement(
+	          'button',
+	          null,
+	          ' Submit '
+	        )
+	      )
+	    );
+	  },
+
+	  changeFile: function (e) {
+	    var reader = new FileReader();
+	    var file = e.currentTarget.files[0];
+
+	    reader.onloadend = function () {
+	      this.setState({ imageFile: file, imageUrl: reader.result });
+	    }.bind(this);
+
+	    if (file) {
+	      reader.readAsDataURL(file); // will trigger a load end event when it completes, and invoke reader.onloadend
+	    } else {
+	        this.setState({ imageFile: null, imageUrl: "" });
+	      }
+	  },
+
+	  handleSubmit: function (e) {
+	    e.preventDefault();
+
+	    var formData = new FormData();
+
+	    formData.append("photo[uploader_id]", CurrentUserStore.currentUser().id);
+	    formData.append("photo[image]", this.state.imageFile);
+	    PhotoStore.acceptNewPhoto(formData, this.resetForm);
+	  }
+	});
+
+	module.exports = PhotoForm;
 
 /***/ }
 /******/ ]);

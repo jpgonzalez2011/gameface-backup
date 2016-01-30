@@ -10,6 +10,20 @@ var PhotoApiUtil = {
         PhotoActions.receivePhotos(data);
       }
     });
+  },
+
+  acceptNewPhoto: function (photo, resetCallback) {
+    $.ajax({
+      type: "POST",
+      url: "api/users/" + photo.ownerId + "/photos",
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      data: photo,
+      success: function (data) {
+        PhotoActions.receiveUpdatedPhotos(data);
+      }
+    });
   }
 };
 

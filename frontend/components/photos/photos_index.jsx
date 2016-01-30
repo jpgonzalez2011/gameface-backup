@@ -1,5 +1,6 @@
 var React = require('react'),
-    PhotoStore = require('../../stores/photo_store');
+    PhotoStore = require('../../stores/photo_store'),
+    PhotoForm = require('./photo_form');
 
 
 var PhotosIndex = React.createClass({
@@ -24,6 +25,7 @@ var PhotosIndex = React.createClass({
   render: function () {
     return (
       <div className="photo-index-container group">
+        <PhotoForm />
         <ul className="photo-index-list group">
           {this.state.photos.map( function (photo, i) {
             return (

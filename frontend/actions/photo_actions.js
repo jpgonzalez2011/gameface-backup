@@ -7,6 +7,13 @@ var PhotoActions = {
       actionType: PhotoConstants.RECEIVED_PHOTOS,
       photos: photos
     });
+  },
+
+  receiveUpdatedPhotos: function(photos) {
+    Dispatcher.dispatch({
+      actionType: PhotoConstants.RECEIVE_UPDATED_PHOTOS,
+      photos: photos
+    });
   }
 };
 

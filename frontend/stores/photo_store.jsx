@@ -14,10 +14,20 @@ PhotoStore.findByOwner = function (ownerId) {
   return photos;
 };
 
+PhotoStore.acceptNewPhoto = function (photo, resetCallback) {
+  PhotoApiUtil.acceptNewPhoto(photo, resetCallback);
+};
+
 PhotoStore.__onDispatch = function (payload) {
-  if (payload.actionType === PhotoConstants.RECEIVED_PHOTOS) {
-    photos = payload.photos;
-    this.__emitChange();
+  switch (payload.actionType){
+    case PhotoConstants.RECEIVED_PHOTOS:
+      photos = payload.photos;
+      this.__emitChange();
+      break;
+    case PhotoConstants.RECEIVE_UPDATED_PHOTOS:
+      photos = payload.photos;
+      this.__emitChange();
+      break;
   }
 };
 
