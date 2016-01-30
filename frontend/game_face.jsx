@@ -25,8 +25,8 @@ var GameFace = React.createClass({
 
   userReceived: function () {
     this.getCurrentUserFromStore();
-    var url = "#/users/" + CurrentUserStore.currentUser().id;
-    window.location.hash = url;
+    var url = "/users/" + CurrentUserStore.currentUser().id;
+    this.history.pushState({}, url, CurrentUserStore.currentUser.id);
   },
 
   componentDidMount: function () {

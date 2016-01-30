@@ -3,22 +3,19 @@ var Dispatcher = require('../dispatcher/dispatcher'),
     PhotoConstants = require('../constants/photo_constants'),
     PhotoApiUtil = require('../util/photo_api_util');
 
-var photos = [];
+var _photos = [];
 
 var PhotoStore = new Store(Dispatcher);
 
 PhotoStore.findByOwner = function (ownerId) {
-  if (photos.length === 0) {
-    PhotoApiUtil.fetchOwnedPhotos(ownerId);
-  }
-  return photos;
+  debugger
+  PhotoApiUtil.fetchOwnedPhotos(ownerId);
 };
 
 PhotoStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
-
     case PhotoConstants.RECEIVED_PHOTOS:
-      photos = payload.photos;
+      _photos = payload.photos;
       this.__emitChange();
       break;
   }

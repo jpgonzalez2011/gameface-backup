@@ -72,8 +72,8 @@
 
 	  userReceived: function () {
 	    this.getCurrentUserFromStore();
-	    var url = "#/users/" + CurrentUserStore.currentUser().id;
-	    window.location.hash = url;
+	    var url = "/users/" + CurrentUserStore.currentUser().id;
+	    this.history.pushState({}, url, CurrentUserStore.currentUser.id);
 	  },
 
 	  componentDidMount: function () {
@@ -31359,7 +31359,7 @@
 	  displayName: 'PhotosIndex',
 
 	  getInitialState: function () {
-	    return { photos: PhotoStore.findByOwner(this.props.params.userId) };
+	    return { photos: [] };
 	  },
 
 	  getStateFromStore: function (userId) {
@@ -31367,29 +31367,43 @@
 	  },
 
 	  componentDidMount: function () {
+	    debugger;
 	    this.storeCBToken = PhotoStore.addListener(function () {
 	      this.setState(this.getStateFromStore);
 	    }.bind(this));
+	    PhotoStore.findByOwner();
 	  },
 
 	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'photo-index-container group' },
-	      React.createElement(
-	        'ul',
-	        { className: 'photo-index-list group' },
-	        this.state.photos.map(function (photo, i) {
-	          return React.createElement(
-	            'li',
-	            { key: i },
-	            ' ',
-	            React.createElement('img', { className: 'photo-preview', src: photo.image }),
-	            ' '
-	          );
-	        })
-	      )
-	    );
+	    if (this.state.photos.length === 0) {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'h1',
+	          null,
+	          ' No photos! =( '
+	        )
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { className: 'photo-index-container group' },
+	        React.createElement(
+	          'ul',
+	          { className: 'photo-index-list group' },
+	          this.state.photos.map(function (photo, i) {
+	            return React.createElement(
+	              'li',
+	              { key: i },
+	              ' ',
+	              React.createElement('img', { className: 'photo-preview', src: photo.image }),
+	              ' '
+	            );
+	          })
+	        )
+	      );
+	    }
 	  }
 	});
 
@@ -31404,22 +31418,19 @@
 	    PhotoConstants = __webpack_require__(238),
 	    PhotoApiUtil = __webpack_require__(239);
 
-	var photos = [];
+	var _photos = [];
 
 	var PhotoStore = new Store(Dispatcher);
 
 	PhotoStore.findByOwner = function (ownerId) {
-	  if (photos.length === 0) {
-	    PhotoApiUtil.fetchOwnedPhotos(ownerId);
-	  }
-	  return photos;
+	  debugger;
+	  PhotoApiUtil.fetchOwnedPhotos(ownerId);
 	};
 
 	PhotoStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
-
 	    case PhotoConstants.RECEIVED_PHOTOS:
-	      photos = payload.photos;
+	      _photos = payload.photos;
 	      this.__emitChange();
 	      break;
 	  }
@@ -31448,6 +31459,7 @@
 	      url: "api/users/" + ownerId + "/photos",
 	      dataType: "json",
 	      success: function (data) {
+	        debugger;
 	        PhotoActions.receivePhotos(data);
 	      }
 	    });
