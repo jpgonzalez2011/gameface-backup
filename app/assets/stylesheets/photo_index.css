@@ -1,4 +1,6 @@
 .photo-index-container {
+  width: 851px;
+  margin: auto;
 }
 
 .photo-index-container > ul {

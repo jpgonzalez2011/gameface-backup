@@ -9,9 +9,9 @@ var PhotoForm = React.createClass({
 
   render: function () {
     return (
-      <div>
+      <div className="photo-upload-container">
         <form className="photo-upload-form" onSubmit={this.handleSubmit}>
-          <label for="photo">Photo</label>
+          <label for="photo">Add Photo!</label>
           <input type="file" id="photo" onChange={this.changeFile}/>
           <button> Submit </button>
         </form>

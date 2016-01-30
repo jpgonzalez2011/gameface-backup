@@ -31666,7 +31666,7 @@
 
 	var React = __webpack_require__(1),
 	    PhotoStore = __webpack_require__(242),
-	    PhotoForm = __webpack_require__(250);
+	    PhotoForm = __webpack_require__(246);
 
 	var PhotosIndex = React.createClass({
 	  displayName: 'PhotosIndex',
@@ -31824,11 +31824,7 @@
 	module.exports = PhotoActions;
 
 /***/ },
-/* 246 */,
-/* 247 */,
-/* 248 */,
-/* 249 */,
-/* 250 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
@@ -31845,14 +31841,14 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'photo-upload-container' },
 	      React.createElement(
 	        'form',
 	        { className: 'photo-upload-form', onSubmit: this.handleSubmit },
 	        React.createElement(
 	          'label',
 	          { 'for': 'photo' },
-	          'Photo'
+	          'Add Photo!'
 	        ),
 	        React.createElement('input', { type: 'file', id: 'photo', onChange: this.changeFile }),
 	        React.createElement(
