@@ -22,8 +22,11 @@ var PhotosIndex = React.createClass({
   },
 
   componentWillUnmount: function () {
-    PhotoStore.emptyPhotos();
     this.storeCBToken.remove();
+  },
+
+  componentWillMount: function () {
+    PhotoStore.emptyPhotos(this.props.params.userId);
   },
 
   checkForOwner: function () {

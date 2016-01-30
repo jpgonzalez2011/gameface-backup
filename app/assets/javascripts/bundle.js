@@ -31693,8 +31693,11 @@
 	  },
 
 	  componentWillUnmount: function () {
-	    PhotoStore.emptyPhotos();
 	    this.storeCBToken.remove();
+	  },
+
+	  componentWillMount: function () {
+	    PhotoStore.emptyPhotos(this.props.params.userId);
 	  },
 
 	  checkForOwner: function () {
@@ -31763,8 +31766,10 @@
 	  PhotoApiUtil.acceptNewPhoto(photo, resetCallback);
 	};
 
-	PhotoStore.emptyPhotos = function () {
-	  photos = [];
+	PhotoStore.emptyPhotos = function (userId) {
+	  if (photos.length > 0 && photos[0].uploader_id !== userId) {
+	    photos = [];
+	  }
 	};
 
 	PhotoStore.__onDispatch = function (payload) {
