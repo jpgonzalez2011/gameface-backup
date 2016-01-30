@@ -7,7 +7,6 @@ var PhotoApiUtil = {
       url: "api/users/" + ownerId + "/photos",
       dataType: "json",
       success: function (data) {
-        debugger
         PhotoActions.receivePhotos(data);
       }
     });

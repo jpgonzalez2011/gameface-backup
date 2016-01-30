@@ -50,11 +50,11 @@
 	    Route = __webpack_require__(159).Route,
 	    History = __webpack_require__(159).History;
 
-	var LoggedInNavHeader = __webpack_require__(246),
-	    LoggedOutNavHeader = __webpack_require__(247),
-	    Profile = __webpack_require__(210),
-	    PhotosIndex = __webpack_require__(236),
-	    CurrentUserStore = __webpack_require__(241);
+	var LoggedInNavHeader = __webpack_require__(208),
+	    LoggedOutNavHeader = __webpack_require__(235),
+	    Profile = __webpack_require__(236),
+	    PhotosIndex = __webpack_require__(241),
+	    CurrentUserStore = __webpack_require__(209);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
@@ -24360,193 +24360,121 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 208 */,
-/* 209 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-
-	var NavSearchField = React.createClass({
-	  displayName: "NavSearchField",
-
-	  getInitialState: function () {
-	    return { search: "" };
-	  },
-
-	  render: function () {
-	    return React.createElement("input", { className: "nav-search-field", type: "text", value: this.state.search });
-	  }
-	});
-
-	module.exports = NavSearchField;
-
-/***/ },
-/* 210 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    ProfileStore = __webpack_require__(211);
+	    CurrentUserStore = __webpack_require__(209);
 
-	var Profile = React.createClass({
-	  displayName: 'Profile',
+	var NavSearchField = __webpack_require__(234);
 
-	  getInitialState: function () {
-	    return { profile: {} };
-	  },
+	var LoggedInNavHeader = React.createClass({
+	  displayName: 'LoggedInNavHeader',
 
-	  getStateFromStore: function (props) {
-	    return { profile: ProfileStore.find(props.params.userId) };
-	  },
-
-	  componentDidMount: function () {
-	    this.storeCBToken = ProfileStore.addListener(function () {
-	      this.setState(this.getStateFromStore(this.props));
-	    }.bind(this));
-	  },
-
-	  componentWillUnmount: function () {
-	    this.storeCBToken.remove();
-	  },
-
-	  componentWillReceiveProps: function (newProps) {
-	    this.setState(this.getStateFromStore(newProps));
+	  logOut: function (e) {
+	    CurrentUserStore.logOut();
 	  },
 
 	  render: function () {
-	    var photos = "#/users/" + this.props.params.userId + "/photos",
-	        about = "#/about/" + this.props.params.userId + "/about",
-	        timeline = "#/about/" + this.props.params.userId + "timeline",
-	        friends = "#/about/" + this.props.params.userId + "friends";
-
 	    return React.createElement(
-	      'div',
-	      null,
+	      'header',
+	      { className: 'header group' },
 	      React.createElement(
-	        'header',
-	        { className: 'profile-header-box group' },
+	        'nav',
+	        { className: 'nav-header group' },
 	        React.createElement(
-	          'div',
-	          { className: 'cover-photo-box' },
-	          React.createElement('img', { src: this.state.profile.cover_photo })
-	        ),
-	        React.createElement(
-	          'ul',
-	          { className: 'profile-nav group' },
+	          'header',
+	          { className: 'header-text' },
 	          React.createElement(
-	            'li',
-	            null,
-	            ' ',
-	            React.createElement(
-	              'a',
-	              { href: about },
-	              ' About '
-	            ),
-	            ' '
-	          ),
-	          React.createElement(
-	            'li',
-	            null,
-	            ' ',
-	            React.createElement(
-	              'a',
-	              { href: timeline },
-	              ' Timeline '
-	            ),
-	            ' '
-	          ),
-	          React.createElement(
-	            'li',
-	            null,
-	            ' ',
-	            React.createElement(
-	              'a',
-	              { href: photos },
-	              ' Photos '
-	            ),
-	            ' '
-	          ),
-	          React.createElement(
-	            'li',
-	            null,
-	            ' ',
-	            React.createElement(
-	              'a',
-	              { href: friends },
-	              ' Friends '
-	            ),
-	            ' '
+	            'a',
+	            { href: '#/' },
+	            'GameFaces!'
 	          )
 	        ),
 	        React.createElement(
-	          'div',
-	          { className: 'profile-picture-box' },
-	          React.createElement('img', { src: this.state.profile.profile_photo })
-	        )
-	      ),
-	      this.props.children
+	          'button',
+	          { onClick: this.logOut, className: 'log-out' },
+	          ' Sign Out! '
+	        ),
+	        React.createElement('header', { className: 'signed-in-header group' })
+	      )
 	    );
 	  }
 	});
 
-	module.exports = Profile;
+	module.exports = LoggedInNavHeader;
 
 /***/ },
-/* 211 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Dispatcher = __webpack_require__(212),
-	    Store = __webpack_require__(216).Store,
-	    ProfileConstants = __webpack_require__(233),
-	    ProfileApiUtil = __webpack_require__(234);
+	var Dispatcher = __webpack_require__(210),
+	    Store = __webpack_require__(214).Store,
+	    CurrentUserConstants = __webpack_require__(231),
+	    CurrentUserApiUtil = __webpack_require__(232);
 
-	var _profiles = {};
+	var _currentUser = {};
+	var _loginFailure = false;
 
-	var ProfileStore = new Store(Dispatcher);
+	var CurrentUserStore = new Store(Dispatcher);
 
-	ProfileStore.all = function () {
-	  var output = [];
-	  for (var key in _profiles) {
-	    output.push(_profiles[key]);
+	CurrentUserStore.currentUser = function () {
+	  if (_currentUser.id) {
+	    return $.extend({}, _currentUser);
+	  } else {
+	    CurrentUserApiUtil.checkForExistingUser();
+	    return {};
 	  }
-	  return output;
 	};
 
-	ProfileStore.find = function (id) {
-	  if (typeof _profiles[id] === "undefined") {
-	    ProfileApiUtil.fetchSingleProfile(id);
-	  }
-	  return _profiles[id] || {};
+	CurrentUserStore.loginFailure = function () {
+	  return _loginFailure;
 	};
 
-	ProfileStore.resetProfiles = function (profiles) {
-	  _profiles = {};
-	  profiles.forEach(function (profile) {
-	    _profiles[profile.id] = profile;
-	  });
-	  this.__emitChange();
+	CurrentUserStore.loggedIn = function () {
+	  return !!_currentUser.id;
 	};
 
-	ProfileStore.__onDispatch = function (payload) {
+	CurrentUserStore.logOut = function () {
+	  CurrentUserApiUtil.logOut();
+	};
+
+	CurrentUserStore.acceptCredentials = function (credentials) {
+	  CurrentUserApiUtil.transmitCredentials(credentials);
+	};
+
+	CurrentUserStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
-	    case ProfileConstants.SINGLE_PROFILE_RECEIVED:
-	      _profiles[payload.profile.id] = payload.profile;
+	    case CurrentUserConstants.NEW_USER_RECEIVED:
+	      _currentUser = payload.currentUser[0];
+	      this.__emitChange();
+	      break;
+	    case CurrentUserConstants.EXISTING_USER_RECEIVED:
+	      _currentUser = payload.currentUser[0];
+	      this.__emitChange();
+	      break;
+	    case CurrentUserConstants.LOGIN_FAILURE:
+	      _loginFailure = true;
+	      break;
+	    case CurrentUserConstants.LOG_OUT:
+	      _currentUser = {};
 	      this.__emitChange();
 	      break;
 	  }
 	};
 
-	module.exports = ProfileStore;
+	module.exports = CurrentUserStore;
 
 /***/ },
-/* 212 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Dispatcher = __webpack_require__(213).Dispatcher;
+	var Dispatcher = __webpack_require__(211).Dispatcher;
 
 	module.exports = new Dispatcher();
 
 /***/ },
-/* 213 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -24558,11 +24486,11 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 
-	module.exports.Dispatcher = __webpack_require__(214);
+	module.exports.Dispatcher = __webpack_require__(212);
 
 
 /***/ },
-/* 214 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -24584,7 +24512,7 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var invariant = __webpack_require__(215);
+	var invariant = __webpack_require__(213);
 
 	var _prefix = 'ID_';
 
@@ -24799,7 +24727,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 215 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -24854,7 +24782,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 216 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -24866,15 +24794,15 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 
-	module.exports.Container = __webpack_require__(217);
-	module.exports.MapStore = __webpack_require__(220);
-	module.exports.Mixin = __webpack_require__(232);
-	module.exports.ReduceStore = __webpack_require__(221);
-	module.exports.Store = __webpack_require__(222);
+	module.exports.Container = __webpack_require__(215);
+	module.exports.MapStore = __webpack_require__(218);
+	module.exports.Mixin = __webpack_require__(230);
+	module.exports.ReduceStore = __webpack_require__(219);
+	module.exports.Store = __webpack_require__(220);
 
 
 /***/ },
-/* 217 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -24896,10 +24824,10 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var FluxStoreGroup = __webpack_require__(218);
+	var FluxStoreGroup = __webpack_require__(216);
 
-	var invariant = __webpack_require__(215);
-	var shallowEqual = __webpack_require__(219);
+	var invariant = __webpack_require__(213);
+	var shallowEqual = __webpack_require__(217);
 
 	var DEFAULT_OPTIONS = {
 	  pure: true,
@@ -25057,7 +24985,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 218 */
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25076,7 +25004,7 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var invariant = __webpack_require__(215);
+	var invariant = __webpack_require__(213);
 
 	/**
 	 * FluxStoreGroup allows you to execute a callback on every dispatch after
@@ -25138,7 +25066,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 219 */
+/* 217 */
 /***/ function(module, exports) {
 
 	/**
@@ -25193,7 +25121,7 @@
 	module.exports = shallowEqual;
 
 /***/ },
-/* 220 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25214,10 +25142,10 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var FluxReduceStore = __webpack_require__(221);
-	var Immutable = __webpack_require__(231);
+	var FluxReduceStore = __webpack_require__(219);
+	var Immutable = __webpack_require__(229);
 
-	var invariant = __webpack_require__(215);
+	var invariant = __webpack_require__(213);
 
 	/**
 	 * This is a simple store. It allows caching key value pairs. An implementation
@@ -25343,7 +25271,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 221 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25364,10 +25292,10 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var FluxStore = __webpack_require__(222);
+	var FluxStore = __webpack_require__(220);
 
-	var abstractMethod = __webpack_require__(230);
-	var invariant = __webpack_require__(215);
+	var abstractMethod = __webpack_require__(228);
+	var invariant = __webpack_require__(213);
 
 	var FluxReduceStore = (function (_FluxStore) {
 	  _inherits(FluxReduceStore, _FluxStore);
@@ -25450,7 +25378,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 222 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25469,11 +25397,11 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _require = __webpack_require__(223);
+	var _require = __webpack_require__(221);
 
 	var EventEmitter = _require.EventEmitter;
 
-	var invariant = __webpack_require__(215);
+	var invariant = __webpack_require__(213);
 
 	/**
 	 * This class should be extended by the stores in your application, like so:
@@ -25633,7 +25561,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 223 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25646,14 +25574,14 @@
 	 */
 
 	var fbemitter = {
-	  EventEmitter: __webpack_require__(224)
+	  EventEmitter: __webpack_require__(222)
 	};
 
 	module.exports = fbemitter;
 
 
 /***/ },
-/* 224 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25672,11 +25600,11 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var EmitterSubscription = __webpack_require__(225);
-	var EventSubscriptionVendor = __webpack_require__(227);
+	var EmitterSubscription = __webpack_require__(223);
+	var EventSubscriptionVendor = __webpack_require__(225);
 
-	var emptyFunction = __webpack_require__(229);
-	var invariant = __webpack_require__(228);
+	var emptyFunction = __webpack_require__(227);
+	var invariant = __webpack_require__(226);
 
 	/**
 	 * @class BaseEventEmitter
@@ -25850,7 +25778,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 225 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25871,7 +25799,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var EventSubscription = __webpack_require__(226);
+	var EventSubscription = __webpack_require__(224);
 
 	/**
 	 * EmitterSubscription represents a subscription with listener and context data.
@@ -25903,7 +25831,7 @@
 	module.exports = EmitterSubscription;
 
 /***/ },
-/* 226 */
+/* 224 */
 /***/ function(module, exports) {
 
 	/**
@@ -25957,7 +25885,7 @@
 	module.exports = EventSubscription;
 
 /***/ },
-/* 227 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25976,7 +25904,7 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var invariant = __webpack_require__(228);
+	var invariant = __webpack_require__(226);
 
 	/**
 	 * EventSubscriptionVendor stores a set of EventSubscriptions that are
@@ -26066,7 +25994,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 228 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -26122,7 +26050,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 229 */
+/* 227 */
 /***/ function(module, exports) {
 
 	/**
@@ -26165,7 +26093,7 @@
 	module.exports = emptyFunction;
 
 /***/ },
-/* 230 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -26182,7 +26110,7 @@
 
 	'use strict';
 
-	var invariant = __webpack_require__(215);
+	var invariant = __webpack_require__(213);
 
 	function abstractMethod(className, methodName) {
 	   true ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Subclasses of %s must override %s() with their own implementation.', className, methodName) : invariant(false) : undefined;
@@ -26192,7 +26120,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 231 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -31179,7 +31107,7 @@
 	}));
 
 /***/ },
-/* 232 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -31196,9 +31124,9 @@
 
 	'use strict';
 
-	var FluxStoreGroup = __webpack_require__(218);
+	var FluxStoreGroup = __webpack_require__(216);
 
-	var invariant = __webpack_require__(215);
+	var invariant = __webpack_require__(213);
 
 	/**
 	 * `FluxContainer` should be preferred over this mixin, but it requires using
@@ -31302,253 +31230,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 233 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  SINGLE_PROFILE_RECEIVED: "001-SINGLE_PROFILE_RECEIVED"
-	};
-
-/***/ },
-/* 234 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var ProfileActions = __webpack_require__(235);
-
-	var ProfileApiUtil = {
-	  fetchSingleProfile: function (id) {
-	    $.ajax({
-	      type: 'GET',
-	      url: '/api/users/' + id,
-	      dataType: 'json',
-	      success: function (data) {
-	        ProfileActions.receiveSingleProfile(data);
-	      }
-	    });
-	  }
-	};
-
-	module.exports = ProfileApiUtil;
-
-/***/ },
-/* 235 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(212),
-	    ProfileConstants = __webpack_require__(233);
-
-	var ProfileActions = {
-	  receiveSingleProfile: function (profile) {
-	    Dispatcher.dispatch({
-	      actionType: ProfileConstants.SINGLE_PROFILE_RECEIVED,
-	      profile: profile
-	    });
-	  }
-	};
-
-	module.exports = ProfileActions;
-
-/***/ },
-/* 236 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    PhotoStore = __webpack_require__(237);
-
-	var PhotosIndex = React.createClass({
-	  displayName: 'PhotosIndex',
-
-	  getInitialState: function () {
-	    return { photos: [] };
-	  },
-
-	  getStateFromStore: function (userId) {
-	    return { photos: PhotoStore.findByOwner(this.props.params.userId) };
-	  },
-
-	  componentDidMount: function () {
-	    debugger;
-	    this.storeCBToken = PhotoStore.addListener(function () {
-	      this.setState(this.getStateFromStore);
-	    }.bind(this));
-	    PhotoStore.findByOwner();
-	  },
-
-	  render: function () {
-	    if (this.state.photos.length === 0) {
-	      return React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	          'h1',
-	          null,
-	          ' No photos! =( '
-	        )
-	      );
-	    } else {
-	      return React.createElement(
-	        'div',
-	        { className: 'photo-index-container group' },
-	        React.createElement(
-	          'ul',
-	          { className: 'photo-index-list group' },
-	          this.state.photos.map(function (photo, i) {
-	            return React.createElement(
-	              'li',
-	              { key: i },
-	              ' ',
-	              React.createElement('img', { className: 'photo-preview', src: photo.image }),
-	              ' '
-	            );
-	          })
-	        )
-	      );
-	    }
-	  }
-	});
-
-	module.exports = PhotosIndex;
-
-/***/ },
-/* 237 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(212),
-	    Store = __webpack_require__(216).Store,
-	    PhotoConstants = __webpack_require__(238),
-	    PhotoApiUtil = __webpack_require__(239);
-
-	var _photos = [];
-
-	var PhotoStore = new Store(Dispatcher);
-
-	PhotoStore.findByOwner = function (ownerId) {
-	  debugger;
-	  PhotoApiUtil.fetchOwnedPhotos(ownerId);
-	};
-
-	PhotoStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case PhotoConstants.RECEIVED_PHOTOS:
-	      _photos = payload.photos;
-	      this.__emitChange();
-	      break;
-	  }
-	};
-
-	module.exports = PhotoStore;
-
-/***/ },
-/* 238 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  RECEIVED_PHOTOS: "RECEIVED_PHOTOS"
-	};
-
-/***/ },
-/* 239 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var PhotoActions = __webpack_require__(240);
-
-	var PhotoApiUtil = {
-	  fetchOwnedPhotos: function (ownerId) {
-	    $.ajax({
-	      type: "GET",
-	      url: "api/users/" + ownerId + "/photos",
-	      dataType: "json",
-	      success: function (data) {
-	        debugger;
-	        PhotoActions.receivePhotos(data);
-	      }
-	    });
-	  }
-	};
-
-	module.exports = PhotoApiUtil;
-
-/***/ },
-/* 240 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(212),
-	    PhotoConstants = __webpack_require__(238);
-
-	var PhotoActions = {
-	  receivePhotos: function (photos) {
-	    Dispatcher.dispatch({
-	      actionType: PhotoConstants.RECEIVED_PHOTOS,
-	      photos: photos
-	    });
-	  }
-	};
-
-	module.exports = PhotoActions;
-
-/***/ },
-/* 241 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(212),
-	    Store = __webpack_require__(216).Store,
-	    CurrentUserConstants = __webpack_require__(242),
-	    CurrentUserApiUtil = __webpack_require__(243);
-
-	var _currentUser = {};
-	var _loginFailure = false;
-
-	var CurrentUserStore = new Store(Dispatcher);
-
-	CurrentUserStore.currentUser = function () {
-	  if (_currentUser.id) {
-	    return $.extend({}, _currentUser);
-	  } else {
-	    CurrentUserApiUtil.checkForExistingUser();
-	    return {};
-	  }
-	};
-
-	CurrentUserStore.loginFailure = function () {
-	  return _loginFailure;
-	};
-
-	CurrentUserStore.loggedIn = function () {
-	  return !!_currentUser.id;
-	};
-
-	CurrentUserStore.logOut = function () {
-	  CurrentUserApiUtil.logOut();
-	};
-
-	CurrentUserStore.acceptCredentials = function (credentials) {
-	  CurrentUserApiUtil.transmitCredentials(credentials);
-	};
-
-	CurrentUserStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case CurrentUserConstants.NEW_USER_RECEIVED:
-	      _currentUser = payload.currentUser[0];
-	      this.__emitChange();
-	      break;
-	    case CurrentUserConstants.EXISTING_USER_RECEIVED:
-	      _currentUser = payload.currentUser[0];
-	      this.__emitChange();
-	      break;
-	    case CurrentUserConstants.LOGIN_FAILURE:
-	      _loginFailure = true;
-	      break;
-	    case CurrentUserConstants.LOG_OUT:
-	      _currentUser = {};
-	      this.__emitChange();
-	      break;
-	  }
-	};
-
-	module.exports = CurrentUserStore;
-
-/***/ },
-/* 242 */
+/* 231 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -31559,10 +31241,10 @@
 	};
 
 /***/ },
-/* 243 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var CurrentUserActions = __webpack_require__(244);
+	var CurrentUserActions = __webpack_require__(233);
 
 	var CurrentUserApiUtil = {
 	  transmitCredentials: function (credentials) {
@@ -31609,11 +31291,11 @@
 	module.exports = CurrentUserApiUtil;
 
 /***/ },
-/* 244 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Dispatcher = __webpack_require__(212),
-	    CurrentUserConstants = __webpack_require__(242);
+	var Dispatcher = __webpack_require__(210),
+	    CurrentUserConstants = __webpack_require__(231);
 
 	var CurrentUserActions = {
 	  newUserReceived: function (currentUser) {
@@ -31640,69 +31322,33 @@
 	module.exports = CurrentUserActions;
 
 /***/ },
-/* 245 */,
-/* 246 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1),
-	    CurrentUserStore = __webpack_require__(241);
+	var React = __webpack_require__(1);
 
-	var NavSearchField = __webpack_require__(209);
+	var NavSearchField = React.createClass({
+	  displayName: "NavSearchField",
 
-	var LoggedInNavHeader = React.createClass({
-	  displayName: 'LoggedInNavHeader',
-
-	  logOut: function (e) {
-	    CurrentUserStore.logOut();
+	  getInitialState: function () {
+	    return { search: "" };
 	  },
 
 	  render: function () {
-	    return React.createElement(
-	      'header',
-	      { className: 'header group' },
-	      React.createElement(
-	        'nav',
-	        { className: 'nav-header group' },
-	        React.createElement(
-	          'header',
-	          { className: 'header-text' },
-	          React.createElement(
-	            'a',
-	            { href: '#/' },
-	            'GameFaces!'
-	          )
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.logOut, className: 'log-out' },
-	          ' Sign Out! '
-	        ),
-	        React.createElement(
-	          'header',
-	          { className: 'signed-in-header group' },
-	          React.createElement(
-	            'h1',
-	            null,
-	            ' Signed in as ',
-	            CurrentUserStore.currentUser().username,
-	            ' '
-	          )
-	        )
-	      )
-	    );
+	    return React.createElement("input", { className: "nav-search-field", type: "text", value: this.state.search });
 	  }
 	});
 
-	module.exports = LoggedInNavHeader;
+	module.exports = NavSearchField;
 
 /***/ },
-/* 247 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    CurrentUserStore = __webpack_require__(241);
+	    CurrentUserStore = __webpack_require__(209);
 
-	var NavSearchField = __webpack_require__(209);
+	var NavSearchField = __webpack_require__(234);
 
 	var LoggedOutNavHeader = React.createClass({
 	  displayName: 'LoggedOutNavHeader',
@@ -31790,6 +31436,340 @@
 	});
 
 	module.exports = LoggedOutNavHeader;
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    ProfileStore = __webpack_require__(237),
+	    History = __webpack_require__(159).History;
+
+	var Profile = React.createClass({
+	  displayName: 'Profile',
+
+	  mixins: [History],
+
+	  getInitialState: function () {
+	    return { profile: {} };
+	  },
+
+	  getStateFromStore: function (props) {
+	    return { profile: ProfileStore.find(props.params.userId) };
+	  },
+
+	  componentDidMount: function () {
+	    this.storeCBToken = ProfileStore.addListener(function () {
+	      this.setState(this.getStateFromStore(this.props));
+	    }.bind(this));
+	  },
+
+	  componentWillUnmount: function () {
+	    this.storeCBToken.remove();
+	  },
+
+	  componentWillReceiveProps: function (newProps) {
+	    this.setState(this.getStateFromStore(newProps));
+	  },
+
+	  render: function () {
+	    var photos = "#/users/" + this.props.params.userId + "/photos",
+	        about = "#/about/" + this.props.params.userId + "/about",
+	        timeline = "#/about/" + this.props.params.userId + "timeline",
+	        friends = "#/about/" + this.props.params.userId + "friends";
+
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'header',
+	        { className: 'profile-header-box group' },
+	        React.createElement(
+	          'div',
+	          { className: 'cover-photo-box' },
+	          React.createElement('img', { src: this.state.profile.cover_photo })
+	        ),
+	        React.createElement(
+	          'ul',
+	          { className: 'profile-nav group' },
+	          React.createElement(
+	            'li',
+	            null,
+	            ' ',
+	            React.createElement(
+	              'a',
+	              { href: about },
+	              ' About '
+	            ),
+	            ' '
+	          ),
+	          React.createElement(
+	            'li',
+	            null,
+	            ' ',
+	            React.createElement(
+	              'a',
+	              { href: timeline },
+	              ' Timeline '
+	            ),
+	            ' '
+	          ),
+	          React.createElement(
+	            'li',
+	            null,
+	            ' ',
+	            React.createElement(
+	              'a',
+	              { href: photos },
+	              ' Photos '
+	            ),
+	            ' '
+	          ),
+	          React.createElement(
+	            'li',
+	            null,
+	            ' ',
+	            React.createElement(
+	              'a',
+	              { href: friends },
+	              ' Friends '
+	            ),
+	            ' '
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'profile-picture-box' },
+	          React.createElement('img', { src: this.state.profile.profile_photo })
+	        )
+	      ),
+	      this.props.children
+	    );
+	  }
+	});
+
+	module.exports = Profile;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    Store = __webpack_require__(214).Store,
+	    ProfileConstants = __webpack_require__(238),
+	    ProfileApiUtil = __webpack_require__(239);
+
+	var _profiles = {};
+
+	var ProfileStore = new Store(Dispatcher);
+
+	ProfileStore.all = function () {
+	  var output = [];
+	  for (var key in _profiles) {
+	    output.push(_profiles[key]);
+	  }
+	  return output;
+	};
+
+	ProfileStore.find = function (id) {
+	  if (typeof _profiles[id] === "undefined") {
+	    ProfileApiUtil.fetchSingleProfile(id);
+	  }
+	  return _profiles[id] || {};
+	};
+
+	ProfileStore.resetProfiles = function (profiles) {
+	  _profiles = {};
+	  profiles.forEach(function (profile) {
+	    _profiles[profile.id] = profile;
+	  });
+	  this.__emitChange();
+	};
+
+	ProfileStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case ProfileConstants.SINGLE_PROFILE_RECEIVED:
+	      _profiles[payload.profile.id] = payload.profile;
+	      this.__emitChange();
+	      break;
+	  }
+	};
+
+	module.exports = ProfileStore;
+
+/***/ },
+/* 238 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  SINGLE_PROFILE_RECEIVED: "001-SINGLE_PROFILE_RECEIVED"
+	};
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ProfileActions = __webpack_require__(240);
+
+	var ProfileApiUtil = {
+	  fetchSingleProfile: function (id) {
+	    $.ajax({
+	      type: 'GET',
+	      url: '/api/users/' + id,
+	      dataType: 'json',
+	      success: function (data) {
+	        ProfileActions.receiveSingleProfile(data);
+	      }
+	    });
+	  }
+	};
+
+	module.exports = ProfileApiUtil;
+
+/***/ },
+/* 240 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    ProfileConstants = __webpack_require__(238);
+
+	var ProfileActions = {
+	  receiveSingleProfile: function (profile) {
+	    Dispatcher.dispatch({
+	      actionType: ProfileConstants.SINGLE_PROFILE_RECEIVED,
+	      profile: profile
+	    });
+	  }
+	};
+
+	module.exports = ProfileActions;
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    PhotoStore = __webpack_require__(242);
+
+	var PhotosIndex = React.createClass({
+	  displayName: 'PhotosIndex',
+
+	  getInitialState: function () {
+	    return this.getStateFromStore(this.props);
+	  },
+
+	  getStateFromStore: function (props) {
+	    return { photos: PhotoStore.findByOwner(props.params.userId) };
+	  },
+
+	  componentDidMount: function () {
+	    this.storeCBToken = PhotoStore.addListener(function () {
+	      this.setState(this.getStateFromStore(this.props));
+	    }.bind(this));
+	  },
+
+	  componentWillUnmount: function () {
+	    this.storeCBToken.remove();
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'photo-index-container group' },
+	      React.createElement(
+	        'ul',
+	        { className: 'photo-index-list group' },
+	        this.state.photos.map(function (photo, i) {
+	          return React.createElement(
+	            'li',
+	            { key: i },
+	            ' ',
+	            React.createElement('img', { className: 'photo-preview', src: photo.image }),
+	            ' '
+	          );
+	        })
+	      )
+	    );
+	  }
+	});
+
+	module.exports = PhotosIndex;
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    Store = __webpack_require__(214).Store,
+	    PhotoConstants = __webpack_require__(243),
+	    PhotoApiUtil = __webpack_require__(244);
+
+	var photos = [];
+
+	var PhotoStore = new Store(Dispatcher);
+
+	PhotoStore.findByOwner = function (ownerId) {
+	  if (photos.length === 0) {
+	    PhotoApiUtil.fetchOwnedPhotos(ownerId);
+	  }
+	  return photos;
+	};
+
+	PhotoStore.__onDispatch = function (payload) {
+	  if (payload.actionType === PhotoConstants.RECEIVED_PHOTOS) {
+	    photos = payload.photos;
+	    this.__emitChange();
+	  }
+	};
+
+	module.exports = PhotoStore;
+
+/***/ },
+/* 243 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVED_PHOTOS: "RECEIVED_PHOTOS"
+	};
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var PhotoActions = __webpack_require__(245);
+
+	var PhotoApiUtil = {
+	  fetchOwnedPhotos: function (ownerId) {
+	    $.ajax({
+	      type: "GET",
+	      url: "api/users/" + ownerId + "/photos",
+	      dataType: "json",
+	      success: function (data) {
+	        PhotoActions.receivePhotos(data);
+	      }
+	    });
+	  }
+	};
+
+	module.exports = PhotoApiUtil;
+
+/***/ },
+/* 245 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    PhotoConstants = __webpack_require__(243);
+
+	var PhotoActions = {
+	  receivePhotos: function (photos) {
+	    Dispatcher.dispatch({
+	      actionType: PhotoConstants.RECEIVED_PHOTOS,
+	      photos: photos
+	    });
+	  }
+	};
+
+	module.exports = PhotoActions;
 
 /***/ }
 /******/ ]);

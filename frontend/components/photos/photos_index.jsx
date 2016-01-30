@@ -4,41 +4,35 @@ var React = require('react'),
 
 var PhotosIndex = React.createClass({
   getInitialState: function () {
-    return ({ photos: [] });
+    return ( this.getStateFromStore(this.props) );
   },
 
-  getStateFromStore: function (userId) {
-    return ( { photos: PhotoStore.findByOwner(this.props.params.userId) });
+  getStateFromStore: function (props) {
+    return ( { photos: PhotoStore.findByOwner(props.params.userId) });
   },
 
   componentDidMount: function () {
-    debugger
     this.storeCBToken = PhotoStore.addListener( function () {
-      this.setState(this.getStateFromStore);
+      this.setState(this.getStateFromStore(this.props));
     }.bind(this));
-    PhotoStore.findByOwner();
+  },
+
+  componentWillUnmount: function () {
+    this.storeCBToken.remove();
   },
 
   render: function () {
-    if (this.state.photos.length === 0) {
-      return (
-        <div>
-          <h1> No photos! =( </h1>
-        </div>
-      );
-    } else {
-      return (
-        <div className="photo-index-container group">
-          <ul className="photo-index-list group">
-            {this.state.photos.map( function (photo, i) {
-              return (
-                <li key={i}> <img className="photo-preview" src={photo.image} /> </li>
-              );
-            })}
-          </ul>
-        </div>
-      );
-    }
+    return (
+      <div className="photo-index-container group">
+        <ul className="photo-index-list group">
+          {this.state.photos.map( function (photo, i) {
+            return (
+              <li key={i}> <img className="photo-preview" src={photo.image} /> </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
   }
 });
 

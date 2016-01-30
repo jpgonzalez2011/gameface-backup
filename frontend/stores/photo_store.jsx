@@ -3,21 +3,21 @@ var Dispatcher = require('../dispatcher/dispatcher'),
     PhotoConstants = require('../constants/photo_constants'),
     PhotoApiUtil = require('../util/photo_api_util');
 
-var _photos = [];
+var photos = [];
 
 var PhotoStore = new Store(Dispatcher);
 
 PhotoStore.findByOwner = function (ownerId) {
-  debugger
-  PhotoApiUtil.fetchOwnedPhotos(ownerId);
+  if (photos.length === 0) {
+    PhotoApiUtil.fetchOwnedPhotos(ownerId);
+  }
+  return photos;
 };
 
 PhotoStore.__onDispatch = function (payload) {
-  switch (payload.actionType) {
-    case PhotoConstants.RECEIVED_PHOTOS:
-      _photos = payload.photos;
-      this.__emitChange();
-      break;
+  if (payload.actionType === PhotoConstants.RECEIVED_PHOTOS) {
+    photos = payload.photos;
+    this.__emitChange();
   }
 };
 

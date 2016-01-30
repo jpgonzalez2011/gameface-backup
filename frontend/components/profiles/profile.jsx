@@ -1,7 +1,11 @@
 var React = require('react'),
-    ProfileStore = require('../../stores/profile_store');
+    ProfileStore = require('../../stores/profile_store'),
+    History = require('react-router').History;
 
 var Profile = React.createClass({
+
+  mixins: [History],
+
   getInitialState: function () {
     return { profile: {} };
   },
@@ -25,6 +29,7 @@ var Profile = React.createClass({
   componentWillReceiveProps: function (newProps) {
     this.setState(this.getStateFromStore(newProps));
   },
+
 
   render: function () {
     var photos = "#/users/" + this.props.params.userId + "/photos",
