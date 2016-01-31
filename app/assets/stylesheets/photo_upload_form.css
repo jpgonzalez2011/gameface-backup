@@ -1,8 +1,9 @@
 .photo-upload-container {
   margin-left: 155px;
   margin-right: 155px;
+  border-bottom: 1px solid #ccc;
 }
 
-.photo-upload-form {
-
+.photo-upload-form > label {
+  padding: 5px;
 }

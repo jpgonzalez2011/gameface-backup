@@ -41,6 +41,7 @@ var PhotosIndex = React.createClass({
     if (this.state.photos.length === 0) {
       return (
         <div className="photo-index-container group">
+          <h1 className="photos-header"> PHOTOS </h1>
           {_photoForm}
           <h1> No Photos yet! </h1>
         </div>

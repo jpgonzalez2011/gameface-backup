@@ -1,3 +1,0 @@
-module.exports = {
-  ABOUT_INFO_RECEIVED: "ABOUT_INFO_RECEIVED"
-};

@@ -1,6 +1,19 @@
 .photo-index-container {
   width: 851px;
   margin: auto;
+  background-color: white;
+  border: 1px solid #ccc;
+}
+
+.photos-header {
+  margin: auto;
+  text-align: left;
+  display: block;
+  font-size: 20px;
+  padding-top: 16px;
+  padding-bottom: 12px;
+  background-color: rgb(237, 240, 245);
+  border-bottom: 1px solid #ccc;
 }
 
 .photo-index-container > ul {

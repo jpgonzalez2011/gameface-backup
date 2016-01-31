@@ -10,11 +10,15 @@ User.destroy_all
 User.create!(
   username: "mario", password: "password",
   fname: "Mario", lname: "Mario", date_of_birth: "09/07/1981",
-  cover_photo: "https://upload.wikimedia.org/wikipedia/en/9/99/MarioSMBW.png"
+  cover_photo: "https://upload.wikimedia.org/wikipedia/en/9/99/MarioSMBW.png",
+  profile_photo: "http://mario.nintendo.com/img/mario_logo.png",
+  occupation: "Plumber", description: "It's a me! Mario! Plumber and Hero of
+  the Mushroom Kingdom!"
 )
 User.create!(
   username: "luigi", password: "luigimansion",
-  fname: "Luigi", lname: "Mario", date_of_birth: "14/7/1983"
+  fname: "Luigi", lname: "Mario", date_of_birth: "14/7/1983",
+  cover_photo: "https://sickr.files.wordpress.com/2013/06/luigi-circle.jpg"
 )
 User.create!(
   username: "link", password: "ocarina",

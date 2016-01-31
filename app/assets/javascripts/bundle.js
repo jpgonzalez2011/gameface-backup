@@ -31715,6 +31715,11 @@
 	      return React.createElement(
 	        'div',
 	        { className: 'photo-index-container group' },
+	        React.createElement(
+	          'h1',
+	          { className: 'photos-header' },
+	          ' PHOTOS '
+	        ),
 	        _photoForm,
 	        React.createElement(
 	          'h1',
@@ -31930,7 +31935,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    AboutStore = __webpack_require__(248);
+	    ProfileStore = __webpack_require__(237);
 
 	var About = React.createClass({
 	  displayName: 'About',
@@ -31940,143 +31945,84 @@
 	  },
 
 	  getStateFromStore: function (props) {
-	    return { aboutInfo: AboutStore.findByUserId(props.params.userId) };
+	    return { aboutInfo: ProfileStore.find(props.params.userId) };
 	  },
 
 	  componentDidMount: function () {
-	    this.storeCBToken = AboutStore.addListener(function () {
+	    this.storeCBToken = ProfileStore.addListener(function () {
 	      this.setState(this.getStateFromStore(this.props));
 	    }.bind(this));
+	  },
+
+	  componentWillMount: function () {
+	    this.getStateFromStore(this.props);
 	  },
 
 	  componentWillUnMount: function () {
 	    this.storeCBToken.remove();
 	  },
 
-	  componentWillMount: function () {
-	    AboutStore.emptyAboutInfo(this.props.params.userId);
+	  componentWillReceiveProps: function (newProps) {
+	    this.setState(this.getStateFromStore(newProps));
 	  },
 
 	  render: function () {
-	    if (typeof this.state.aboutInfo === "undefined") {
-	      return React.createElement(
-	        'div',
-	        { className: 'about-container group' },
-	        'rendering...'
-	      );
-	    } else {
-	      return React.createElement(
-	        'div',
-	        { className: 'about-container group' },
+	    return React.createElement(
+	      'div',
+	      { className: 'about-container group' },
+	      React.createElement(
+	        'h1',
+	        { className: 'about-header' },
+	        ' ABOUT '
+	      ),
+	      React.createElement(
+	        'feature',
+	        { className: 'about-nav' },
 	        React.createElement(
 	          'ul',
-	          { className: 'about-list group' },
-	          React.createElement(
-	            'li',
-	            { group: true },
-	            'Full Name: ',
-	            this.state.aboutInfo.fname,
-	            ' ',
-	            this.state.aboutInfo.lname
-	          ),
+	          null,
 	          React.createElement(
 	            'li',
 	            null,
-	            'Occupation ',
-	            this.state.aboutInfo.occupation
+	            'General Info'
 	          )
 	        )
-	      );
-	    }
+	      ),
+	      React.createElement(
+	        'ul',
+	        { className: 'about-list group' },
+	        React.createElement(
+	          'li',
+	          null,
+	          'Full Name: ',
+	          this.state.aboutInfo.fname,
+	          ' ',
+	          this.state.aboutInfo.lname
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          'Date of Birth: ',
+	          this.state.aboutInfo.date_of_birth
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          'Occuption: ',
+	          this.state.aboutInfo.occupation
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          'Description: ',
+	          this.state.aboutInfo.description
+	        )
+	      )
+	    );
 	  }
 	});
 
 	module.exports = About;
-
-/***/ },
-/* 248 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(210),
-	    Store = __webpack_require__(214).Store,
-	    AboutConstants = __webpack_require__(249),
-	    AboutApiUtil = __webpack_require__(250);
-
-	var aboutInfo = {};
-
-	var AboutStore = new Store(Dispatcher);
-
-	AboutStore.findByUserId = function (userId) {
-	  if (parseInt(aboutInfo.id) !== parseInt(userId)) {
-	    AboutApiUtil.fetchAboutInfo(userId);
-	  } else {
-	    return aboutInfo;
-	  }
-	};
-
-	AboutStore.emptyAboutInfo = function (userId) {
-	  if (aboutInfo.length > 0 && aboutInfo.id !== userId) {
-	    aboutInfo = {};
-	  }
-	};
-
-	AboutStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case AboutConstants.ABOUT_INFO_RECEIVED:
-	      aboutInfo = payload.aboutInfo;
-	      this.__emitChange();
-	      break;
-	  }
-	};
-
-	module.exports = AboutStore;
-
-/***/ },
-/* 249 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  ABOUT_INFO_RECEIVED: "ABOUT_INFO_RECEIVED"
-	};
-
-/***/ },
-/* 250 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var AboutActions = __webpack_require__(251);
-
-	var AboutApiUtil = {
-	  fetchAboutInfo: function (id) {
-	    $.ajax({
-	      type: "GET",
-	      url: "api/users/" + id + "/about/",
-	      dataType: "json",
-	      success: function (data) {
-	        AboutActions.receiveAboutInfo(data);
-	      }
-	    });
-	  }
-	};
-
-	module.exports = AboutApiUtil;
-
-/***/ },
-/* 251 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(210),
-	    AboutConstants = __webpack_require__(249);
-
-	var AboutActions = {
-	  receiveAboutInfo: function (aboutInfo) {
-	    Dispatcher.dispatch({
-	      actionType: AboutConstants.ABOUT_INFO_RECEIVED,
-	      aboutInfo: aboutInfo
-	    });
-	  }
-	};
-
-	module.exports = AboutActions;
 
 /***/ }
 /******/ ]);

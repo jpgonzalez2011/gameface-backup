@@ -1,18 +1,34 @@
 .about-container {
   width: 851px;
   margin: auto;
+  background-color: white;
+  border: 1px solid #ccc;
 }
 
-.about-container > ul {
-  width: 850px;
-  padding: 0px;
+.about-header {
   margin: auto;
+  text-align: left;
+  display: block;
+  font-size: 20px;
+  padding-top: 16px;
+  padding-bottom: 12px;
+  background-color: rgb(237, 240, 245);
+  border-bottom: 1px solid #ccc;
 }
 
-.about-container > li {
+.about-nav {
   float: left;
 }
 
-.about-container > li > p {
+.about-list {
+  float: right;
+  border-left: 1px solid #ccc
+}
+
+.about-list > ul > li {
   float: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.about-list > ul > li > span {
 }
