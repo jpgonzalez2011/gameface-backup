@@ -17,22 +17,24 @@
 .profile-picture-box {
   width: 168px;
   height: 168px;
-  border: 1px solid black;
+  border: 2px solid white;
   position: absolute;
   left: 26px;
   bottom: 24px;
+  outline: 1px solid #ccc;
 }
 
 .cover-photo-box > img {
   margin: 0 auto;
-  max-width:100%;
-  max-height:100%;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .profile-picture-box > img {
   margin: 0 auto;
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 99%;
+  max-height: 99%;
+  outline: 1px solid #ccc
 }
 
 .profile-header-box > ul {
