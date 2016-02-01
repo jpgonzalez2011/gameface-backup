@@ -10,6 +10,8 @@ class Photo < ActiveRecord::Base
     class_name: "User"
   )
 
+  has_many :comments, as: :commentable
+
   def medium_size_url
     self.image.url(:medium)
   end

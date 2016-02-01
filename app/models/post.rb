@@ -15,6 +15,8 @@ class Post < ActiveRecord::Base
     class_name: "User"
   )
 
+  has_many :comments, as: :commentable
+
   def poster_name
     name = self.poster.fname
     if self.poster.lname
