@@ -1,6 +1,7 @@
 var React = require('react'),
     PostForm = require('./post_form'),
-    PostStore = require('../../stores/post_store');
+    PostStore = require('../../stores/post_store'),
+    CommentForm = require('./comment_form');
 
 var ProfileTimeline = React.createClass({
   getInitialState: function () {
@@ -38,13 +39,23 @@ var ProfileTimeline = React.createClass({
           <PostForm userId={this.props.params.userId}/>
           <ul className="timeline-index-list">
             {this.state.posts.map( function (post, i) {
+              var header;
+              if (post.poster_name === post.target_name) {
+                header = post.poster_name;
+              }
+              else {
+                header = post.poster_name + " to " + post.target_name;
+              }
               return (
                 <li key={i} className="timeline-index-item">
                   <h1 className="timeline-index-item-header">
-                    <div>{post.poster_name}</div>
+                    <div>{header}</div>
                     <span>{post.date_and_time}</span>
                   </h1>
                   <div className="timeline-index-item-content">{post.content}</div>
+                  <div className="timeline-index-item-comment-form">
+                    <CommentForm commentable_id={this.id} />
+                  </div>
                 </li>
               );
             })}

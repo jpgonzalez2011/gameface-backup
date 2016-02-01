@@ -32080,7 +32080,8 @@
 
 	var React = __webpack_require__(1),
 	    PostForm = __webpack_require__(249),
-	    PostStore = __webpack_require__(250);
+	    PostStore = __webpack_require__(250),
+	    CommentForm = __webpack_require__(254);
 
 	var ProfileTimeline = React.createClass({
 	  displayName: 'ProfileTimeline',
@@ -32125,6 +32126,12 @@
 	          'ul',
 	          { className: 'timeline-index-list' },
 	          this.state.posts.map(function (post, i) {
+	            var header;
+	            if (post.poster_name === post.target_name) {
+	              header = post.poster_name;
+	            } else {
+	              header = post.poster_name + " to " + post.target_name;
+	            }
 	            return React.createElement(
 	              'li',
 	              { key: i, className: 'timeline-index-item' },
@@ -32134,7 +32141,7 @@
 	                React.createElement(
 	                  'div',
 	                  null,
-	                  post.poster_name
+	                  header
 	                ),
 	                React.createElement(
 	                  'span',
@@ -32146,6 +32153,11 @@
 	                'div',
 	                { className: 'timeline-index-item-content' },
 	                post.content
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'timeline-index-item-comment-form' },
+	                React.createElement(CommentForm, { commentable_id: this.id })
 	              )
 	            );
 	          })
@@ -32367,6 +32379,59 @@
 	};
 
 	module.exports = PostActions;
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    PostStore = __webpack_require__(250),
+	    CurrentUserStore = __webpack_require__(209);
+
+	var CommentForm = React.createClass({
+	  displayName: 'CommentForm',
+
+	  getInitialState: function () {
+	    return {
+	      content: "",
+	      showFooter: false
+	    };
+	  },
+
+	  handleKeydown: function (e) {
+	    if (e.keyCode === 13) {
+	      e.preventDefault();
+	      PostStore.addNewComment({ comment: {
+	          commenter_id: CurrentUserStore.currentUser().id,
+	          commentable_id: this.props.commentable_id,
+	          commentable_type: "Post",
+	          content: this.state.content
+	        } });
+	    }
+	  },
+
+	  handleChange: function (e) {
+	    this.setState({ content: e.target.value });
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'comment-form-container group' },
+	      React.createElement(
+	        'form',
+	        { className: 'comment-form' },
+	        React.createElement(
+	          'textarea',
+	          { className: 'comment-form-input', type: 'text', onKeyDown: this.handleKeydown, onChange: this.updateContent },
+	          'Write a comment...'
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = CommentForm;
 
 /***/ }
 /******/ ]);

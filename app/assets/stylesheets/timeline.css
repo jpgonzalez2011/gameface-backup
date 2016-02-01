@@ -101,3 +101,29 @@
   font-size: 12px;
   line-height: 13px;
 }
+
+.timeline-index-comment-form {
+  display: block;
+  width: 508px;
+  border: 1px solid #ccc;
+}
+
+.comment-form-container {
+  width: 508px;
+  border-top: 1px solid #ccc;
+}
+
+.comment-form-input {
+  border: none;
+  outline: 1px solid #ccc;
+  width: 422px;
+  margin: 5px;
+  font-size: 12px;
+  line-height: 16px;
+  height: 12px;
+  word-wrap: break-word;
+  font-family: helvetica, arial, sans-serif;;
+  cursor: text;
+  padding: 10px;
+  float: right;
+}
