@@ -4,10 +4,11 @@ var React = require('react'),
 
 var ProfileTimeline = React.createClass({
   getInitialState: function () {
-    return ( {posts: [], initial_render: true });
+    return ( this.getStateFromStore(this.props) );
   },
 
   getStateFromStore: function (props) {
+    debugger
     return ({ posts: PostStore.findByTarget(props.params.userId) });
   },
 
@@ -22,6 +23,7 @@ var ProfileTimeline = React.createClass({
   },
 
   componentWillMount: function () {
+    PostStore.emptyPosts(this.props.params.userId);
     this.getStateFromStore(this.props);
   },
 

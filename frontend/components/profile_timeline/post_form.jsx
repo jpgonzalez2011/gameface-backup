@@ -4,10 +4,15 @@ var React = require('react'),
 
 var PostForm = React.createClass({
   getInitialState: function () {
-    return {
+    debugger
+    return ({
       text: "",
-      showFooter: false,
-      posterName: CurrentUserStore.currentUser().fname };
+      showFooter: false
+    });
+  },
+
+  componentWillMount: function () {
+    this.setState( {posterName: CurrentUserStore.currentUser().fname });
   },
 
   render: function () {

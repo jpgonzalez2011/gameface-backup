@@ -25,7 +25,6 @@ var About = React.createClass({
   },
 
   componentWillReceiveProps: function (newProps) {
-    debugger
     this.setState(this.getStateFromStore(newProps));
   },
 

@@ -7,16 +7,12 @@ var _photoForm;
 
 var PhotosIndex = React.createClass({
   getInitialState: function () {
-    return ( { photos: [], initial_render: true } );
+    return (this.getStateFromStore(this.props));
   },
 
   getStateFromStore: function (props) {
     this.checkForOwner();
-    return ( { photos: PhotoStore.findByOwner(props.params.userId), initial_render: false });
-  },
-
-  componentWillMount: function() {
-    this.getStateFromStore(this.props);
+    return ( { photos: PhotoStore.findByOwner(props.params.userId) });
   },
 
   componentDidMount: function () {
@@ -29,9 +25,13 @@ var PhotosIndex = React.createClass({
     this.storeCBToken.remove();
   },
 
+  componentWillMount: function() {
+    PhotoStore.emptyPhotos(this.props.params.userId);
+    this.getStateFromStore(this.props);
+  },
+
   componentWillReceiveProps: function (newProps) {
     PhotoStore.emptyPhotos(newProps.params.userId);
-    // this.setState({ photos: [] });
     this.setState(this.getStateFromStore(newProps));
   },
 
@@ -44,13 +44,6 @@ var PhotosIndex = React.createClass({
   },
 
   render: function () {
-    if (this.state.initial_render) {
-      return (
-        <div>
-
-        </div>
-      );
-    }
     if (this.state.photos.length === 0) {
       return (
         <div className="photo-index-container group">
@@ -59,21 +52,22 @@ var PhotosIndex = React.createClass({
           <h1> No Photos yet! </h1>
         </div>
       );
+    } else {
+      return (
+        <div className="photo-index-container group">
+          {_photoForm}
+          <ul className="photo-index-list group">
+            {this.state.photos.map( function (photo, i) {
+              return (
+                <li key={i}>
+                  <img className="photo-preview" src={photo.medium_size_url} />
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      );
     }
-    return (
-      <div className="photo-index-container group">
-        {_photoForm}
-        <ul className="photo-index-list group">
-          {this.state.photos.map( function (photo, i) {
-            return (
-              <li key={i}>
-                <img className="photo-preview" src={photo.medium_size_url} />
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    );
   }
 });
 

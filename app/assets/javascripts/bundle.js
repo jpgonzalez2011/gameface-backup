@@ -31682,16 +31682,12 @@
 	  displayName: 'PhotosIndex',
 
 	  getInitialState: function () {
-	    return { photos: [], initial_render: true };
+	    return this.getStateFromStore(this.props);
 	  },
 
 	  getStateFromStore: function (props) {
 	    this.checkForOwner();
-	    return { photos: PhotoStore.findByOwner(props.params.userId), initial_render: false };
-	  },
-
-	  componentWillMount: function () {
-	    this.getStateFromStore(this.props);
+	    return { photos: PhotoStore.findByOwner(props.params.userId) };
 	  },
 
 	  componentDidMount: function () {
@@ -31704,9 +31700,13 @@
 	    this.storeCBToken.remove();
 	  },
 
+	  componentWillMount: function () {
+	    PhotoStore.emptyPhotos(this.props.params.userId);
+	    this.getStateFromStore(this.props);
+	  },
+
 	  componentWillReceiveProps: function (newProps) {
 	    PhotoStore.emptyPhotos(newProps.params.userId);
-	    // this.setState({ photos: [] });
 	    this.setState(this.getStateFromStore(newProps));
 	  },
 
@@ -31719,9 +31719,6 @@
 	  },
 
 	  render: function () {
-	    if (this.state.initial_render) {
-	      return React.createElement('div', null);
-	    }
 	    if (this.state.photos.length === 0) {
 	      return React.createElement(
 	        'div',
@@ -31738,23 +31735,24 @@
 	          ' No Photos yet! '
 	        )
 	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { className: 'photo-index-container group' },
+	        _photoForm,
+	        React.createElement(
+	          'ul',
+	          { className: 'photo-index-list group' },
+	          this.state.photos.map(function (photo, i) {
+	            return React.createElement(
+	              'li',
+	              { key: i },
+	              React.createElement('img', { className: 'photo-preview', src: photo.medium_size_url })
+	            );
+	          })
+	        )
+	      );
 	    }
-	    return React.createElement(
-	      'div',
-	      { className: 'photo-index-container group' },
-	      _photoForm,
-	      React.createElement(
-	        'ul',
-	        { className: 'photo-index-list group' },
-	        this.state.photos.map(function (photo, i) {
-	          return React.createElement(
-	            'li',
-	            { key: i },
-	            React.createElement('img', { className: 'photo-preview', src: photo.medium_size_url })
-	          );
-	        })
-	      )
-	    );
 	  }
 	});
 
@@ -31980,7 +31978,6 @@
 	  },
 
 	  componentWillReceiveProps: function (newProps) {
-	    debugger;
 	    this.setState(this.getStateFromStore(newProps));
 	  },
 
@@ -32054,10 +32051,11 @@
 	  displayName: 'ProfileTimeline',
 
 	  getInitialState: function () {
-	    return { posts: [], initial_render: true };
+	    return this.getStateFromStore(this.props);
 	  },
 
 	  getStateFromStore: function (props) {
+	    debugger;
 	    return { posts: PostStore.findByTarget(props.params.userId) };
 	  },
 
@@ -32072,6 +32070,7 @@
 	  },
 
 	  componentWillMount: function () {
+	    PostStore.emptyPosts(this.props.params.userId);
 	    this.getStateFromStore(this.props);
 	  },
 
@@ -32136,10 +32135,15 @@
 	  displayName: 'PostForm',
 
 	  getInitialState: function () {
+	    debugger;
 	    return {
 	      text: "",
-	      showFooter: false,
-	      posterName: CurrentUserStore.currentUser().fname };
+	      showFooter: false
+	    };
+	  },
+
+	  componentWillMount: function () {
+	    this.setState({ posterName: CurrentUserStore.currentUser().fname });
 	  },
 
 	  render: function () {
