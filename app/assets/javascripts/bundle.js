@@ -31914,10 +31914,17 @@
 	  displayName: 'PhotoForm',
 
 	  getInitialState: function () {
-	    return { title: "", imageFile: null, imageUrl: "" };
+	    return { title: "", imageFile: null, imageUrl: "", loading: false };
 	  },
 
 	  render: function () {
+	    if (this.state.loading) {
+	      return React.createElement(
+	        'div',
+	        null,
+	        ' Uploading ..'
+	      );
+	    }
 	    return React.createElement(
 	      'div',
 	      { className: 'photo-upload-container' },
@@ -31955,7 +31962,7 @@
 	  },
 
 	  resetForm: function () {
-	    this.setState({ title: "", imageFile: null, imageUrl: "" });
+	    this.setState({ title: "", imageFile: null, imageUrl: "", loading: false });
 	    this.forceUpdate();
 	  },
 
@@ -31967,6 +31974,7 @@
 	    formData.append("photo[uploader_id]", CurrentUserStore.currentUser().id);
 	    formData.append("photo[image]", this.state.imageFile);
 	    PhotoStore.acceptNewPhoto(formData, this.resetForm);
+	    this.setState({ loading: true });
 	  }
 	});
 

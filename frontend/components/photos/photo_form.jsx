@@ -4,19 +4,24 @@ var React = require('react'),
 
 var PhotoForm = React.createClass({
   getInitialState: function () {
-    return { title: "", imageFile: null, imageUrl: "" };
+    return { title: "", imageFile: null, imageUrl: "", loading: false };
   },
 
   render: function () {
-    return (
-      <div className="photo-upload-container">
-        <form className="photo-upload-form" onSubmit={this.handleSubmit}>
-          <label for="photo">Add Photo!</label>
-          <input type="file" id="photo" onChange={this.changeFile}/>
-          <button> Submit </button>
-        </form>
-      </div>
-    );
+    if (this.state.loading) {
+      return (
+        <div> Uploading ..</div>
+      );
+    }
+      return (
+        <div className="photo-upload-container">
+          <form className="photo-upload-form" onSubmit={this.handleSubmit}>
+            <label for="photo">Add Photo!</label>
+            <input type="file" id="photo" onChange={this.changeFile}/>
+            <button> Submit </button>
+          </form>
+        </div>
+      );
   },
 
   changeFile: function(e) {
@@ -35,7 +40,7 @@ var PhotoForm = React.createClass({
   },
 
   resetForm: function () {
-    this.setState({ title: "", imageFile: null, imageUrl: "" });
+    this.setState({ title: "", imageFile: null, imageUrl: "", loading: false });
     this.forceUpdate();
   },
 
@@ -49,6 +54,7 @@ var PhotoForm = React.createClass({
     );
     formData.append("photo[image]", this.state.imageFile);
     PhotoStore.acceptNewPhoto(formData, this.resetForm);
+    this.setState({ loading: true });
   },
 });
 
