@@ -31723,8 +31723,17 @@
 	    if (this.state.photos === "loading") {
 	      return React.createElement(
 	        'div',
-	        null,
-	        'Now loading...'
+	        { className: 'photo-index-container group' },
+	        React.createElement(
+	          'h1',
+	          { className: 'photos-header' },
+	          ' PHOTOS '
+	        ),
+	        React.createElement(
+	          'h1',
+	          null,
+	          ' Now loading... '
+	        )
 	      );
 	    }
 	    if (this.state.photos[0] === "no photos") {
@@ -32079,10 +32088,10 @@
 
 	  componentWillUnmount: function () {
 	    this.storeCBToken.remove();
+	    PostStore.emptyPosts(this.props.params.userId);
 	  },
 
 	  componentWillMount: function () {
-	    PostStore.emptyPosts(this.props.params.userId);
 	    this.getStateFromStore(this.props);
 	  },
 
@@ -32257,9 +32266,9 @@
 	};
 
 	PostStore.emptyPosts = function (targetId) {
-	  if (posts.length > 0 && posts[0].target_id !== targetId) {
-	    posts = [];
-	  }
+	  // if (posts.length > 0 && posts[0].target_id !== targetId) {
+	  posts = [];
+	  // }
 	};
 
 	PostStore.__onDispatch = function (payload) {

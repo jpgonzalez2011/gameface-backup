@@ -19,10 +19,10 @@ var ProfileTimeline = React.createClass({
 
   componentWillUnmount: function () {
     this.storeCBToken.remove();
+    PostStore.emptyPosts(this.props.params.userId);
   },
 
   componentWillMount: function () {
-    PostStore.emptyPosts(this.props.params.userId);
     this.getStateFromStore(this.props);
   },
 

@@ -47,8 +47,9 @@ var PhotosIndex = React.createClass({
   render: function () {
     if (this.state.photos === "loading") {
       return (
-        <div>
-          Now loading...
+        <div className="photo-index-container group">
+          <h1 className="photos-header"> PHOTOS </h1>
+          <h1> Now loading... </h1>
         </div>
       );
     }
