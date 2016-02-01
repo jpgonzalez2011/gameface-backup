@@ -32084,7 +32084,7 @@
 	            'Make a Post, ',
 	            CurrentUserStore.currentUser().fname
 	          ),
-	          React.createElement('input', { className: 'post-form-input', type: 'text', id: 'text', onChange: this.changeText }),
+	          React.createElement('textarea', { className: 'post-form-input', type: 'text', id: 'text', onChange: this.changeText }),
 	          React.createElement(
 	            'feature',
 	            { className: 'post-form-footer group' },
