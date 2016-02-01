@@ -32155,9 +32155,38 @@
 	                post.content
 	              ),
 	              React.createElement(
+	                'ul',
+	                { className: 'timeline-index-item-comments-list' },
+	                post.comments.map(function (comment, i) {
+	                  return React.createElement(
+	                    'li',
+	                    { key: i, className: 'timeline-index-item-comment' },
+	                    React.createElement(
+	                      'h1',
+	                      { className: 'timeline-index-item-comment-header' },
+	                      React.createElement(
+	                        'div',
+	                        null,
+	                        comment.commenter_name
+	                      ),
+	                      React.createElement(
+	                        'span',
+	                        null,
+	                        comment.date_and_time
+	                      )
+	                    ),
+	                    React.createElement(
+	                      'div',
+	                      { className: 'timelineindex-item-comment-content' },
+	                      comment.content
+	                    )
+	                  );
+	                })
+	              ),
+	              React.createElement(
 	                'div',
 	                { className: 'timeline-index-item-comment-form' },
-	                React.createElement(CommentForm, { commentable_id: this.id })
+	                React.createElement(CommentForm, { commentable_id: post.id })
 	              )
 	            );
 	          })
@@ -32290,6 +32319,10 @@
 	  PostApiUtil.acceptNewPost(post);
 	};
 
+	PostStore.addNewComment = function (comment) {
+	  PostApiUtil.addNewComment(comment);
+	};
+
 	PostStore.emptyPosts = function (targetId) {
 	  // if (posts.length > 0 && posts[0].target_id !== targetId) {
 	  posts = [];
@@ -32308,6 +32341,14 @@
 	      posts.unshift(payload.post);
 	      this.__emitChange();
 	      break;
+	    case PostConstants.RECEIVE_UPDATED_COMMENT:
+	      var comment = payload.comment;
+	      postIdx = posts.findIndex(function (el) {
+	        return el.id === comment.commentable_id;
+	      });
+	      posts[postIdx].comments.push(comment);
+	      this.__emitChange();
+	      break;
 	  }
 	};
 
@@ -32319,7 +32360,8 @@
 
 	module.exports = {
 	  RECEIVED_POSTS: "RECEIVED_POSTS",
-	  RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST"
+	  RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST",
+	  RECEIVE_UPDATED_COMMENT: "RECEIVE_UPDATED_COMMENT"
 	};
 
 /***/ },
@@ -32350,6 +32392,18 @@
 	        PostActions.receiveUpdatedPost(data);
 	      }
 	    });
+	  },
+
+	  addNewComment: function (comment) {
+	    $.ajax({
+	      type: "POST",
+	      url: "api/comments/",
+	      dataType: "json",
+	      data: comment,
+	      success: function (data) {
+	        PostActions.receiveUpdatedComment(data);
+	      }
+	    });
 	  }
 	};
 
@@ -32374,6 +32428,13 @@
 	    Dispatcher.dispatch({
 	      actionType: PostConstants.RECEIVE_UPDATED_POST,
 	      post: post
+	    });
+	  },
+
+	  receiveUpdatedComment: function (comment) {
+	    Dispatcher.dispatch({
+	      actionType: PostConstants.RECEIVE_UPDATED_COMMENT,
+	      comment: comment
 	    });
 	  }
 	};
@@ -32401,12 +32462,15 @@
 	  handleKeydown: function (e) {
 	    if (e.keyCode === 13) {
 	      e.preventDefault();
-	      PostStore.addNewComment({ comment: {
+	      var comment = { comment: {
 	          commenter_id: CurrentUserStore.currentUser().id,
 	          commentable_id: this.props.commentable_id,
 	          commentable_type: "Post",
 	          content: this.state.content
-	        } });
+	        } };
+	      PostStore.addNewComment(comment);
+	    } else {
+	      this.handleChange(e);
 	    }
 	  },
 
@@ -32421,11 +32485,7 @@
 	      React.createElement(
 	        'form',
 	        { className: 'comment-form' },
-	        React.createElement(
-	          'textarea',
-	          { className: 'comment-form-input', type: 'text', onKeyDown: this.handleKeydown, onChange: this.updateContent },
-	          'Write a comment...'
-	        )
+	        React.createElement('textarea', { className: 'comment-form-input', type: 'text', onKeyUp: this.handleKeydown })
 	      )
 	    );
 	  }

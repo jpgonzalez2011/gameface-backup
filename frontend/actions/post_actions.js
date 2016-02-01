@@ -14,6 +14,13 @@ var PostActions = {
       actionType: PostConstants.RECEIVE_UPDATED_POST,
       post: post
     });
+  },
+
+  receiveUpdatedComment: function (comment) {
+    Dispatcher.dispatch({
+      actionType: PostConstants.RECEIVE_UPDATED_COMMENT,
+      comment: comment
+    });
   }
 };
 

@@ -13,12 +13,15 @@ var CommentForm = React.createClass({
   handleKeydown: function (e) {
     if (e.keyCode === 13) {
       e.preventDefault();
-      PostStore.addNewComment({ comment: {
+      var comment = { comment: {
         commenter_id: CurrentUserStore.currentUser().id,
         commentable_id: this.props.commentable_id,
         commentable_type: "Post",
         content: this.state.content
-      }});
+      }};
+      PostStore.addNewComment(comment);
+    } else {
+      this.handleChange(e);
     }
   },
 
@@ -31,8 +34,7 @@ var CommentForm = React.createClass({
     return (
       <div className="comment-form-container group">
         <form className="comment-form">
-          <textarea className="comment-form-input" type="text" onKeyDown={this.handleKeydown} onChange={this.updateContent}>
-            Write a comment...
+          <textarea className="comment-form-input" type="text" onKeyUp={this.handleKeydown}>
           </textarea>
         </form>
       </div>

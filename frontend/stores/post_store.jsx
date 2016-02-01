@@ -18,6 +18,10 @@ PostStore.acceptNewPost = function (post) {
   PostApiUtil.acceptNewPost(post);
 };
 
+PostStore.addNewComment = function (comment) {
+  PostApiUtil.addNewComment(comment);
+};
+
 PostStore.emptyPosts = function (targetId) {
   // if (posts.length > 0 && posts[0].target_id !== targetId) {
     posts = [];
@@ -34,6 +38,12 @@ PostStore.__onDispatch = function (payload) {
       break;
     case PostConstants.RECEIVE_UPDATED_POST:
       posts.unshift(payload.post);
+      this.__emitChange();
+      break;
+    case PostConstants.RECEIVE_UPDATED_COMMENT:
+      var comment = payload.comment;
+      postIdx = posts.findIndex( function(el) { return (el.id === comment.commentable_id); });
+      posts[postIdx].comments.push(comment);
       this.__emitChange();
       break;
   }

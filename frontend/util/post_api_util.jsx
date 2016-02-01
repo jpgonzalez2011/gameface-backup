@@ -22,6 +22,18 @@ var PostApiUtil = {
         PostActions.receiveUpdatedPost(data);
       }
     });
+  },
+
+  addNewComment: function (comment) {
+    $.ajax({
+      type: "POST",
+      url: "api/comments/",
+      dataType: "json",
+      data: comment,
+      success: function (data) {
+        PostActions.receiveUpdatedComment(data);
+      }
+    });
   }
 };
 
