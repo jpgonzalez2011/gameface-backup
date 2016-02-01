@@ -4,7 +4,6 @@ var React = require('react'),
 
 var PostForm = React.createClass({
   getInitialState: function () {
-    debugger
     return ({
       text: "",
       showFooter: false

@@ -8,7 +8,6 @@ var ProfileTimeline = React.createClass({
   },
 
   getStateFromStore: function (props) {
-    debugger
     return ({ posts: PostStore.findByTarget(props.params.userId) });
   },
 

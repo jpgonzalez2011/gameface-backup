@@ -31697,6 +31697,7 @@
 	  },
 
 	  componentWillUnmount: function () {
+	    PhotoStore.emptyPhotos(this.props.params.userId);
 	    this.storeCBToken.remove();
 	  },
 
@@ -32055,7 +32056,6 @@
 	  },
 
 	  getStateFromStore: function (props) {
-	    debugger;
 	    return { posts: PostStore.findByTarget(props.params.userId) };
 	  },
 
@@ -32135,7 +32135,6 @@
 	  displayName: 'PostForm',
 
 	  getInitialState: function () {
-	    debugger;
 	    return {
 	      text: "",
 	      showFooter: false
