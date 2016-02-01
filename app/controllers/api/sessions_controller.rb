@@ -3,7 +3,7 @@ class Api::SessionsController < ApplicationController
   def show
     if current_user
       @user = current_user
-      render json: [{id: @user.id, username: @user.username}]
+      render json: [{id: @user.id, username: @user.username, fname: @user.fname}]
     else
       render json: [{id: "no-user-found"}]
     end

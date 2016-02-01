@@ -55,7 +55,8 @@
 	    Profile = __webpack_require__(236),
 	    PhotosIndex = __webpack_require__(241),
 	    About = __webpack_require__(247),
-	    CurrentUserStore = __webpack_require__(209);
+	    CurrentUserStore = __webpack_require__(209),
+	    ProfileTimeline = __webpack_require__(252);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
@@ -110,7 +111,8 @@
 	      { path: 'users/:userId', component: Profile, onEnter: _ensureLoggedIn },
 	      '  //ensure login here',
 	      React.createElement(Route, { path: 'photos', component: PhotosIndex }),
-	      React.createElement(Route, { path: 'about', component: About })
+	      React.createElement(Route, { path: 'about', component: About }),
+	      React.createElement(Route, { path: 'timeline', component: ProfileTimeline })
 	    )
 	  )
 	);
@@ -32023,6 +32025,125 @@
 	});
 
 	module.exports = About;
+
+/***/ },
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    PostForm = __webpack_require__(253);
+
+	var ProfileTimeline = React.createClass({
+	  displayName: 'ProfileTimeline',
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'timeline-container' },
+	      React.createElement(
+	        'div',
+	        { className: 'timeline-right-side' },
+	        React.createElement(PostForm, null)
+	      )
+	    );
+	  }
+	});
+
+	module.exports = ProfileTimeline;
+
+/***/ },
+/* 253 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    PostStore = __webpack_require__(254),
+	    CurrentUserStore = __webpack_require__(209);
+
+	var PostForm = React.createClass({
+	  displayName: 'PostForm',
+
+	  getInitialState: function () {
+	    return { text: "", showFooter: false };
+	  },
+
+	  render: function () {
+	    if (this.state.showFooter) {
+	      return React.createElement(
+	        'div',
+	        { className: 'post-form-container' },
+	        React.createElement(
+	          'form',
+	          { className: 'post-form', onSubmit: this.handleSubmit },
+	          React.createElement(
+	            'label',
+	            { 'for': 'text' },
+	            'Make a Post, ',
+	            CurrentUserStore.currentUser().fname
+	          ),
+	          React.createElement('input', { type: 'text', id: 'text', onChange: this.changeText }),
+	          React.createElement(
+	            'feature',
+	            { className: 'post-form-footer' },
+	            React.createElement(
+	              'button',
+	              { className: 'post-form-button' },
+	              ' Post '
+	            )
+	          )
+	        )
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { className: 'post-form-container' },
+	        React.createElement(
+	          'form',
+	          { className: 'post-form', onSubmit: this.handleSubmit },
+	          React.createElement(
+	            'label',
+	            { 'for': 'text' },
+	            'Make a Post, ',
+	            CurrentUserStore.currentUser().fname
+	          ),
+	          React.createElement('input', { type: 'text', id: 'text', onClick: this.showFooter, onChange: this.changeText })
+	        )
+	      );
+	    }
+	  },
+
+	  changeText: function (e) {
+	    this.setState({ text: e.target.value });
+	  },
+
+	  showFooter: function (e) {
+	    this.setState({ showFooter: true });
+	  },
+
+	  handleSubmit: function (e) {
+	    e.preventDefault();
+
+	    PhotoStore.acceptNewPost(this.state.text, this.props.params.userId, CurrentUserStore.currentUser().id);
+
+	    this.resetForm(e);
+	  },
+
+	  resetForm: function (e) {
+	    e.target.value = "";
+	    this.setState({ text: "", showFooter: false });
+	  }
+	});
+
+	module.exports = PostForm;
+
+/***/ },
+/* 254 */
+/***/ function(module, exports) {
+
+	
 
 /***/ }
 /******/ ]);
