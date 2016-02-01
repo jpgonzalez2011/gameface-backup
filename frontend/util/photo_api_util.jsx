@@ -21,6 +21,7 @@ var PhotoApiUtil = {
       dataType: "json",
       data: photo,
       success: function (data) {
+        resetCallback();
         PhotoActions.receiveUpdatedPhoto(data);
       }
     });

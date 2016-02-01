@@ -10,14 +10,14 @@ var PhotosIndex = React.createClass({
     return ( this.getStateFromStore(this.props) );
   },
 
-  getStateFromStore: function (props) {
+  getStateFromStore: function () {
     this.checkForOwner();
-    return ( { photos: PhotoStore.findByOwner(props.params.userId) });
+    return ( { photos: PhotoStore.findByOwner(this.props.params.userId) });
   },
 
   componentDidMount: function () {
     this.storeCBToken = PhotoStore.addListener( function () {
-      this.setState(this.getStateFromStore(this.props));
+      this.setState(this.getStateFromStore());
     }.bind(this));
   },
 

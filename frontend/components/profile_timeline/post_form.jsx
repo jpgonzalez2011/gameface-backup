@@ -46,12 +46,15 @@ var PostForm = React.createClass({
 
   handleSubmit: function (e) {
     e.preventDefault();
+    var post = { post:
+        {
+        content: this.state.text,
+        poster_id: CurrentUserStore.currentUser().id,
+        target_id: this.props.userId
+      }
+    }
 
-    PhotoStore.acceptNewPost(
-      this.state.text,
-      this.props.params.userId,
-      CurrentUserStore.currentUser().id
-    );
+    PostStore.acceptNewPost(post);
 
     this.resetForm(e);
   },

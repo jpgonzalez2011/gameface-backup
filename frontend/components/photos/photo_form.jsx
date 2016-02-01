@@ -34,6 +34,11 @@ var PhotoForm = React.createClass({
     }
   },
 
+  resetForm: function () {
+    this.setState({ title: "", imageFile: null, imageUrl: "" });
+    this.forceUpdate();
+  },
+
   handleSubmit: function(e) {
     e.preventDefault();
 

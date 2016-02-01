@@ -31685,14 +31685,14 @@
 	    return this.getStateFromStore(this.props);
 	  },
 
-	  getStateFromStore: function (props) {
+	  getStateFromStore: function () {
 	    this.checkForOwner();
-	    return { photos: PhotoStore.findByOwner(props.params.userId) };
+	    return { photos: PhotoStore.findByOwner(this.props.params.userId) };
 	  },
 
 	  componentDidMount: function () {
 	    this.storeCBToken = PhotoStore.addListener(function () {
-	      this.setState(this.getStateFromStore(this.props));
+	      this.setState(this.getStateFromStore());
 	    }.bind(this));
 	  },
 
@@ -31834,6 +31834,7 @@
 	      dataType: "json",
 	      data: photo,
 	      success: function (data) {
+	        resetCallback();
 	        PhotoActions.receiveUpdatedPhoto(data);
 	      }
 	    });
@@ -31917,6 +31918,11 @@
 	    } else {
 	        this.setState({ imageFile: null, imageUrl: "" });
 	      }
+	  },
+
+	  resetForm: function () {
+	    this.setState({ title: "", imageFile: null, imageUrl: "" });
+	    this.forceUpdate();
 	  },
 
 	  handleSubmit: function (e) {
@@ -32035,10 +32041,33 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostForm = __webpack_require__(253);
+	    PostForm = __webpack_require__(253),
+	    PostStore = __webpack_require__(254);
 
 	var ProfileTimeline = React.createClass({
 	  displayName: 'ProfileTimeline',
+
+	  getInitialState: function () {
+	    return this.getStateFromStore(this.props);
+	  },
+
+	  getStateFromStore: function (props) {
+	    return { posts: PostStore.findByTarget(props.params.userId) };
+	  },
+
+	  componentDidMount: function () {
+	    this.storeCBToken = PostStore.addListener(function () {
+	      this.setState(this.getStateFromStore(this.props));
+	    }.bind(this));
+	  },
+
+	  componentWillUnmount: function () {
+	    this.storeCBToken.remove();
+	  },
+
+	  componentWillReceiveProps: function () {
+	    this.setState(this.getStateFromStore(this.props));
+	  },
 
 	  render: function () {
 	    return React.createElement(
@@ -32047,7 +32076,36 @@
 	      React.createElement(
 	        'div',
 	        { className: 'timeline-right-side' },
-	        React.createElement(PostForm, null)
+	        React.createElement(PostForm, { userId: this.props.params.userId }),
+	        React.createElement(
+	          'ul',
+	          { className: 'timeline-index-list' },
+	          this.state.posts.map(function (post, i) {
+	            return React.createElement(
+	              'li',
+	              { key: i, className: 'timeline-index-item' },
+	              React.createElement(
+	                'h1',
+	                { className: 'timeline-index-item-header' },
+	                React.createElement(
+	                  'div',
+	                  null,
+	                  post.poster_name
+	                ),
+	                React.createElement(
+	                  'span',
+	                  null,
+	                  post.date_and_time
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'timeline-index-item-content' },
+	                post.content
+	              )
+	            );
+	          })
+	        )
 	      )
 	    );
 	  }
@@ -32125,8 +32183,14 @@
 
 	  handleSubmit: function (e) {
 	    e.preventDefault();
+	    var post = { post: {
+	        content: this.state.text,
+	        poster_id: CurrentUserStore.currentUser().id,
+	        target_id: this.props.userId
+	      }
+	    };
 
-	    PhotoStore.acceptNewPost(this.state.text, this.props.params.userId, CurrentUserStore.currentUser().id);
+	    PostStore.acceptNewPost(post);
 
 	    this.resetForm(e);
 	  },
@@ -32141,9 +32205,117 @@
 
 /***/ },
 /* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    Store = __webpack_require__(214).Store,
+	    PostConstants = __webpack_require__(257),
+	    PostApiUtil = __webpack_require__(255);
+
+	var posts = [];
+
+	var PostStore = new Store(Dispatcher);
+
+	PostStore.findByTarget = function (targetId) {
+	  if (posts.length === 0) {
+	    PostApiUtil.fetchTargetedPosts(targetId);
+	  }
+	  return posts;
+	};
+
+	PostStore.acceptNewPost = function (post) {
+	  PostApiUtil.acceptNewPost(post);
+	};
+
+	PostStore.emptyPosts = function (targetId) {
+	  if (posts.length > 0 && posts[0].target_id !== targetId) {
+	    posts = [];
+	  }
+	};
+
+	PostStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case PostConstants.RECEIVED_POSTS:
+	      if (posts.length !== payload.posts.length || payload.posts.length !== 0) {
+	        posts = payload.posts;
+	        this.__emitChange();
+	      }
+	      break;
+	    case PostConstants.RECEIVE_UPDATED_POST:
+	      posts.unshift(payload.post);
+	      this.__emitChange();
+	      break;
+	  }
+	};
+
+	module.exports = PostStore;
+
+/***/ },
+/* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var PostActions = __webpack_require__(256);
+
+	var PostApiUtil = {
+	  fetchTargetedPosts: function (targetId) {
+	    $.ajax({
+	      type: "GET",
+	      url: "api/users/" + targetId + "/posts",
+	      dataType: "json",
+	      success: function (data) {
+	        PostActions.receivePosts(data);
+	      }
+	    });
+	  },
+
+	  acceptNewPost: function (post, resetCallback) {
+	    $.ajax({
+	      type: "POST",
+	      url: "api/posts/",
+	      dataType: "json",
+	      data: post,
+	      success: function (data) {
+	        PostActions.receiveUpdatedPost(data);
+	      }
+	    });
+	  }
+	};
+
+	module.exports = PostApiUtil;
+
+/***/ },
+/* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    PostConstants = __webpack_require__(257);
+
+	var PostActions = {
+	  receivePosts: function (posts) {
+	    Dispatcher.dispatch({
+	      actionType: PostConstants.RECEIVED_POSTS,
+	      posts: posts
+	    });
+	  },
+
+	  receiveUpdatedPost: function (post) {
+	    Dispatcher.dispatch({
+	      actionType: PostConstants.RECEIVE_UPDATED_POST,
+	      post: post
+	    });
+	  }
+	};
+
+	module.exports = PostActions;
+
+/***/ },
+/* 257 */
 /***/ function(module, exports) {
 
-	
+	module.exports = {
+	  RECEIVED_POSTS: "RECEIVED_POSTS",
+	  RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST"
+	};
 
 /***/ }
 /******/ ]);

@@ -18,5 +18,4 @@ class Api::PhotosController < ApplicationController
   def photo_params
     params.require(:photo).permit(:uploader_id, :image)
   end
-
 end

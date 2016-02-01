@@ -11,6 +11,20 @@ class User < ActiveRecord::Base
     class_name: "Photo"
   )
 
+  has_many(
+    :posted_posts,
+    foreign_key: :poster_id,
+    primary_key: :id,
+    class_name: "Post"
+  )
+
+  has_many(
+    :targeted_posts,
+    foreign_key: :target_id,
+    primary_key: :id,
+    class_name: "Post"
+  )
+
   attr_reader :password
 
   after_initialize :ensure_session_token
