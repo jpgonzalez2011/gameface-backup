@@ -31921,7 +31921,7 @@
 	    if (this.state.loading) {
 	      return React.createElement(
 	        'div',
-	        null,
+	        { className: 'photo-upload-container' },
 	        ' Uploading ..'
 	      );
 	    }

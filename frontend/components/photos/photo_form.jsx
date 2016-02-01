@@ -10,7 +10,7 @@ var PhotoForm = React.createClass({
   render: function () {
     if (this.state.loading) {
       return (
-        <div> Uploading ..</div>
+        <div className="photo-upload-container"> Uploading ..</div>
       );
     }
       return (
