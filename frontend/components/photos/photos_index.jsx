@@ -22,7 +22,7 @@ var PhotosIndex = React.createClass({
   },
 
   componentWillUnmount: function () {
-    PhotoStore.emptyPhotos(this.props.params.userId);
+    // PhotoStore.emptyPhotos(this.props.params.userId);
     this.storeCBToken.remove();
   },
 
@@ -45,7 +45,14 @@ var PhotosIndex = React.createClass({
   },
 
   render: function () {
-    if (this.state.photos.length === 0) {
+    if (this.state.photos === "loading") {
+      return (
+        <div>
+          Now loading...
+        </div>
+      );
+    }
+    if (this.state.photos[0] === "no photos") {
       return (
         <div className="photo-index-container group">
           <h1 className="photos-header"> PHOTOS </h1>

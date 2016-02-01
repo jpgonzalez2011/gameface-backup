@@ -31697,7 +31697,7 @@
 	  },
 
 	  componentWillUnmount: function () {
-	    PhotoStore.emptyPhotos(this.props.params.userId);
+	    // PhotoStore.emptyPhotos(this.props.params.userId);
 	    this.storeCBToken.remove();
 	  },
 
@@ -31720,7 +31720,14 @@
 	  },
 
 	  render: function () {
-	    if (this.state.photos.length === 0) {
+	    if (this.state.photos === "loading") {
+	      return React.createElement(
+	        'div',
+	        null,
+	        'Now loading...'
+	      );
+	    }
+	    if (this.state.photos[0] === "no photos") {
 	      return React.createElement(
 	        'div',
 	        { className: 'photo-index-container group' },
@@ -31773,10 +31780,13 @@
 	var PhotoStore = new Store(Dispatcher);
 
 	PhotoStore.findByOwner = function (ownerId) {
-	  if (photos.length === 0 || photos[0].uploader_id !== parseInt(ownerId)) {
+	  if (photos.length > 0 && (photos[0].uploader_id == ownerId || photos[0] === "no photos")) {
+	    return photos;
+	  } else {
+	    photos = "loading";
 	    PhotoApiUtil.fetchOwnedPhotos(ownerId);
+	    return photos;
 	  }
-	  return photos;
 	};
 
 	PhotoStore.acceptNewPhoto = function (photo, resetCallback) {
@@ -31792,10 +31802,12 @@
 	PhotoStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case PhotoConstants.RECEIVED_PHOTOS:
-	      if (photos.length !== payload.photos.length || payload.photos.length !== 0) {
+	      if (payload.photos.length === 0) {
+	        photos = ["no photos"];
+	      } else {
 	        photos = payload.photos;
-	        this.__emitChange();
 	      }
+	      this.__emitChange();
 	      break;
 	    case PhotoConstants.RECEIVE_UPDATED_PHOTO:
 	      photos.unshift(payload.photo);

@@ -8,10 +8,13 @@ var photos = [];
 var PhotoStore = new Store(Dispatcher);
 
 PhotoStore.findByOwner = function (ownerId) {
-  if (photos.length === 0 || photos[0].uploader_id !== parseInt(ownerId)) {
+  if (photos.length > 0 && (photos[0].uploader_id == ownerId || photos[0] === "no photos")) {
+    return photos;
+  } else {
+    photos = "loading";
     PhotoApiUtil.fetchOwnedPhotos(ownerId);
+    return photos;
   }
-  return photos;
 };
 
 PhotoStore.acceptNewPhoto = function (photo, resetCallback) {
@@ -27,10 +30,12 @@ PhotoStore.emptyPhotos = function (userId) {
 PhotoStore.__onDispatch = function (payload) {
   switch (payload.actionType){
     case PhotoConstants.RECEIVED_PHOTOS:
-      if (photos.length !== payload.photos.length || payload.photos.length !== 0) {
-        photos = payload.photos;
+        if (payload.photos.length === 0) {
+          photos = ["no photos"];
+        } else {
+          photos = payload.photos;
+        }
         this.__emitChange();
-      }
       break;
     case PhotoConstants.RECEIVE_UPDATED_PHOTO:
       photos.unshift(payload.photo);
