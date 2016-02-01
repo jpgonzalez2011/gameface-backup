@@ -8,7 +8,7 @@ var photos = [];
 var PhotoStore = new Store(Dispatcher);
 
 PhotoStore.findByOwner = function (ownerId) {
-  if (photos.length === 0 ) {
+  if (photos.length === 0 || photos[0].uploader_id !== parseInt(ownerId)) {
     PhotoApiUtil.fetchOwnedPhotos(ownerId);
   }
   return photos;

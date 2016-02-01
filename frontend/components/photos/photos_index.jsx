@@ -7,17 +7,21 @@ var _photoForm;
 
 var PhotosIndex = React.createClass({
   getInitialState: function () {
-    return ( this.getStateFromStore(this.props) );
+    return ( { photos: [], initial_render: true } );
   },
 
-  getStateFromStore: function () {
+  getStateFromStore: function (props) {
     this.checkForOwner();
-    return ( { photos: PhotoStore.findByOwner(this.props.params.userId) });
+    return ( { photos: PhotoStore.findByOwner(props.params.userId), initial_render: false });
+  },
+
+  componentWillMount: function() {
+    this.getStateFromStore(this.props);
   },
 
   componentDidMount: function () {
     this.storeCBToken = PhotoStore.addListener( function () {
-      this.setState(this.getStateFromStore());
+      this.setState(this.getStateFromStore(this.props));
     }.bind(this));
   },
 
@@ -25,8 +29,10 @@ var PhotosIndex = React.createClass({
     this.storeCBToken.remove();
   },
 
-  componentWillMount: function () {
-    PhotoStore.emptyPhotos(this.props.params.userId);
+  componentWillReceiveProps: function (newProps) {
+    PhotoStore.emptyPhotos(newProps.params.userId);
+    // this.setState({ photos: [] });
+    this.setState(this.getStateFromStore(newProps));
   },
 
   checkForOwner: function () {
@@ -38,6 +44,13 @@ var PhotosIndex = React.createClass({
   },
 
   render: function () {
+    if (this.state.initial_render) {
+      return (
+        <div>
+
+        </div>
+      );
+    }
     if (this.state.photos.length === 0) {
       return (
         <div className="photo-index-container group">

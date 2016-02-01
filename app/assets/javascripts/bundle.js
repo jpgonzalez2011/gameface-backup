@@ -56,7 +56,7 @@
 	    PhotosIndex = __webpack_require__(241),
 	    About = __webpack_require__(247),
 	    CurrentUserStore = __webpack_require__(209),
-	    ProfileTimeline = __webpack_require__(252);
+	    ProfileTimeline = __webpack_require__(248);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
@@ -31682,17 +31682,21 @@
 	  displayName: 'PhotosIndex',
 
 	  getInitialState: function () {
-	    return this.getStateFromStore(this.props);
+	    return { photos: [], initial_render: true };
 	  },
 
-	  getStateFromStore: function () {
+	  getStateFromStore: function (props) {
 	    this.checkForOwner();
-	    return { photos: PhotoStore.findByOwner(this.props.params.userId) };
+	    return { photos: PhotoStore.findByOwner(props.params.userId), initial_render: false };
+	  },
+
+	  componentWillMount: function () {
+	    this.getStateFromStore(this.props);
 	  },
 
 	  componentDidMount: function () {
 	    this.storeCBToken = PhotoStore.addListener(function () {
-	      this.setState(this.getStateFromStore());
+	      this.setState(this.getStateFromStore(this.props));
 	    }.bind(this));
 	  },
 
@@ -31700,8 +31704,10 @@
 	    this.storeCBToken.remove();
 	  },
 
-	  componentWillMount: function () {
-	    PhotoStore.emptyPhotos(this.props.params.userId);
+	  componentWillReceiveProps: function (newProps) {
+	    PhotoStore.emptyPhotos(newProps.params.userId);
+	    // this.setState({ photos: [] });
+	    this.setState(this.getStateFromStore(newProps));
 	  },
 
 	  checkForOwner: function () {
@@ -31713,6 +31719,9 @@
 	  },
 
 	  render: function () {
+	    if (this.state.initial_render) {
+	      return React.createElement('div', null);
+	    }
 	    if (this.state.photos.length === 0) {
 	      return React.createElement(
 	        'div',
@@ -31765,7 +31774,7 @@
 	var PhotoStore = new Store(Dispatcher);
 
 	PhotoStore.findByOwner = function (ownerId) {
-	  if (photos.length === 0) {
+	  if (photos.length === 0 || photos[0].uploader_id !== parseInt(ownerId)) {
 	    PhotoApiUtil.fetchOwnedPhotos(ownerId);
 	  }
 	  return photos;
@@ -31971,6 +31980,7 @@
 	  },
 
 	  componentWillReceiveProps: function (newProps) {
+	    debugger;
 	    this.setState(this.getStateFromStore(newProps));
 	  },
 
@@ -32033,16 +32043,12 @@
 	module.exports = About;
 
 /***/ },
-/* 248 */,
-/* 249 */,
-/* 250 */,
-/* 251 */,
-/* 252 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostForm = __webpack_require__(253),
-	    PostStore = __webpack_require__(254);
+	    PostForm = __webpack_require__(249),
+	    PostStore = __webpack_require__(250);
 
 	var ProfileTimeline = React.createClass({
 	  displayName: 'ProfileTimeline',
@@ -32114,11 +32120,11 @@
 	module.exports = ProfileTimeline;
 
 /***/ },
-/* 253 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostStore = __webpack_require__(254),
+	    PostStore = __webpack_require__(250),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var PostForm = React.createClass({
@@ -32204,13 +32210,13 @@
 	module.exports = PostForm;
 
 /***/ },
-/* 254 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
-	    PostConstants = __webpack_require__(257),
-	    PostApiUtil = __webpack_require__(255);
+	    PostConstants = __webpack_require__(251),
+	    PostApiUtil = __webpack_require__(252);
 
 	var posts = [];
 
@@ -32251,10 +32257,19 @@
 	module.exports = PostStore;
 
 /***/ },
-/* 255 */
+/* 251 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVED_POSTS: "RECEIVED_POSTS",
+	  RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST"
+	};
+
+/***/ },
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var PostActions = __webpack_require__(256);
+	var PostActions = __webpack_require__(253);
 
 	var PostApiUtil = {
 	  fetchTargetedPosts: function (targetId) {
@@ -32284,11 +32299,11 @@
 	module.exports = PostApiUtil;
 
 /***/ },
-/* 256 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
-	    PostConstants = __webpack_require__(257);
+	    PostConstants = __webpack_require__(251);
 
 	var PostActions = {
 	  receivePosts: function (posts) {
@@ -32307,15 +32322,6 @@
 	};
 
 	module.exports = PostActions;
-
-/***/ },
-/* 257 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  RECEIVED_POSTS: "RECEIVED_POSTS",
-	  RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST"
-	};
 
 /***/ }
 /******/ ]);
