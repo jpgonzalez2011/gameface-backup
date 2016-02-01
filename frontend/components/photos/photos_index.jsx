@@ -64,6 +64,7 @@ var PhotosIndex = React.createClass({
     } else {
       return (
         <div className="photo-index-container group">
+          <h1 className="photos-header"> PHOTOS </h1>
           {_photoForm}
           <ul className="photo-index-list group">
             {this.state.photos.map( function (photo, i) {

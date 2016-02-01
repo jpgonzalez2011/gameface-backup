@@ -31756,6 +31756,11 @@
 	      return React.createElement(
 	        'div',
 	        { className: 'photo-index-container group' },
+	        React.createElement(
+	          'h1',
+	          { className: 'photos-header' },
+	          ' PHOTOS '
+	        ),
 	        _photoForm,
 	        React.createElement(
 	          'ul',
