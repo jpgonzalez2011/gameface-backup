@@ -4,7 +4,7 @@ var React = require('react'),
 
 var ProfileTimeline = React.createClass({
   getInitialState: function () {
-    return ( this.getStateFromStore(this.props) );
+    return ( {posts: [], initial_render: true });
   },
 
   getStateFromStore: function (props) {
@@ -21,8 +21,13 @@ var ProfileTimeline = React.createClass({
     this.storeCBToken.remove();
   },
 
-  componentWillReceiveProps: function () {
-    this.setState(this.getStateFromStore(this.props));
+  componentWillMount: function () {
+    this.getStateFromStore(this.props);
+  },
+
+  componentWillReceiveProps: function (newProps) {
+    PostStore.emptyPosts(newProps.params.userId);
+    this.setState(this.getStateFromStore(newProps));
   },
 
   render: function () {

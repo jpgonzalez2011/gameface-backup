@@ -32054,7 +32054,7 @@
 	  displayName: 'ProfileTimeline',
 
 	  getInitialState: function () {
-	    return this.getStateFromStore(this.props);
+	    return { posts: [], initial_render: true };
 	  },
 
 	  getStateFromStore: function (props) {
@@ -32071,8 +32071,13 @@
 	    this.storeCBToken.remove();
 	  },
 
-	  componentWillReceiveProps: function () {
-	    this.setState(this.getStateFromStore(this.props));
+	  componentWillMount: function () {
+	    this.getStateFromStore(this.props);
+	  },
+
+	  componentWillReceiveProps: function (newProps) {
+	    PostStore.emptyPosts(newProps.params.userId);
+	    this.setState(this.getStateFromStore(newProps));
 	  },
 
 	  render: function () {
@@ -32131,7 +32136,10 @@
 	  displayName: 'PostForm',
 
 	  getInitialState: function () {
-	    return { text: "", showFooter: false };
+	    return {
+	      text: "",
+	      showFooter: false,
+	      posterName: CurrentUserStore.currentUser().fname };
 	  },
 
 	  render: function () {
@@ -32146,7 +32154,7 @@
 	            'label',
 	            { className: 'post-form-header', 'for': 'text' },
 	            'Make a Post, ',
-	            CurrentUserStore.currentUser().fname
+	            this.state.posterName
 	          ),
 	          React.createElement('textarea', { className: 'post-form-input', type: 'text', id: 'text', onChange: this.changeText }),
 	          React.createElement(
@@ -32171,7 +32179,7 @@
 	            'label',
 	            { className: 'post-form-header', 'for': 'text' },
 	            'Make a Post, ',
-	            CurrentUserStore.currentUser().fname
+	            this.state.posterName
 	          ),
 	          React.createElement('input', { className: 'post-form-input', type: 'text', id: 'text', onClick: this.showFooter, onChange: this.changeText })
 	        )
