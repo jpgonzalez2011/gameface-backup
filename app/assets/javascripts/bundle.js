@@ -32043,7 +32043,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'timeline-container' },
+	      { className: 'timeline-container group' },
 	      React.createElement(
 	        'div',
 	        { className: 'timeline-right-side' },
@@ -32080,14 +32080,14 @@
 	          { className: 'post-form', onSubmit: this.handleSubmit },
 	          React.createElement(
 	            'label',
-	            { 'for': 'text' },
+	            { className: 'post-form-header', 'for': 'text' },
 	            'Make a Post, ',
 	            CurrentUserStore.currentUser().fname
 	          ),
-	          React.createElement('input', { type: 'text', id: 'text', onChange: this.changeText }),
+	          React.createElement('input', { className: 'post-form-input', type: 'text', id: 'text', onChange: this.changeText }),
 	          React.createElement(
 	            'feature',
-	            { className: 'post-form-footer' },
+	            { className: 'post-form-footer group' },
 	            React.createElement(
 	              'button',
 	              { className: 'post-form-button' },
@@ -32105,11 +32105,11 @@
 	          { className: 'post-form', onSubmit: this.handleSubmit },
 	          React.createElement(
 	            'label',
-	            { 'for': 'text' },
+	            { className: 'post-form-header', 'for': 'text' },
 	            'Make a Post, ',
 	            CurrentUserStore.currentUser().fname
 	          ),
-	          React.createElement('input', { type: 'text', id: 'text', onClick: this.showFooter, onChange: this.changeText })
+	          React.createElement('input', { className: 'post-form-input', type: 'text', id: 'text', onClick: this.showFooter, onChange: this.changeText })
 	        )
 	      );
 	    }

@@ -1,0 +1,48 @@
+.timeline-container {
+  width: 850px;
+  background: transparent;
+  margin: 0 auto;
+}
+
+.timeline-right-side {
+  float: right;
+  width: 510px;
+}
+
+.post-form-header {
+  display: block;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  padding: 10px 12px 8px 10px;
+  font-family: helvetica, arial, sans-serif;
+  font-size: 12px;
+  line-height: 16.08px;
+  font-weight: 600;
+}
+
+.post-form-input {
+  display: block;
+  border-top: none;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  width: 485px;
+  min-height: 18px;
+  padding: 13px 12px;
+}
+
+.post-form-footer {
+  display: block;
+  border: 1px solid #ccc;
+  padding: 7px 12px 5px 10px;
+}
+
+.post-form-button {
+  float: right;
+  color: white;
+  background-color: #3a5795;
+  border: 1px solid black;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 13px;
+}

@@ -4,7 +4,7 @@ var React = require('react'),
 var ProfileTimeline = React.createClass({
   render: function () {
     return (
-      <div className="timeline-container">
+      <div className="timeline-container group">
         <div className="timeline-right-side">
           <PostForm />
         </div>

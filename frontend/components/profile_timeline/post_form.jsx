@@ -12,11 +12,11 @@ var PostForm = React.createClass({
       return (
         <div className="post-form-container">
           <form className="post-form" onSubmit={this.handleSubmit}>
-            <label for="text">
+            <label className="post-form-header" for="text">
               Make a Post, {CurrentUserStore.currentUser().fname}
             </label>
-            <input type="text" id="text" onChange={this.changeText}/>
-            <feature className="post-form-footer">
+            <input className="post-form-input" type="text" id="text" onChange={this.changeText}/>
+            <feature className="post-form-footer group">
               <button className="post-form-button"> Post </button>
             </feature>
           </form>
@@ -26,10 +26,10 @@ var PostForm = React.createClass({
       return (
         <div className="post-form-container">
           <form className="post-form" onSubmit={this.handleSubmit}>
-            <label for="text">
+            <label className="post-form-header" for="text">
               Make a Post, {CurrentUserStore.currentUser().fname}
             </label>
-            <input type="text" id="text" onClick={this.showFooter} onChange={this.changeText}/>
+            <input className="post-form-input" type="text" id="text" onClick={this.showFooter} onChange={this.changeText}/>
           </form>
         </div>
       );
