@@ -4,7 +4,7 @@ class Photo < ActiveRecord::Base
   validates :uploader_id, presence: true
 
   belongs_to(
-    :user,
+    :uploader,
     primary_key: :id,
     foreign_key: :uploader_id,
     class_name: "User"
@@ -12,12 +12,21 @@ class Photo < ActiveRecord::Base
 
   has_many :comments, as: :commentable
 
+  def full_size_url
+    self.image.url
+  end
+
   def medium_size_url
     self.image.url(:medium)
   end
 
   def thumb_size_url
     self.image.url(:thumb)
+  end
+
+  def date_and_time
+    t = self.created_at.in_time_zone('Eastern Time (US & Canada)')
+    t.strftime("%B") + " " + t.strftime("%d") + " " + t.strftime("%Y") + " " + t.strftime('%r')
   end
 
 end

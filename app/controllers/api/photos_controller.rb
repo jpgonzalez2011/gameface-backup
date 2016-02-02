@@ -1,7 +1,7 @@
 class Api::PhotosController < ApplicationController
 
   def index
-    @photos = Photo.where(uploader_id: params[:user_id]).order(created_at: :desc)
+    @photos = Photo.includes(:uploader, comments: :commenter).where(uploader_id: params[:user_id]).order(created_at: :desc)
   end
 
   def create

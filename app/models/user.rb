@@ -52,6 +52,14 @@ class User < ActiveRecord::Base
     self.session_token
   end
 
+  def full_name
+    name = self.fname
+    if self.lname
+      name = name + " " + self.lname
+    end
+    name
+  end
+
   private
 
   def ensure_session_token
