@@ -31865,7 +31865,7 @@
 	module.exports = {
 	  RECEIVED_PHOTOS: "RECEIVED_PHOTOS",
 	  RECEIVE_UPDATED_PHOTO: "RECEIVE_UPDATED_PHOTO",
-	  RECEIVE_UPDATED_COMMENT: "RECEIVE_UPDATED_COMMENT"
+	  RECEIVE_UPDATED_COMMENT: "RECEIVE_UPDATED_PHOTO_COMMENT"
 	};
 
 /***/ },
@@ -32387,7 +32387,7 @@
 	module.exports = {
 	  RECEIVED_POSTS: "RECEIVED_POSTS",
 	  RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST",
-	  RECEIVE_UPDATED_COMMENT: "RECEIVE_UPDATED_COMMENT"
+	  RECEIVE_UPDATED_COMMENT: "RECEIVE_UPDATED_POST_COMMENT"
 	};
 
 /***/ },
@@ -32639,7 +32639,7 @@
 	          commenter_id: CurrentUserStore.currentUser().id,
 	          commentable_id: this.props.commentable_id,
 	          commentable_type: "Post",
-	          content: this.state.content.slice(0, -1)
+	          content: this.state.content
 	        } };
 	      PostStore.addNewComment(comment);
 	      this.setState({ content: "" });

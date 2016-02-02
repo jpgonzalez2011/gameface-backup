@@ -17,7 +17,7 @@ var PostCommentForm = React.createClass({
         commenter_id: CurrentUserStore.currentUser().id,
         commentable_id: this.props.commentable_id,
         commentable_type: "Post",
-        content: this.state.content.slice(0, -1)
+        content: this.state.content
       }};
       PostStore.addNewComment(comment);
       this.setState({content: ""});
