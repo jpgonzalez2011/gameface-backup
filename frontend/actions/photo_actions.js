@@ -14,6 +14,13 @@ var PhotoActions = {
       actionType: PhotoConstants.RECEIVE_UPDATED_PHOTO,
       photo: photo
     });
+  },
+
+  receiveUpdatedComment: function (comment) {
+    Dispatcher.dispatch({
+      actionType: PhotoConstants.RECEIVE_UPDATED_COMMENT,
+      comment: comment
+    });
   }
 };
 

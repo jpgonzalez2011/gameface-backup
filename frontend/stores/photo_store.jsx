@@ -21,6 +21,10 @@ PhotoStore.acceptNewPhoto = function (photo, resetCallback) {
   PhotoApiUtil.acceptNewPhoto(photo, resetCallback);
 };
 
+PhotoStore.addNewComment = function (comment) {
+  PhotoApiUtil.addNewComment(comment);
+};
+
 PhotoStore.emptyPhotos = function (userId) {
   if (photos.length > 0 && photos[0].uploader_id !== userId ) {
     photos = [];
@@ -39,6 +43,12 @@ PhotoStore.__onDispatch = function (payload) {
       break;
     case PhotoConstants.RECEIVE_UPDATED_PHOTO:
       photos.unshift(payload.photo);
+      this.__emitChange();
+      break;
+    case PhotoConstants.RECEIVE_UPDATED_COMMENT:
+      var comment = payload.comment;
+      photoIdx = photos.findIndex( function (el) {return (el.id === comment.commentable_id); });
+      photos[photoIdx].comments.push(comment);
       this.__emitChange();
       break;
   }

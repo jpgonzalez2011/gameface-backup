@@ -1,7 +1,8 @@
 var React = require('react'),
     PostForm = require('./post_form'),
     PostStore = require('../../stores/post_store'),
-    CommentForm = require('../comments/comment_form');
+    PostCommentForm = require('../comments/post_comment_form'),
+    CommentDisplay = require('../comments/comment_display');
 
 var ProfileTimeline = React.createClass({
   getInitialState: function () {
@@ -56,20 +57,12 @@ var ProfileTimeline = React.createClass({
                     <ul className="timeline-index-item-comments-list">
                       {post.comments.map( function (comment, i) {
                         return (
-                          <li key={i} className="timeline-index-item-comment group">
-                            <h1 className="timeline-index-item-comment-header group">
-                             <div>{comment.commenter_name}</div>
-                             <p className="timelineindex-item-comment-content">
-                               {comment.content}
-                             </p>
-                            </h1>
-                            <span>{comment.date_and_time}</span>
-                          </li>
+                          <CommentDisplay key={i} comment={comment} />
                         );
                       })}
                     </ul>
                   <div className="timeline-index-item-comment-form">
-                    <CommentForm commentable_id={post.id} />
+                    <PostCommentForm commentable_id={post.id} />
                   </div>
                 </li>
               );

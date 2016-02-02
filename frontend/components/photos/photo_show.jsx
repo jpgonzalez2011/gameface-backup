@@ -1,5 +1,6 @@
-var React = require('react');
-var CommentDisplay = require('../comments/comment_display')
+var React = require('react'),
+    CommentDisplay = require('../comments/comment_display'),
+    PhotoCommentForm = require('../comments/photo_comment_form');
 
 var PhotoShow = React.createClass({
 
@@ -30,6 +31,9 @@ var PhotoShow = React.createClass({
                   }
                 )}
               </ul>
+              <div className="photo-show-container-information-pane-comment-form">
+                <PhotoCommentForm commentable_id={this.props.photo.id} />
+              </div>
             </figure>
           </feature>
         </div>

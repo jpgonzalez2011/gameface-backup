@@ -26,6 +26,18 @@ var PhotoApiUtil = {
         PhotoActions.receiveUpdatedPhoto(data);
       }
     });
+  },
+
+  addNewComment: function (comment) {
+    $.ajax({
+      type: "POST",
+      url: "api/comments/",
+      dataType: "json",
+      data: comment,
+      success: function (data) {
+        PhotoActions.receiveUpdatedComment(data);
+      }
+    });
   }
 };
 

@@ -13,7 +13,7 @@
   margin: auto;
   position: absolute;
   top: 0; bottom: 0; left: 0; right: 0;
-  width: 1020px;
+  width: 1169px;
   height: 520px;
   background:rgba(255,255,255,1);
 }
@@ -45,7 +45,7 @@
 
 .photo-show-container-information-pane {
   float: right;
-  width: 359px;
+  width: 508px;
   height: 520px;
   border-left: 1px solid black;
   margin: 0 auto;
@@ -79,4 +79,9 @@
   font-size: 12px;
   font-weight: 400;
   color: #ccc;
+}
+
+.photo-show-container-information-pane-comments {
+  padding: 0px;
+  margin-top: 10px;
 }

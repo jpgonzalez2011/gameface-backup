@@ -3,14 +3,16 @@ var React = require('react');
 var CommentDisplay = React.createClass({
   render: function () {
     return (
-      <li className="comment-item">
+      <li key={this.props.key} className="comment-item">
         <h1 className="comment-header">
-          <div>{comment.commenter_name}</div>
+          <div>{this.props.comment.commenter_name}</div>
           <p className="comment-content">
-            {comment.content}
+            {this.props.comment.content}
           </p>
         </h1>
-        <span className="comment-timestamp">{comment.date_and_time}</span>
+        <span className="comment-timestamp">{
+            this.props.comment.date_and_time}
+        </span>
       </li>
     );
   }

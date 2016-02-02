@@ -31821,6 +31821,10 @@
 	  PhotoApiUtil.acceptNewPhoto(photo, resetCallback);
 	};
 
+	PhotoStore.addNewComment = function (comment) {
+	  PhotoApiUtil.addNewComment(comment);
+	};
+
 	PhotoStore.emptyPhotos = function (userId) {
 	  if (photos.length > 0 && photos[0].uploader_id !== userId) {
 	    photos = [];
@@ -31841,6 +31845,14 @@
 	      photos.unshift(payload.photo);
 	      this.__emitChange();
 	      break;
+	    case PhotoConstants.RECEIVE_UPDATED_COMMENT:
+	      var comment = payload.comment;
+	      photoIdx = photos.findIndex(function (el) {
+	        return el.id === comment.commentable_id;
+	      });
+	      photos[photoIdx].comments.push(comment);
+	      this.__emitChange();
+	      break;
 	  }
 	};
 
@@ -31852,7 +31864,8 @@
 
 	module.exports = {
 	  RECEIVED_PHOTOS: "RECEIVED_PHOTOS",
-	  RECEIVE_UPDATED_PHOTO: "RECEIVE_UPDATED_PHOTO"
+	  RECEIVE_UPDATED_PHOTO: "RECEIVE_UPDATED_PHOTO",
+	  RECEIVE_UPDATED_COMMENT: "RECEIVE_UPDATED_COMMENT"
 	};
 
 /***/ },
@@ -31887,6 +31900,18 @@
 	        PhotoActions.receiveUpdatedPhoto(data);
 	      }
 	    });
+	  },
+
+	  addNewComment: function (comment) {
+	    $.ajax({
+	      type: "POST",
+	      url: "api/comments/",
+	      dataType: "json",
+	      data: comment,
+	      success: function (data) {
+	        PhotoActions.receiveUpdatedComment(data);
+	      }
+	    });
 	  }
 	};
 
@@ -31911,6 +31936,13 @@
 	    Dispatcher.dispatch({
 	      actionType: PhotoConstants.RECEIVE_UPDATED_PHOTO,
 	      photo: photo
+	    });
+	  },
+
+	  receiveUpdatedComment: function (comment) {
+	    Dispatcher.dispatch({
+	      actionType: PhotoConstants.RECEIVE_UPDATED_COMMENT,
+	      comment: comment
 	    });
 	  }
 	};
@@ -32096,7 +32128,8 @@
 	var React = __webpack_require__(1),
 	    PostForm = __webpack_require__(249),
 	    PostStore = __webpack_require__(250),
-	    CommentForm = __webpack_require__(258);
+	    PostCommentForm = __webpack_require__(259),
+	    CommentDisplay = __webpack_require__(257);
 
 	var ProfileTimeline = React.createClass({
 	  displayName: 'ProfileTimeline',
@@ -32173,35 +32206,13 @@
 	                'ul',
 	                { className: 'timeline-index-item-comments-list' },
 	                post.comments.map(function (comment, i) {
-	                  return React.createElement(
-	                    'li',
-	                    { key: i, className: 'timeline-index-item-comment group' },
-	                    React.createElement(
-	                      'h1',
-	                      { className: 'timeline-index-item-comment-header group' },
-	                      React.createElement(
-	                        'div',
-	                        null,
-	                        comment.commenter_name
-	                      ),
-	                      React.createElement(
-	                        'p',
-	                        { className: 'timelineindex-item-comment-content' },
-	                        comment.content
-	                      )
-	                    ),
-	                    React.createElement(
-	                      'span',
-	                      null,
-	                      comment.date_and_time
-	                    )
-	                  );
+	                  return React.createElement(CommentDisplay, { key: i, comment: comment });
 	                })
 	              ),
 	              React.createElement(
 	                'div',
 	                { className: 'timeline-index-item-comment-form' },
-	                React.createElement(CommentForm, { commentable_id: post.id })
+	                React.createElement(PostCommentForm, { commentable_id: post.id })
 	              )
 	            );
 	          })
@@ -32462,8 +32473,9 @@
 /* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-	var CommentDisplay = __webpack_require__(257);
+	var React = __webpack_require__(1),
+	    CommentDisplay = __webpack_require__(257),
+	    PhotoCommentForm = __webpack_require__(260);
 
 	var PhotoShow = React.createClass({
 	  displayName: 'PhotoShow',
@@ -32512,6 +32524,11 @@
 	              this.props.photo.comments.map(function (comment, i) {
 	                return React.createElement(CommentDisplay, { key: i, comment: comment });
 	              })
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'photo-show-container-information-pane-comment-form' },
+	              React.createElement(PhotoCommentForm, { commentable_id: this.props.photo.id })
 	            )
 	          )
 	        )
@@ -32570,25 +32587,25 @@
 	  render: function () {
 	    return React.createElement(
 	      "li",
-	      { className: "comment-item" },
+	      { key: this.props.key, className: "comment-item" },
 	      React.createElement(
 	        "h1",
 	        { className: "comment-header" },
 	        React.createElement(
 	          "div",
 	          null,
-	          comment.commenter_name
+	          this.props.comment.commenter_name
 	        ),
 	        React.createElement(
 	          "p",
 	          { className: "comment-content" },
-	          comment.content
+	          this.props.comment.content
 	        )
 	      ),
 	      React.createElement(
 	        "span",
 	        { className: "comment-timestamp" },
-	        comment.date_and_time
+	        this.props.comment.date_and_time
 	      )
 	    );
 	  }
@@ -32597,15 +32614,16 @@
 	module.exports = CommentDisplay;
 
 /***/ },
-/* 258 */
+/* 258 */,
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    PostStore = __webpack_require__(250),
 	    CurrentUserStore = __webpack_require__(209);
 
-	var CommentForm = React.createClass({
-	  displayName: 'CommentForm',
+	var PostCommentForm = React.createClass({
+	  displayName: 'PostCommentForm',
 
 	  getInitialState: function () {
 	    return {
@@ -32648,7 +32666,61 @@
 	  }
 	});
 
-	module.exports = CommentForm;
+	module.exports = PostCommentForm;
+
+/***/ },
+/* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    PhotoStore = __webpack_require__(242),
+	    CurrentUserStore = __webpack_require__(209);
+
+	var PhotoCommentForm = React.createClass({
+	  displayName: 'PhotoCommentForm',
+
+	  getInitialState: function () {
+	    return {
+	      content: "",
+	      showFooter: false
+	    };
+	  },
+
+	  handleKeydown: function (e) {
+	    if (e.keyCode === 13) {
+	      e.preventDefault();
+	      var comment = { comment: {
+	          commenter_id: CurrentUserStore.currentUser().id,
+	          commentable_id: this.props.commentable_id,
+	          commentable_type: "Photo",
+	          content: this.state.content
+	        } };
+	      PhotoStore.addNewComment(comment);
+	      this.setState({ content: "" });
+	      $("#comment-form").val("");
+	    } else {
+	      this.handleChange(e);
+	    }
+	  },
+
+	  handleChange: function (e) {
+	    this.setState({ content: e.target.value });
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'comment-form-container group' },
+	      React.createElement(
+	        'form',
+	        { className: 'comment-form' },
+	        React.createElement('textarea', { className: 'comment-form-input', type: 'text', id: 'comment-form', onKeyUp: this.handleKeydown })
+	      )
+	    );
+	  }
+	});
+
+	module.exports = PhotoCommentForm;
 
 /***/ }
 /******/ ]);
