@@ -1,7 +1,7 @@
 var React = require('react'),
     PostForm = require('./post_form'),
     PostStore = require('../../stores/post_store'),
-    CommentForm = require('./comment_form');
+    CommentForm = require('../comments/comment_form');
 
 var ProfileTimeline = React.createClass({
   getInitialState: function () {

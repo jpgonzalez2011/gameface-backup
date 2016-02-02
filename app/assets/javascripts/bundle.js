@@ -31692,7 +31692,7 @@
 	    CurrentUserStore = __webpack_require__(209),
 	    PhotoStore = __webpack_require__(242),
 	    PhotoForm = __webpack_require__(246),
-	    PhotoShow = __webpack_require__(255);
+	    PhotoPreview = __webpack_require__(256);
 
 	var _photoForm;
 
@@ -31784,12 +31784,7 @@
 	          'ul',
 	          { className: 'photo-index-list group' },
 	          this.state.photos.map(function (photo, i) {
-	            return React.createElement(
-	              'li',
-	              { key: i },
-	              React.createElement('img', { className: 'photo-preview', src: photo.medium_url }),
-	              React.createElement(PhotoShow, null)
-	            );
+	            return React.createElement(PhotoPreview, { photo: photo, key: i });
 	          })
 	        )
 	      );
@@ -32101,7 +32096,7 @@
 	var React = __webpack_require__(1),
 	    PostForm = __webpack_require__(249),
 	    PostStore = __webpack_require__(250),
-	    CommentForm = __webpack_require__(254);
+	    CommentForm = __webpack_require__(258);
 
 	var ProfileTimeline = React.createClass({
 	  displayName: 'ProfileTimeline',
@@ -32463,7 +32458,146 @@
 	module.exports = PostActions;
 
 /***/ },
-/* 254 */
+/* 254 */,
+/* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var CommentDisplay = __webpack_require__(257);
+
+	var PhotoShow = React.createClass({
+	  displayName: 'PhotoShow',
+
+	  doNothing: function (e) {
+	    e.stopPropagation();
+	  },
+	  render: function () {
+	    if (this.props.show) {
+	      return React.createElement(
+	        'div',
+	        { className: 'photo-show-container' },
+	        React.createElement(
+	          'feature',
+	          { onClick: this.doNothing, className: 'photo-show-container-display group' },
+	          React.createElement(
+	            'figure',
+	            { className: 'photo-show-container-display-close' },
+	            'Close Photo'
+	          ),
+	          React.createElement(
+	            'figure',
+	            { className: 'photo-show-container-display-image-holder' },
+	            React.createElement('img', { className: 'photo-show-image', src: this.props.photo.full_url })
+	          ),
+	          React.createElement(
+	            'figure',
+	            { className: 'photo-show-container-information-pane' },
+	            React.createElement(
+	              'header',
+	              { className: 'photo-show-container-information-pane-header' },
+	              React.createElement(
+	                'h1',
+	                null,
+	                this.props.photo.uploader_name
+	              ),
+	              React.createElement(
+	                'h2',
+	                null,
+	                this.props.photo.date_and_time
+	              )
+	            ),
+	            React.createElement(
+	              'ul',
+	              { className: 'photo-show-container-information-pane-comments' },
+	              this.props.photo.comments.map(function (comment, i) {
+	                return React.createElement(CommentDisplay, { key: i, comment: comment });
+	              })
+	            )
+	          )
+	        )
+	      );
+	    } else {
+	      return React.createElement('div', null);
+	    }
+	  }
+	});
+
+	module.exports = PhotoShow;
+
+/***/ },
+/* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    PhotoShow = __webpack_require__(255);
+
+	var PhotoPreview = React.createClass({
+	  displayName: 'PhotoPreview',
+
+	  getInitialState: function () {
+	    return { show: false };
+	  },
+
+	  toggleShow: function () {
+	    this.setState({ show: !this.state.show });
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { onClick: this.toggleShow },
+	      React.createElement(
+	        'li',
+	        { key: this.props.key },
+	        React.createElement('img', { className: 'photo-preview', src: this.props.photo.medium_url })
+	      ),
+	      React.createElement(PhotoShow, { photo: this.props.photo, show: this.state.show })
+	    );
+	  }
+	});
+
+	module.exports = PhotoPreview;
+
+/***/ },
+/* 257 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var CommentDisplay = React.createClass({
+	  displayName: "CommentDisplay",
+
+	  render: function () {
+	    return React.createElement(
+	      "li",
+	      { className: "comment-item" },
+	      React.createElement(
+	        "h1",
+	        { className: "comment-header" },
+	        React.createElement(
+	          "div",
+	          null,
+	          comment.commenter_name
+	        ),
+	        React.createElement(
+	          "p",
+	          { className: "comment-content" },
+	          comment.content
+	        )
+	      ),
+	      React.createElement(
+	        "span",
+	        { className: "comment-timestamp" },
+	        comment.date_and_time
+	      )
+	    );
+	  }
+	});
+
+	module.exports = CommentDisplay;
+
+/***/ },
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
@@ -32515,26 +32649,6 @@
 	});
 
 	module.exports = CommentForm;
-
-/***/ },
-/* 255 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-
-	var PhotoShow = React.createClass({
-	  displayName: "PhotoShow",
-
-	  render: function () {
-	    return React.createElement(
-	      "div",
-	      { className: "photo-show-container" },
-	      "This is a test!"
-	    );
-	  }
-	});
-
-	module.exports = PhotoShow;
 
 /***/ }
 /******/ ]);

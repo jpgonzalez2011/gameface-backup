@@ -2,7 +2,7 @@ var React = require('react'),
     CurrentUserStore = require('../../stores/current_user_store'),
     PhotoStore = require('../../stores/photo_store'),
     PhotoForm = require('./photo_form'),
-    PhotoShow = require('./photo_show');
+    PhotoPreview = require('./photo_preview');
 
 var _photoForm;
 
@@ -70,10 +70,7 @@ var PhotosIndex = React.createClass({
           <ul className="photo-index-list group">
             {this.state.photos.map( function (photo, i) {
               return (
-                <li key={i}>
-                  <img className="photo-preview" src={photo.medium_url} />
-                  <PhotoShow />
-                </li>
+                <PhotoPreview photo={photo} key={i} />
               );
             })}
           </ul>
