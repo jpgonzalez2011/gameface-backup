@@ -31777,7 +31777,7 @@
 	            return React.createElement(
 	              'li',
 	              { key: i },
-	              React.createElement('img', { className: 'photo-preview', src: photo.medium_size_url })
+	              React.createElement('img', { className: 'photo-preview', src: photo.medium_url })
 	            );
 	          })
 	        )
@@ -31862,7 +31862,8 @@
 	      url: "api/users/" + ownerId + "/photos",
 	      dataType: "json",
 	      success: function (data) {
-	        PhotoActions.receivePhotos(data);
+	        var photos = data.photos;
+	        PhotoActions.receivePhotos(photos);
 	      }
 	    });
 	  },

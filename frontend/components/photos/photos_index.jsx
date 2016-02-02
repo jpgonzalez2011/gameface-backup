@@ -70,7 +70,7 @@ var PhotosIndex = React.createClass({
             {this.state.photos.map( function (photo, i) {
               return (
                 <li key={i}>
-                  <img className="photo-preview" src={photo.medium_size_url} />
+                  <img className="photo-preview" src={photo.medium_url} />
                 </li>
               );
             })}
