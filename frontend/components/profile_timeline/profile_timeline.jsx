@@ -33,7 +33,6 @@ var ProfileTimeline = React.createClass({
   },
 
   render: function () {
-    debugger
     return (
       <div className="timeline-container group">
         <div className="timeline-right-side">
@@ -58,15 +57,13 @@ var ProfileTimeline = React.createClass({
                       {post.comments.map( function (comment, i) {
                         return (
                           <li key={i} className="timeline-index-item-comment group">
-                            <h1 className="timeline-index-item-comment-header">
+                            <h1 className="timeline-index-item-comment-header group">
                              <div>{comment.commenter_name}</div>
-                              <div>Placeholder</div>
-                              <span> Placeholder 2</span>
-                              <span>{comment.date_and_time}</span>
+                             <p className="timelineindex-item-comment-content">
+                               {comment.content}
+                             </p>
                             </h1>
-                            <div className="timelineindex-item-comment-content">
-                              {comment.content}
-                            </div>
+                            <span>{comment.date_and_time}</span>
                           </li>
                         );
                       })}

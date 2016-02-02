@@ -32115,7 +32115,6 @@
 	  },
 
 	  render: function () {
-	    debugger;
 	    return React.createElement(
 	      'div',
 	      { className: 'timeline-container group' },
@@ -32164,32 +32163,22 @@
 	                    { key: i, className: 'timeline-index-item-comment group' },
 	                    React.createElement(
 	                      'h1',
-	                      { className: 'timeline-index-item-comment-header' },
+	                      { className: 'timeline-index-item-comment-header group' },
 	                      React.createElement(
 	                        'div',
 	                        null,
 	                        comment.commenter_name
 	                      ),
 	                      React.createElement(
-	                        'div',
-	                        null,
-	                        'Placeholder'
-	                      ),
-	                      React.createElement(
-	                        'span',
-	                        null,
-	                        ' Placeholder 2'
-	                      ),
-	                      React.createElement(
-	                        'span',
-	                        null,
-	                        comment.date_and_time
+	                        'p',
+	                        { className: 'timelineindex-item-comment-content' },
+	                        comment.content
 	                      )
 	                    ),
 	                    React.createElement(
-	                      'div',
-	                      { className: 'timelineindex-item-comment-content' },
-	                      comment.content
+	                      'span',
+	                      null,
+	                      comment.date_and_time
 	                    )
 	                  );
 	                })
@@ -32389,7 +32378,6 @@
 	      dataType: "json",
 	      success: function (data) {
 	        var posts = data.posts;
-	        debugger;
 	        PostActions.receivePosts(posts);
 	      }
 	    });

@@ -115,38 +115,48 @@
   border-bottom: 1px solid #ccc;
 }
 
-.timeline-index-item > ul > li > div {
-  float: left;
-  margin-top: 9px;
-  text-align: left;
-  font-size: 14px;
-}
-
 .timeline-index-item > ul > li > h1 {
+  display: block;
+  width: 500px;
+  height: auto;
   float: left;
   text-align: left;
-  font-size: 12px;
+  font-size: 10px;
   display: block;
-  margin-top: 10px;
-  padding: 0px 12px 0px 10px;
+  margin: 0px;
+  margin-left: 10px;
+  padding: 0px 12px 0px 0px;
   font-family: helvetica, arial, sans-serif;
   line-height: 16.08px;
   font-weight: 600;
 }
 
+
 .timeline-index-item > ul > li > h1 > div {
+  float: left;
   margin: 0px;
   padding: 0px;
-  font-size: 14px;
+  padding-right: 10px;
+  font-size: 12px;
   font-weight: bold;
+  width: auto;
   color: #3a5795;
 }
-
-.timeline-index-item > ul > li > h1 > span {
-  margin: 0px;
-  margin-top: -10px;
-  padding: 0px;
+.timeline-index-item > ul > li > h1 > p {
+  float: left;
+  margin-top: 0px;
+  text-align: left;
   font-size: 12px;
+  font-weight: 400;
+}
+
+.timeline-index-item > ul > li > span {
+  float: left;
+  margin: 0px;
+  margin-top: 0px;
+  padding: 0px;
+  margin-left: 10px;
+  font-size: 10px;
   font-weight: 400;
   color: #ccc;
 }

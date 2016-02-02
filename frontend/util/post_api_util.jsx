@@ -8,7 +8,6 @@ var PostApiUtil = {
       dataType: "json",
       success: function (data) {
         var posts = data.posts;
-        debugger
         PostActions.receivePosts(posts);
       }
     });
