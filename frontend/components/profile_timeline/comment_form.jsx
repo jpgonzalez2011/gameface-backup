@@ -17,9 +17,11 @@ var CommentForm = React.createClass({
         commenter_id: CurrentUserStore.currentUser().id,
         commentable_id: this.props.commentable_id,
         commentable_type: "Post",
-        content: this.state.content
+        content: this.state.content.slice(0, -1)
       }};
       PostStore.addNewComment(comment);
+      this.setState({content: ""});
+      $("#comment-form").val("");
     } else {
       this.handleChange(e);
     }
@@ -34,7 +36,7 @@ var CommentForm = React.createClass({
     return (
       <div className="comment-form-container group">
         <form className="comment-form">
-          <textarea className="comment-form-input" type="text" onKeyUp={this.handleKeydown}>
+          <textarea className="comment-form-input" type="text" id="comment-form" onKeyUp={this.handleKeydown}>
           </textarea>
         </form>
       </div>
