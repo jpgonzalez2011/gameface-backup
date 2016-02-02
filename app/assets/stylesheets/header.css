@@ -52,6 +52,25 @@
   width: 500px;
 }
 
+.signed-in-header {
+  float: right;
+  width: 250px;
+  margin-top: 30px;
+  color: white;
+  font-family: helvetica, arial, sans-serif;
+}
+
+.signed-in-header-name{
+  display: inline;
+  color: white;
+  margin-top: 30px;
+  padding: 1px;
+}
+
+.signed-in-header-name:hover {
+  background-color: #0e1f56;
+}
+
 .sign-in-header-form {
   float: left;
   margin-top: 10px;
