@@ -1,0 +1,10 @@
+.photo-show-container {
+  display: none;
+  background-color: white;
+  opacity: 0.6;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  right: 1px;
+  bottom: 1px;
+}

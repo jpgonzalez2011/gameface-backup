@@ -1,7 +1,8 @@
 var React = require('react'),
     CurrentUserStore = require('../../stores/current_user_store'),
     PhotoStore = require('../../stores/photo_store'),
-    PhotoForm = require('./photo_form');
+    PhotoForm = require('./photo_form'),
+    PhotoShow = require('./photo_show');
 
 var _photoForm;
 
@@ -71,6 +72,7 @@ var PhotosIndex = React.createClass({
               return (
                 <li key={i}>
                   <img className="photo-preview" src={photo.medium_url} />
+                  <PhotoShow />
                 </li>
               );
             })}

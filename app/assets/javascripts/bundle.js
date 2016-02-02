@@ -24389,34 +24389,43 @@
 
 	  render: function () {
 	    return React.createElement(
-	      'header',
-	      { className: 'header group' },
+	      'div',
+	      null,
 	      React.createElement(
-	        'nav',
-	        { className: 'nav-header group' },
+	        'header',
+	        { className: 'header group' },
 	        React.createElement(
-	          'header',
-	          { className: 'header-text' },
+	          'nav',
+	          { className: 'nav-header group' },
 	          React.createElement(
-	            'a',
-	            { href: '#/' },
-	            'GameFaces!'
-	          )
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.logOut, className: 'log-out' },
-	          ' Sign Out! '
-	        ),
-	        React.createElement(
-	          'header',
-	          { className: 'signed-in-header' },
+	            'header',
+	            { className: 'header-text' },
+	            React.createElement(
+	              'a',
+	              { href: '#/' },
+	              'GameFaces!'
+	            )
+	          ),
 	          React.createElement(
-	            'div',
-	            { className: 'signed-in-header-name' },
-	            CurrentUserStore.currentUser().fname
+	            'button',
+	            { onClick: this.logOut, className: 'log-out' },
+	            ' Sign Out! '
+	          ),
+	          React.createElement(
+	            'header',
+	            { className: 'signed-in-header' },
+	            React.createElement(
+	              'div',
+	              { className: 'signed-in-header-name' },
+	              CurrentUserStore.currentUser().fname
+	            )
 	          )
 	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'position-corrector' },
+	        ' Content to not be seen'
 	      )
 	    );
 	  }
@@ -31682,7 +31691,8 @@
 	var React = __webpack_require__(1),
 	    CurrentUserStore = __webpack_require__(209),
 	    PhotoStore = __webpack_require__(242),
-	    PhotoForm = __webpack_require__(246);
+	    PhotoForm = __webpack_require__(246),
+	    PhotoShow = __webpack_require__(255);
 
 	var _photoForm;
 
@@ -31777,7 +31787,8 @@
 	            return React.createElement(
 	              'li',
 	              { key: i },
-	              React.createElement('img', { className: 'photo-preview', src: photo.medium_url })
+	              React.createElement('img', { className: 'photo-preview', src: photo.medium_url }),
+	              React.createElement(PhotoShow, null)
 	            );
 	          })
 	        )
@@ -32504,6 +32515,26 @@
 	});
 
 	module.exports = CommentForm;
+
+/***/ },
+/* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var PhotoShow = React.createClass({
+	  displayName: "PhotoShow",
+
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      { className: "photo-show-container" },
+	      "This is a test!"
+	    );
+	  }
+	});
+
+	module.exports = PhotoShow;
 
 /***/ }
 /******/ ]);
