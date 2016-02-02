@@ -32115,6 +32115,7 @@
 	  },
 
 	  render: function () {
+	    debugger;
 	    return React.createElement(
 	      'div',
 	      { className: 'timeline-container group' },
@@ -32160,7 +32161,7 @@
 	                post.comments.map(function (comment, i) {
 	                  return React.createElement(
 	                    'li',
-	                    { key: i, className: 'timeline-index-item-comment' },
+	                    { key: i, className: 'timeline-index-item-comment group' },
 	                    React.createElement(
 	                      'h1',
 	                      { className: 'timeline-index-item-comment-header' },
@@ -32168,6 +32169,16 @@
 	                        'div',
 	                        null,
 	                        comment.commenter_name
+	                      ),
+	                      React.createElement(
+	                        'div',
+	                        null,
+	                        'Placeholder'
+	                      ),
+	                      React.createElement(
+	                        'span',
+	                        null,
+	                        ' Placeholder 2'
 	                      ),
 	                      React.createElement(
 	                        'span',
@@ -32377,7 +32388,9 @@
 	      url: "api/users/" + targetId + "/posts",
 	      dataType: "json",
 	      success: function (data) {
-	        PostActions.receivePosts(data);
+	        var posts = data.posts;
+	        debugger;
+	        PostActions.receivePosts(posts);
 	      }
 	    });
 	  },

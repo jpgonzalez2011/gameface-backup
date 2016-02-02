@@ -7,7 +7,9 @@ var PostApiUtil = {
       url: "api/users/" + targetId + "/posts",
       dataType: "json",
       success: function (data) {
-        PostActions.receivePosts(data);
+        var posts = data.posts;
+        debugger
+        PostActions.receivePosts(posts);
       }
     });
   },
