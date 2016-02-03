@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160203044410) do
+ActiveRecord::Schema.define(version: 20160203050123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(version: 20160203044410) do
   end
 
   add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
+
+  create_table "cover_photos", force: :cascade do |t|
+    t.integer  "user_id",            null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
+  add_index "cover_photos", ["user_id"], name: "index_cover_photos_on_user_id", unique: true, using: :btree
 
   create_table "friendships", force: :cascade do |t|
     t.integer  "received_friend"
