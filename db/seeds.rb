@@ -98,5 +98,9 @@ User.create!(
   fname: "Lara", lname: "Croft", date_of_birth: "25/10/1996"
 )
 
-CoverPhoto.create!(user_id: User.find_by(username: "mario").id, image: "http://vignette1.wikia.nocookie.net/fantendo/images/7/77/BalloonMario.png/revision/latest?cb=20100425175507")
-ProfilePicture.create!(user_id: User.find_by(username: "mario").id, image: "http://imgs.abduzeedo.com/files/tutorials/mario/mario.png")
+CoverPhoto.destroy_all
+ProfilePicture.destroy_all
+
+CoverPhoto.create!(user_id: User.find_by(username: "mario").id, image: File.new("#{Rails.root}/app/assets/images/mario.png"))
+ProfilePicture.create!(user_id: User.find_by(username: "mario").id, image: File.new("#{Rails.root}/app/assets/images/mario.jpg"))
+ProfilePicture.create!(user_id: User.find_by(username: "luigi").id, image: File.new("#{Rails.root}/app/assets/images/200px-Luigi_Artwork_-_Super_Mario_3D_World.png"))
