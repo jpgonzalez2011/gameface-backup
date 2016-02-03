@@ -10,15 +10,12 @@ User.destroy_all
 User.create!(
   username: "mario", password: "password",
   fname: "Mario", lname: "Mario", date_of_birth: "09/07/1981",
-  cover_photo: "https://upload.wikimedia.org/wikipedia/en/9/99/MarioSMBW.png",
-  profile_photo: "http://mario.nintendo.com/img/mario_logo.png",
   occupation: "Plumber", description: "It's a me! Mario! Plumber and Hero of
   the Mushroom Kingdom!"
 )
 User.create!(
   username: "luigi", password: "luigimansion",
-  fname: "Luigi", lname: "Mario", date_of_birth: "14/7/1983",
-  cover_photo: "https://sickr.files.wordpress.com/2013/06/luigi-circle.jpg"
+  fname: "Luigi", lname: "Mario", date_of_birth: "14/7/1983"
 )
 User.create!(
   username: "link", password: "ocarina",
@@ -56,3 +53,49 @@ User.create!(
   username: "ken", password: "shoryuken",
   fname: "Ken", lname: "Masters", date_of_birth: "09/07/1981"
 )
+User.create!(
+  username: "kirby", password: "password",
+  fname: "Kirby", lname: "", date_of_birth: "27/4/1992"
+)
+User.create!(
+  username: "samus", password: "shoryuken",
+  fname: "Samus", lname: "Aran", date_of_birth: "6/8/1988"
+)
+User.create!(
+  username: "pacman", password: "password",
+  fname: "Pacman", lname: "", date_of_birth: "22/5/1980"
+)
+User.create!(
+  username: "mspacman", password: "password",
+  fname: "Ms. Pacman", lname: "", date_of_birth: "13/1/1982"
+)
+User.create!(
+  username: "boo", password: "password",
+  fname: "Boo", lname: "", date_of_birth: "23/10/1988"
+)
+User.create!(
+  username: "yoshi", password: "password",
+  fname: "Yoshi", lname: "", date_of_birth: "21/11/1991"
+)
+User.create!(
+  username: "bigboo", password: "password",
+  fname: "Big", lname: "Boo", date_of_birth: "23/10/1988"
+)
+User.create!(
+  username: "kingboo", password: "password",
+  fname: "King", lname: "Boo", date_of_birth: "14/9/2001"
+)
+User.create!(
+  username: "frogger", password: "password",
+  fname: "Frogger", lname: "", date_of_birth: "5/6/1981"
+)
+User.create!(
+  username: "tetrisline", password: "password",
+  fname: "Line", lname: "", date_of_birth: "6/6/1984"
+)
+User.create!(
+  username: "laracroft", password: "password",
+  fname: "Lara", lname: "Croft", date_of_birth: "25/10/1996"
+)
+
+ProfilePicture.create!(user_id: User.find_by(username: "zelda").id, image: "http://www.smashbros.com/images/og/zelda.jpg")
