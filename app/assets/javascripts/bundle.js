@@ -31538,7 +31538,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'cover-photo-box' },
-	          React.createElement('img', { src: this.state.profile.cover_photo })
+	          React.createElement('img', { src: this.state.profile.cover_url })
 	        ),
 	        React.createElement(
 	          'ul',
@@ -31591,7 +31591,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'profile-picture-box' },
-	          React.createElement('img', { src: this.state.profile.profile_photo })
+	          React.createElement('img', { src: this.state.profile.profile_medium_url })
 	        )
 	      ),
 	      this.props.children

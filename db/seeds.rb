@@ -98,4 +98,5 @@ User.create!(
   fname: "Lara", lname: "Croft", date_of_birth: "25/10/1996"
 )
 
-ProfilePicture.create!(user_id: User.find_by(username: "zelda").id, image: "http://www.smashbros.com/images/og/zelda.jpg")
+CoverPhoto.create!(user_id: User.find_by(username: "mario").id, image: "http://vignette1.wikia.nocookie.net/fantendo/images/7/77/BalloonMario.png/revision/latest?cb=20100425175507")
+ProfilePicture.create!(user_id: User.find_by(username: "mario").id, image: "http://imgs.abduzeedo.com/files/tutorials/mario/mario.png")

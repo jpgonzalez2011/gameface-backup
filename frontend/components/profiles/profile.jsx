@@ -44,7 +44,7 @@ var Profile = React.createClass({
       <div className="main-div">
         <header className="profile-header-box group">
           <div className="cover-photo-box">
-            <img src={this.state.profile.cover_photo} />
+            <img src={this.state.profile.cover_url} />
           </div>
           <ul className="profile-nav group">
             <li> <a href={about}> About </a> </li>
@@ -53,7 +53,7 @@ var Profile = React.createClass({
             <li> <a href={friends}> Friends </a> </li>
           </ul>
           <div className="profile-picture-box">
-            <img src={this.state.profile.profile_photo} />
+            <img src={this.state.profile.profile_medium_url} />
           </div>
         </header>
         {this.props.children}
