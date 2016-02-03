@@ -32534,7 +32534,54 @@
 	        )
 	      );
 	    } else {
-	      return React.createElement('div', null);
+	      return React.createElement(
+	        'div',
+	        { className: 'photo-noshow-container' },
+	        React.createElement(
+	          'feature',
+	          { onClick: this.doNothing, className: 'photo-noshow-container-display group' },
+	          React.createElement(
+	            'figure',
+	            { className: 'photo-noshow-container-display-close' },
+	            'Close Photo'
+	          ),
+	          React.createElement(
+	            'figure',
+	            { className: 'photo-noshow-container-display-image-holder' },
+	            React.createElement('img', { className: 'photo-noshow-image', src: this.props.photo.full_url })
+	          ),
+	          React.createElement(
+	            'figure',
+	            { className: 'photo-noshow-container-information-pane' },
+	            React.createElement(
+	              'header',
+	              { className: 'photo-noshow-container-information-pane-header' },
+	              React.createElement(
+	                'h1',
+	                null,
+	                this.props.photo.uploader_name
+	              ),
+	              React.createElement(
+	                'h2',
+	                null,
+	                this.props.photo.date_and_time
+	              )
+	            ),
+	            React.createElement(
+	              'ul',
+	              { className: 'photo-noshow-container-information-pane-comments' },
+	              this.props.photo.comments.map(function (comment, i) {
+	                return React.createElement(CommentDisplay, { key: i, comment: comment });
+	              })
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'photo-noshow-container-information-pane-comment-form' },
+	              React.createElement(PhotoCommentForm, { commentable_id: this.props.photo.id })
+	            )
+	          )
+	        )
+	      );
 	    }
 	  }
 	});
