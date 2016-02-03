@@ -30,6 +30,9 @@ gem 'paperclip'
 gem 'aws-sdk', '~> 1.6'
 gem 'figaro'
 
+gem 'pg_search'
+gem 'kaminari'
+
 group :production do
 gem 'rails_12factor'
 end

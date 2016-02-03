@@ -48,7 +48,8 @@
 	    ReactDOM = __webpack_require__(158),
 	    Router = __webpack_require__(159).Router,
 	    Route = __webpack_require__(159).Route,
-	    History = __webpack_require__(159).History;
+	    History = __webpack_require__(159).History,
+	    IndexRoute = __webpack_require__(159).IndexRoute;
 
 	var LoggedInNavHeader = __webpack_require__(208),
 	    LoggedOutNavHeader = __webpack_require__(235),
@@ -113,9 +114,10 @@
 	      Route,
 	      { path: 'users/:userId', component: Profile, onEnter: _ensureLoggedIn },
 	      '  //ensure login here',
+	      React.createElement(IndexRoute, { component: ProfileTimeline }),
+	      React.createElement(Route, { path: 'timeline', component: ProfileTimeline }),
 	      React.createElement(Route, { path: 'photos', component: PhotosIndex }),
 	      React.createElement(Route, { path: 'about', component: About }),
-	      React.createElement(Route, { path: 'timeline', component: ProfileTimeline }),
 	      React.createElement(Route, { path: 'friends', component: FriendsIndex })
 	    )
 	  )

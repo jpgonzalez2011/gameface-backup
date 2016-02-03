@@ -2,7 +2,8 @@ var React = require('react'),
     ReactDOM = require('react-dom'),
     Router = require('react-router').Router,
     Route = require('react-router').Route,
-    History = require('react-router').History;
+    History = require('react-router').History,
+    IndexRoute = require('react-router').IndexRoute;
 
 var LoggedInNavHeader = require('./components/logged_in_nav_header'),
     LoggedOutNavHeader = require('./components/logged_out_nav_header'),
@@ -60,9 +61,10 @@ var router = (
     <Route path="/" component={GameFace}>
       <Route path="timeline" component={Timeline} onEnter={_ensureLoggedIn}/>
       <Route path="users/:userId" component={Profile} onEnter={_ensureLoggedIn}>  //ensure login here
+        <IndexRoute component={ProfileTimeline} />
+        <Route path="timeline" component={ProfileTimeline}/>
         <Route path="photos" component={PhotosIndex} />
         <Route path="about" component={About} />
-        <Route path="timeline" component={ProfileTimeline} />
         <Route path="friends" component={FriendsIndex} />
       </Route>
     </Route>
