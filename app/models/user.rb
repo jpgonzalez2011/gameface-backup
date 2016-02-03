@@ -39,6 +39,20 @@ class User < ActiveRecord::Base
     class_name: "Friendship"
   )
 
+  has_one(
+    :profile_picture,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: "ProfilePicture"
+  )
+
+  has_one(
+    :cover_photo,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: "CoverPhoto"
+  )
+
   # has_many :requested_friends, through: :requested_friendship
   # has_many :received_friends, through: :received_friendships
 

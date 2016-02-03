@@ -52,8 +52,8 @@ var LoggedOutNavHeader = React.createClass({
             <button onClick={this.logInAsMario} className="mario-log-in"> Log in as Mario! </button>
           <header className="sign-in-header group">
             <form onSubmit={this.submitCredentials} className="sign-in-header-form group">
-                <label for="username">Username</label>
-                <label for="password">Password</label>
+                <label htmlFor="username">Username</label>
+                <label htmlFor="password">Password</label>
                 <br></br>
                 <input onChange={this.updateUsername} type="text" name="user[username]" id="username"/>
                 <input onChange={this.updatePassword} type="password" name="user[password]" id="password"/>

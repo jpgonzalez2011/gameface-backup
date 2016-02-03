@@ -31459,12 +31459,12 @@
 	            { onSubmit: this.submitCredentials, className: 'sign-in-header-form group' },
 	            React.createElement(
 	              'label',
-	              { 'for': 'username' },
+	              { htmlFor: 'username' },
 	              'Username'
 	            ),
 	            React.createElement(
 	              'label',
-	              { 'for': 'password' },
+	              { htmlFor: 'password' },
 	              'Password'
 	            ),
 	            React.createElement('br', null),
