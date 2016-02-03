@@ -62,7 +62,7 @@ var PhotoShow = React.createClass({
                 )}
               </ul>
               <div className="photo-noshow-container-information-pane-comment-form">
-                <PhotoCommentForm commentable_id={this.props.photo.id} />
+                <PhotoCommentForm mainTimeLine={undefined} commentable_id={this.props.photo.id} />
               </div>
             </figure>
           </feature>

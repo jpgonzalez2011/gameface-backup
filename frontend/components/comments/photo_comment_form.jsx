@@ -17,7 +17,8 @@ var PhotoCommentForm = React.createClass({
         commenter_id: CurrentUserStore.currentUser().id,
         commentable_id: this.props.commentable_id,
         commentable_type: "Photo",
-        content: this.state.content
+        content: this.state.content,
+        mainTimeLine: this.props.mainTimeLine
       }};
       PhotoStore.addNewComment(comment);
       this.setState({content: ""});

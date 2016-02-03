@@ -62,7 +62,7 @@ var ProfileTimeline = React.createClass({
                     })}
                   </ul>
                   <div className="timeline-index-item-comment-form">
-                    <PostCommentForm commentable_id={post.id} />
+                    <PostCommentForm mainTimeLine={undefined} commentable_id={post.id} />
                   </div>
                 </li>
               );

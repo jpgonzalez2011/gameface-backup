@@ -1,4 +1,5 @@
-var PhotoActions = require('../actions/photo_actions');
+var PhotoActions = require('../actions/photo_actions'),
+    TimelineActions = require('../actions/timeline_actions');
 
 var PhotoApiUtil = {
   fetchOwnedPhotos: function (ownerId) {
@@ -35,7 +36,11 @@ var PhotoApiUtil = {
       dataType: "json",
       data: comment,
       success: function (data) {
-        PhotoActions.receiveUpdatedComment(data);
+        if (comment.comment.mainTimeLine) {
+          TimelineActions.receiveNewComment(data);
+        } else {
+          PhotoActions.receiveUpdatedComment(data);
+        }
       }
     });
   }

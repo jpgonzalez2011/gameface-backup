@@ -21,6 +21,13 @@ TimelineStore.__onDispatch = function (payload) {
     case TimelineConstants.RECEIVED_ITEMS:
       items = payload.items;
       this.__emitChange();
+      break;
+    case TimelineConstants.NEW_COMMENT_MADE_ON_TIMELINE:
+    var comment = payload.comment;
+    var itemIdx = items.findIndex( function(el) { return (el.id === comment.commentable_id && el.type === comment.commentable_type); });
+    items[itemIdx].comments.push(comment);
+    this.__emitChange();
+    break;
   }
 };
 

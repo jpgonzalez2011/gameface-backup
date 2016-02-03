@@ -31876,7 +31876,8 @@
 /* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var PhotoActions = __webpack_require__(245);
+	var PhotoActions = __webpack_require__(245),
+	    TimelineActions = __webpack_require__(269);
 
 	var PhotoApiUtil = {
 	  fetchOwnedPhotos: function (ownerId) {
@@ -31913,7 +31914,11 @@
 	      dataType: "json",
 	      data: comment,
 	      success: function (data) {
-	        PhotoActions.receiveUpdatedComment(data);
+	        if (comment.comment.mainTimeLine) {
+	          TimelineActions.receiveNewComment(data);
+	        } else {
+	          PhotoActions.receiveUpdatedComment(data);
+	        }
 	      }
 	    });
 	  }
@@ -32173,7 +32178,7 @@
 	            React.createElement(
 	              'div',
 	              { className: 'photo-noshow-container-information-pane-comment-form' },
-	              React.createElement(PhotoCommentForm, { commentable_id: this.props.photo.id })
+	              React.createElement(PhotoCommentForm, { mainTimeLine: undefined, commentable_id: this.props.photo.id })
 	            )
 	          )
 	        )
@@ -32247,7 +32252,8 @@
 	          commenter_id: CurrentUserStore.currentUser().id,
 	          commentable_id: this.props.commentable_id,
 	          commentable_type: "Photo",
-	          content: this.state.content
+	          content: this.state.content,
+	          mainTimeLine: this.props.mainTimeLine
 	        } };
 	      PhotoStore.addNewComment(comment);
 	      this.setState({ content: "" });
@@ -32461,7 +32467,7 @@
 	              React.createElement(
 	                'div',
 	                { className: 'timeline-index-item-comment-form' },
-	                React.createElement(PostCommentForm, { commentable_id: post.id })
+	                React.createElement(PostCommentForm, { mainTimeLine: undefined, commentable_id: post.id })
 	              )
 	            );
 	          })
@@ -32547,7 +32553,8 @@
 /* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var PostActions = __webpack_require__(257);
+	var PostActions = __webpack_require__(257),
+	    TimelineActions = __webpack_require__(269);
 
 	var PostApiUtil = {
 	  fetchTargetedPosts: function (targetId) {
@@ -32581,7 +32588,11 @@
 	      dataType: "json",
 	      data: comment,
 	      success: function (data) {
-	        PostActions.receiveUpdatedComment(data);
+	        if (comment.comment.mainTimeLine) {
+	          TimelineActions.receiveNewComment(data);
+	        } else {
+	          PostActions.receiveUpdatedComment(data);
+	        }
 	      }
 	    });
 	  }
@@ -32646,7 +32657,8 @@
 	          commenter_id: CurrentUserStore.currentUser().id,
 	          commentable_id: this.props.commentable_id,
 	          commentable_type: "Post",
-	          content: this.state.content
+	          content: this.state.content,
+	          mainTimeLine: this.props.mainTimeLine
 	        } };
 	      PostStore.addNewComment(comment);
 	      this.setState({ content: "" });
@@ -32886,12 +32898,12 @@
 	  },
 
 	  getStateFromStore: function () {
-	    return { items: TimelineStore.allItems() };
+	    return { items: TimelineStore.allItems(), mainTimeLine: true };
 	  },
 
 	  componentDidMount: function () {
 	    this.storeCBToken = TimelineStore.addListener(function () {
-	      this.setState(this.getStateFromStore());
+	      this.setState(this.getStateFromStore);
 	    }.bind(this));
 	  },
 
@@ -32946,7 +32958,7 @@
 	                React.createElement(
 	                  'div',
 	                  { className: 'timeline-index-item-comment-form' },
-	                  React.createElement(PostCommentForm, { commentable_id: item.id })
+	                  React.createElement(PostCommentForm, { mainTimeLine: this.state.mainTimeLine, commentable_id: item.id })
 	                )
 	              );
 	            } else if (item.type === "Photo") {
@@ -32979,11 +32991,11 @@
 	                React.createElement(
 	                  'div',
 	                  { className: 'timeline-index-item-comment-form' },
-	                  React.createElement(PostCommentForm, { commentable_id: item.id })
+	                  React.createElement(PhotoCommentForm, { mainTimeLine: this.state.mainTimeLine, commentable_id: item.id })
 	                )
 	              );
 	            }
-	          })
+	          }.bind(this))
 	        )
 	      )
 	    );
@@ -33116,6 +33128,15 @@
 	    case TimelineConstants.RECEIVED_ITEMS:
 	      items = payload.items;
 	      this.__emitChange();
+	      break;
+	    case TimelineConstants.NEW_COMMENT_MADE_ON_TIMELINE:
+	      var comment = payload.comment;
+	      var itemIdx = items.findIndex(function (el) {
+	        return el.id === comment.commentable_id && el.type === comment.commentable_type;
+	      });
+	      items[itemIdx].comments.push(comment);
+	      this.__emitChange();
+	      break;
 	  }
 	};
 
@@ -33148,7 +33169,8 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-	  RECEIVED_ITEMS: "RECEIVED_ITEMS"
+	  RECEIVED_ITEMS: "RECEIVED_ITEMS",
+	  NEW_COMMENT_MADE_ON_TIMELINE: "NEW_COMMENT_MADE_ON_TIMELINE"
 	};
 
 /***/ },
@@ -33164,7 +33186,15 @@
 	      actionType: TimelineConstants.RECEIVED_ITEMS,
 	      items: items
 	    });
+	  },
+
+	  receiveNewComment: function (comment) {
+	    Dispatcher.dispatch({
+	      actionType: TimelineConstants.NEW_COMMENT_MADE_ON_TIMELINE,
+	      comment: comment
+	    });
 	  }
+
 	};
 
 	module.exports = TimelineActions;

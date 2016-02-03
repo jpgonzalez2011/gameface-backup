@@ -7,7 +7,15 @@ var TimelineActions = {
       actionType: TimelineConstants.RECEIVED_ITEMS,
       items: items
     });
+  },
+
+  receiveNewComment: function (comment) {
+    Dispatcher.dispatch({
+      actionType: TimelineConstants.NEW_COMMENT_MADE_ON_TIMELINE,
+      comment: comment
+    });
   }
+
 };
 
 module.exports = TimelineActions;

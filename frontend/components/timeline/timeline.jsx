@@ -12,12 +12,12 @@ var Timeline = React.createClass({
   },
 
   getStateFromStore: function () {
-    return ( {items: TimelineStore.allItems() });
+    return ( {items: TimelineStore.allItems(), mainTimeLine: true });
   },
 
   componentDidMount: function () {
     this.storeCBToken = TimelineStore.addListener( function () {
-      this.setState(this.getStateFromStore());
+      this.setState(this.getStateFromStore);
     }.bind(this));
   },
 
@@ -50,7 +50,7 @@ var Timeline = React.createClass({
                         })}
                       </ul>
                       <div className="timeline-index-item-comment-form">
-                        <PostCommentForm commentable_id={item.id} />
+                        <PostCommentForm mainTimeLine={this.state.mainTimeLine} commentable_id={item.id} />
                       </div>
                     </li>
                   );
@@ -71,12 +71,12 @@ var Timeline = React.createClass({
                         })}
                       </ul>
                       <div className="timeline-index-item-comment-form">
-                        <PostCommentForm commentable_id={item.id} />
+                        <PhotoCommentForm mainTimeLine={this.state.mainTimeLine} commentable_id={item.id} />
                         </div>
                     </li>
                   );
                 }
-            })}
+            }.bind(this))}
           </ul>
         </div>
       </div>

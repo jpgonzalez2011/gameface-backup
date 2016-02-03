@@ -1,4 +1,6 @@
-var PostActions = require('../actions/post_actions');
+var PostActions = require('../actions/post_actions'),
+    TimelineActions = require('../actions/timeline_actions');
+
 
 var PostApiUtil = {
   fetchTargetedPosts: function (targetId) {
@@ -32,7 +34,11 @@ var PostApiUtil = {
       dataType: "json",
       data: comment,
       success: function (data) {
-        PostActions.receiveUpdatedComment(data);
+        if (comment.comment.mainTimeLine) {
+          TimelineActions.receiveNewComment(data);
+        } else {
+          PostActions.receiveUpdatedComment(data);
+        }
       }
     });
   }
