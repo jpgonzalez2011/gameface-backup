@@ -31,7 +31,7 @@ var FriendsIndex = React.createClass({
   },
 
   render: function () {
-    if (this.state.friends === "no friends yet") {
+    if (this.state.friends[0] === "no friends yet") {
       return (
         <div className="friends-container group">
           <h1 className="friends-header">
