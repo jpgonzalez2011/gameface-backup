@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :users, only: [:show] do
       resources :posts, only: [:index]
       resources :photos, only: [:index, :create]
+      resources :friendships, only: [:index, :show, :create]
     end
   end
   resources :users, only: [:new, :create, :show]

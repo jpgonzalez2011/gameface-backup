@@ -34,12 +34,12 @@ PhotoStore.emptyPhotos = function (userId) {
 PhotoStore.__onDispatch = function (payload) {
   switch (payload.actionType){
     case PhotoConstants.RECEIVED_PHOTOS:
-        if (payload.photos.length === 0) {
-          photos = ["no photos"];
-        } else {
-          photos = payload.photos;
-        }
-        this.__emitChange();
+      if (payload.photos.length === 0) {
+        photos = ["no photos"];
+      } else {
+        photos = payload.photos;
+      }
+      this.__emitChange();
       break;
     case PhotoConstants.RECEIVE_UPDATED_PHOTO:
       photos.unshift(payload.photo);

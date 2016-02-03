@@ -32826,11 +32826,63 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
-	    Store = __webpack_require__(214).Store;
+	    Store = __webpack_require__(214).Store,
+	    FriendConstants = __webpack_require__(264),
+	    FriendApiUtil = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../util/friend_apu_util\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+	var friends = [];
 
 	var FriendStore = new Store(Dispatcher);
 
+	FriendStore.findByUser = function (userId) {
+	  //friends[0].user_id is referring to a user_id trait that will be placed onto
+	  //the friend object by the back end to identify the owner of the friendships
+	  if (friends.length > 0 && (friends[0].user_id == userId || friends[0] === "no friends yet")) {
+	    return friends;
+	  } else {
+	    friends = "loading";
+	    FriendApiUtil.fetchFriends(userId);
+	    return friends;
+	  }
+	};
+
+	FriendStore.acceptNewFriend = function (friend) {
+	  FriendApiUtil.acceptNewFriend(friend); //to be used when friend request accepted
+	};
+
+	FriendStore.emptyFriends = function (userId) {
+	  if (friends.length > 0 && friends[0].user_id !== userId) {
+	    friends = [];
+	  }
+	};
+
+	FriendStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case FriendConstants.RECEIVED_FRIENDS:
+	      if (payload.friends.length === 0) {
+	        friends = ["no friends yet"];
+	      } else {
+	        friends = payload.friends;
+	      }
+	      this.__emitChange();
+	      break;
+	    case FriendConstants.RECEIVE_NEW_FRIEND:
+	      friends.unshift(payload.friend);
+	      this.__emitChange();
+	      break;
+	  }
+	};
+
 	module.exports = FriendStore;
+
+/***/ },
+/* 264 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVED_FRIENDS: "RECEIVED_FRIENDS",
+	  RECEIVE_NEW_FRIEND: "RECEIVE_NEW_FRIEND"
+	};
 
 /***/ }
 /******/ ]);
