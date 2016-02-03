@@ -56,8 +56,9 @@
 	    PhotosIndex = __webpack_require__(241),
 	    About = __webpack_require__(251),
 	    CurrentUserStore = __webpack_require__(209),
-	    ProfileTimeline = __webpack_require__(252);
-	FriendsIndex = __webpack_require__(259);
+	    ProfileTimeline = __webpack_require__(252),
+	    FriendsIndex = __webpack_require__(259),
+	    Timeline = __webpack_require__(264);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
@@ -107,6 +108,7 @@
 	  React.createElement(
 	    Route,
 	    { path: '/', component: GameFace },
+	    React.createElement(Route, { path: 'timeline', component: Timeline, onEnter: _ensureLoggedIn }),
 	    React.createElement(
 	      Route,
 	      { path: 'users/:userId', component: Profile, onEnter: _ensureLoggedIn },
@@ -32373,7 +32375,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostForm = __webpack_require__(253),
+	    PostForm = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./post_form\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
 	    PostStore = __webpack_require__(254),
 	    PostCommentForm = __webpack_require__(258),
 	    CommentDisplay = __webpack_require__(249);
@@ -32472,103 +32474,7 @@
 	module.exports = ProfileTimeline;
 
 /***/ },
-/* 253 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    PostStore = __webpack_require__(254),
-	    CurrentUserStore = __webpack_require__(209);
-
-	var PostForm = React.createClass({
-	  displayName: 'PostForm',
-
-	  getInitialState: function () {
-	    return {
-	      text: "",
-	      showFooter: false
-	    };
-	  },
-
-	  componentWillMount: function () {
-	    this.setState({ posterName: CurrentUserStore.currentUser().fname });
-	  },
-
-	  render: function () {
-	    if (this.state.showFooter) {
-	      return React.createElement(
-	        'div',
-	        { className: 'post-form-container' },
-	        React.createElement(
-	          'form',
-	          { className: 'post-form', onSubmit: this.handleSubmit },
-	          React.createElement(
-	            'label',
-	            { className: 'post-form-header', 'for': 'text' },
-	            'Make a Post, ',
-	            this.state.posterName
-	          ),
-	          React.createElement('textarea', { className: 'post-form-input', type: 'text', id: 'text', onChange: this.changeText }),
-	          React.createElement(
-	            'feature',
-	            { className: 'post-form-footer group' },
-	            React.createElement(
-	              'button',
-	              { className: 'post-form-button' },
-	              ' Post '
-	            )
-	          )
-	        )
-	      );
-	    } else {
-	      return React.createElement(
-	        'div',
-	        { className: 'post-form-container' },
-	        React.createElement(
-	          'form',
-	          { className: 'post-form', onSubmit: this.handleSubmit },
-	          React.createElement(
-	            'label',
-	            { className: 'post-form-header', 'for': 'text' },
-	            'Make a Post, ',
-	            this.state.posterName
-	          ),
-	          React.createElement('input', { className: 'post-form-input', type: 'text', id: 'text', onClick: this.showFooter, onChange: this.changeText })
-	        )
-	      );
-	    }
-	  },
-
-	  changeText: function (e) {
-	    this.setState({ text: e.target.value });
-	  },
-
-	  showFooter: function (e) {
-	    this.setState({ showFooter: true });
-	  },
-
-	  handleSubmit: function (e) {
-	    e.preventDefault();
-	    var post = { post: {
-	        content: this.state.text,
-	        poster_id: CurrentUserStore.currentUser().id,
-	        target_id: this.props.userId
-	      }
-	    };
-
-	    PostStore.acceptNewPost(post);
-
-	    this.resetForm(e);
-	  },
-
-	  resetForm: function (e) {
-	    e.target.value = "";
-	    this.setState({ text: "", showFooter: false });
-	  }
-	});
-
-	module.exports = PostForm;
-
-/***/ },
+/* 253 */,
 /* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -32959,6 +32865,120 @@
 	};
 
 	module.exports = FriendActions;
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    TimelineStore = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../stores/timeline_store\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+	    PostForm = __webpack_require__(265),
+	    PostCommentForm = __webpack_require__(258),
+	    PhotoCommentForm = __webpack_require__(250),
+	    CommentDisplay = __webpack_require__(249);
+
+	var Timeline = React.createClass({
+	    displayName: 'Timeline'
+	});
+
+	module.exports = Timeline;
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    PostStore = __webpack_require__(254),
+	    CurrentUserStore = __webpack_require__(209);
+
+	var PostForm = React.createClass({
+	  displayName: 'PostForm',
+
+	  getInitialState: function () {
+	    return {
+	      text: "",
+	      showFooter: false
+	    };
+	  },
+
+	  componentWillMount: function () {
+	    this.setState({ posterName: CurrentUserStore.currentUser().fname });
+	  },
+
+	  render: function () {
+	    if (this.state.showFooter) {
+	      return React.createElement(
+	        'div',
+	        { className: 'post-form-container' },
+	        React.createElement(
+	          'form',
+	          { className: 'post-form', onSubmit: this.handleSubmit },
+	          React.createElement(
+	            'label',
+	            { className: 'post-form-header', 'for': 'text' },
+	            'Make a Post, ',
+	            this.state.posterName
+	          ),
+	          React.createElement('textarea', { className: 'post-form-input', type: 'text', id: 'text', onChange: this.changeText }),
+	          React.createElement(
+	            'feature',
+	            { className: 'post-form-footer group' },
+	            React.createElement(
+	              'button',
+	              { className: 'post-form-button' },
+	              ' Post '
+	            )
+	          )
+	        )
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { className: 'post-form-container' },
+	        React.createElement(
+	          'form',
+	          { className: 'post-form', onSubmit: this.handleSubmit },
+	          React.createElement(
+	            'label',
+	            { className: 'post-form-header', 'for': 'text' },
+	            'Make a Post, ',
+	            this.state.posterName
+	          ),
+	          React.createElement('input', { className: 'post-form-input', type: 'text', id: 'text', onClick: this.showFooter, onChange: this.changeText })
+	        )
+	      );
+	    }
+	  },
+
+	  changeText: function (e) {
+	    this.setState({ text: e.target.value });
+	  },
+
+	  showFooter: function (e) {
+	    this.setState({ showFooter: true });
+	  },
+
+	  handleSubmit: function (e) {
+	    e.preventDefault();
+	    var post = { post: {
+	        content: this.state.text,
+	        poster_id: CurrentUserStore.currentUser().id,
+	        target_id: this.props.userId
+	      }
+	    };
+
+	    PostStore.acceptNewPost(post);
+
+	    this.resetForm(e);
+	  },
+
+	  resetForm: function (e) {
+	    e.target.value = "";
+	    this.setState({ text: "", showFooter: false });
+	  }
+	});
+
+	module.exports = PostForm;
 
 /***/ }
 /******/ ]);
