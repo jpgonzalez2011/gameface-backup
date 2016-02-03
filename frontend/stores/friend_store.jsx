@@ -1,7 +1,7 @@
 var Dispatcher = require('../dispatcher/dispatcher'),
     Store = require('flux/utils').Store,
     FriendConstants = require('../constants/friend_constants'),
-    FriendApiUtil = require('../util/friend_apu_util');
+    FriendApiUtil = require('../util/friend_api_util');
 
 var friends = [];
 

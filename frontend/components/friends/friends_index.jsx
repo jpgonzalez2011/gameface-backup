@@ -11,7 +11,7 @@ var FriendsIndex = React.createClass({
   },
 
   componentDidMount: function () {
-    this.storeCBToken = FriendsStore.addListener( function () {
+    this.storeCBToken = FriendStore.addListener( function () {
       this.setState(this.getStateFromStore(this.props));
     }.bind(this));
   },
@@ -31,11 +31,42 @@ var FriendsIndex = React.createClass({
   },
 
   render: function () {
-    return (
-      <div>
-        Hello from the div.
-      </div>
-    );
+    if (this.state.friends === "no friends yet") {
+      return (
+        <div className="friends-container group">
+          <h1 className="friends-header">
+            FRIENDS
+          </h1>
+          No friends yet!
+        </div>
+      );
+    } else if (this.state.friends === "loading") {
+      return (
+        <div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="friends-container group">
+          <h1 className="friends-header">
+            FRIENDS
+          </h1>
+          <ul className="friends-list group">
+            {this.state.friends.map ( function (friend, i) {
+                return (
+                  <li className="friend-item group" key={i}>
+                    <figure className="friend-picture-container">
+                      <img className="friend-picture" src={friend.profile_small} />
+                    </figure>
+                    <h2 className="friend-name">{friend.full_name}</h2>
+                  </li>
+                );
+              }
+          )}
+          </ul>
+        </div>
+      );
+    }
   }
 });
 

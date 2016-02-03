@@ -32791,7 +32791,7 @@
 	  },
 
 	  componentDidMount: function () {
-	    this.storeCBToken = FriendsStore.addListener(function () {
+	    this.storeCBToken = FriendStore.addListener(function () {
 	      this.setState(this.getStateFromStore(this.props));
 	    }.bind(this));
 	  },
@@ -32811,11 +32811,50 @@
 	  },
 
 	  render: function () {
-	    return React.createElement(
-	      'div',
-	      null,
-	      'Hello from the div.'
-	    );
+	    if (this.state.friends === "no friends yet") {
+	      return React.createElement(
+	        'div',
+	        { className: 'friends-container group' },
+	        React.createElement(
+	          'h1',
+	          { className: 'friends-header' },
+	          'FRIENDS'
+	        ),
+	        'No friends yet!'
+	      );
+	    } else if (this.state.friends === "loading") {
+	      return React.createElement('div', null);
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { className: 'friends-container group' },
+	        React.createElement(
+	          'h1',
+	          { className: 'friends-header' },
+	          'FRIENDS'
+	        ),
+	        React.createElement(
+	          'ul',
+	          { className: 'friends-list group' },
+	          this.state.friends.map(function (friend, i) {
+	            return React.createElement(
+	              'li',
+	              { className: 'friend-item group', key: i },
+	              React.createElement(
+	                'figure',
+	                { className: 'friend-picture-container' },
+	                React.createElement('img', { className: 'friend-picture', src: friend.profile_small })
+	              ),
+	              React.createElement(
+	                'h2',
+	                { className: 'friend-name' },
+	                friend.full_name
+	              )
+	            );
+	          })
+	        )
+	      );
+	    }
 	  }
 	});
 
@@ -32828,7 +32867,7 @@
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
 	    FriendConstants = __webpack_require__(264),
-	    FriendApiUtil = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../util/friend_apu_util\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	    FriendApiUtil = __webpack_require__(265);
 
 	var friends = [];
 
@@ -32883,6 +32922,46 @@
 	  RECEIVED_FRIENDS: "RECEIVED_FRIENDS",
 	  RECEIVE_NEW_FRIEND: "RECEIVE_NEW_FRIEND"
 	};
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var FriendActions = __webpack_require__(266);
+
+	var FriendApiUtil = {
+	  fetchFriends: function (userId) {
+	    $.ajax({
+	      type: "GET",
+	      url: "api/users/" + userId + "/friendships",
+	      dataType: "json",
+	      success: function (data) {
+	        var friends = data.friends;
+	        FriendActions.receiveFriends(friends);
+	      }
+	    });
+	  }
+	};
+
+	module.exports = FriendApiUtil;
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    FriendConstants = __webpack_require__(264);
+
+	var FriendActions = {
+	  receiveFriends: function (friends) {
+	    Dispatcher.dispatch({
+	      actionType: FriendConstants.RECEIVED_FRIENDS,
+	      friends: friends
+	    });
+	  }
+	};
+
+	module.exports = FriendActions;
 
 /***/ }
 /******/ ]);
