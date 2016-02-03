@@ -24392,6 +24392,7 @@
 	  },
 
 	  render: function () {
+	    var profileUrl = "#/users/" + CurrentUserStore.currentUser().id;
 	    return React.createElement(
 	      'div',
 	      null,
@@ -24406,7 +24407,7 @@
 	            { className: 'header-text' },
 	            React.createElement(
 	              'a',
-	              { href: '#/' },
+	              { href: '#/timeline' },
 	              'GameFaces!'
 	            )
 	          ),
@@ -24421,7 +24422,11 @@
 	            React.createElement(
 	              'div',
 	              { className: 'signed-in-header-name' },
-	              CurrentUserStore.currentUser().fname
+	              React.createElement(
+	                'a',
+	                { href: profileUrl },
+	                CurrentUserStore.currentUser().fname
+	              )
 	            )
 	          )
 	        )
