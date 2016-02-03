@@ -20,9 +20,9 @@ var PostCommentForm = React.createClass({
         content: this.state.content,
         mainTimeLine: this.props.mainTimeLine
       }};
+      $("#comment-form").val("");
       PostStore.addNewComment(comment);
       this.setState({content: ""});
-      $("#comment-form").val("");
     } else {
       this.handleChange(e);
     }

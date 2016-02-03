@@ -20,9 +20,9 @@ var PhotoCommentForm = React.createClass({
         content: this.state.content,
         mainTimeLine: this.props.mainTimeLine
       }};
+      $(".comment-form-input").val("");
       PhotoStore.addNewComment(comment);
       this.setState({content: ""});
-      $("#comment-form").val("");
     } else {
       this.handleChange(e);
     }

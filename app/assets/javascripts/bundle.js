@@ -32255,9 +32255,9 @@
 	          content: this.state.content,
 	          mainTimeLine: this.props.mainTimeLine
 	        } };
+	      $(".comment-form-input").val("");
 	      PhotoStore.addNewComment(comment);
 	      this.setState({ content: "" });
-	      $("#comment-form").val("");
 	    } else {
 	      this.handleChange(e);
 	    }
@@ -32660,9 +32660,9 @@
 	          content: this.state.content,
 	          mainTimeLine: this.props.mainTimeLine
 	        } };
+	      $("#comment-form").val("");
 	      PostStore.addNewComment(comment);
 	      this.setState({ content: "" });
-	      $("#comment-form").val("");
 	    } else {
 	      this.handleChange(e);
 	    }
@@ -32888,7 +32888,8 @@
 	    PostForm = __webpack_require__(265),
 	    PostCommentForm = __webpack_require__(258),
 	    PhotoCommentForm = __webpack_require__(250),
-	    CommentDisplay = __webpack_require__(249);
+	    CommentDisplay = __webpack_require__(249),
+	    TimelinePostItem = __webpack_require__(270);
 
 	var Timeline = React.createClass({
 	  displayName: 'Timeline',
@@ -32926,41 +32927,7 @@
 	            var header;
 	            if (item.type === "Post") {
 	              header = item.poster_name + " to " + item.target_name;
-	              return React.createElement(
-	                'li',
-	                { key: i, className: 'timeline-index-item' },
-	                React.createElement(
-	                  'h1',
-	                  { className: 'timeline-index-item-header' },
-	                  React.createElement(
-	                    'div',
-	                    null,
-	                    header
-	                  ),
-	                  React.createElement(
-	                    'span',
-	                    null,
-	                    item.date_and_time
-	                  )
-	                ),
-	                React.createElement(
-	                  'div',
-	                  { className: 'timeline-index-item-content' },
-	                  item.content
-	                ),
-	                React.createElement(
-	                  'ul',
-	                  { className: 'timeline-index-item-comments-list' },
-	                  item.comments.map(function (comment, i) {
-	                    return React.createElement(CommentDisplay, { key: i, comment: comment });
-	                  })
-	                ),
-	                React.createElement(
-	                  'div',
-	                  { className: 'timeline-index-item-comment-form' },
-	                  React.createElement(PostCommentForm, { mainTimeLine: this.state.mainTimeLine, commentable_id: item.id })
-	                )
-	              );
+	              return React.createElement(TimelinePostItem, { key: i, header: header, item: item, mainTimeLine: this.state.mainTimeLine, i: i });
 	            } else if (item.type === "Photo") {
 	              header = item.uploader;
 	              return React.createElement(
@@ -33198,6 +33165,58 @@
 	};
 
 	module.exports = TimelineActions;
+
+/***/ },
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    PostCommentForm = __webpack_require__(258),
+	    CommentDisplay = __webpack_require__(249);
+
+	var TimelinePostItem = React.createClass({
+	  displayName: 'TimelinePostItem',
+
+	  render: function () {
+	    return React.createElement(
+	      'li',
+	      { key: this.props.i, className: 'timeline-index-item' },
+	      React.createElement(
+	        'h1',
+	        { className: 'timeline-index-item-header' },
+	        React.createElement(
+	          'div',
+	          null,
+	          this.props.header
+	        ),
+	        React.createElement(
+	          'span',
+	          null,
+	          this.props.item.date_and_time
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'timeline-index-item-content' },
+	        this.props.item.content
+	      ),
+	      React.createElement(
+	        'ul',
+	        { className: 'timeline-index-item-comments-list' },
+	        this.props.item.comments.map(function (comment, i) {
+	          return React.createElement(CommentDisplay, { key: i, comment: comment });
+	        })
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'timeline-index-item-comment-form' },
+	        React.createElement(PostCommentForm, { mainTimeLine: this.props.mainTimeLine, commentable_id: this.props.item.id })
+	      )
+	    );
+	  }
+	});
+
+	module.exports = TimelinePostItem;
 
 /***/ }
 /******/ ]);
