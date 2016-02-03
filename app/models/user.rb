@@ -25,6 +25,23 @@ class User < ActiveRecord::Base
     class_name: "Post"
   )
 
+  has_many(
+    :requested_friendships,
+    primary_key: :id,
+    foreign_key: :received_friend,
+    class_name: "Friendship"
+  )
+
+  has_many(
+    :received_friendships,
+    primary_key: :id,
+    foreign_key: :requested_friend,
+    class_name: "Friendship"
+  )
+
+  # has_many :requested_friends, through: :requested_friendship
+  # has_many :received_friends, through: :received_friendships
+
   attr_reader :password
 
   after_initialize :ensure_session_token
@@ -58,6 +75,14 @@ class User < ActiveRecord::Base
       name = name + " " + self.lname
     end
     name
+  end
+
+  def friends
+    requested_friendships = self.requested_friendships.includes(:requested_friend).where(confirmed: true).to_a
+    received_friendships = self.received_friendships.includes(:received_friend).where(confirmed: true).to_a
+    requested_friends = requested_friendships.map { |friendship| friendship.requested_friend }
+    received_friends = received_friendships.map { |friendship| friendship.received_friend }
+    all_friends = requested_friends + received_friends
   end
 
   private

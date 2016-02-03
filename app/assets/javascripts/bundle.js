@@ -57,6 +57,7 @@
 	    About = __webpack_require__(247),
 	    CurrentUserStore = __webpack_require__(209),
 	    ProfileTimeline = __webpack_require__(248);
+	FriendsIndex = __webpack_require__(262);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
@@ -112,7 +113,8 @@
 	      '  //ensure login here',
 	      React.createElement(Route, { path: 'photos', component: PhotosIndex }),
 	      React.createElement(Route, { path: 'about', component: About }),
-	      React.createElement(Route, { path: 'timeline', component: ProfileTimeline })
+	      React.createElement(Route, { path: 'timeline', component: ProfileTimeline }),
+	      React.createElement(Route, { path: 'friends', component: FriendsIndex })
 	    )
 	  )
 	);
@@ -32768,6 +32770,67 @@
 	});
 
 	module.exports = PhotoCommentForm;
+
+/***/ },
+/* 261 */,
+/* 262 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    FriendStore = __webpack_require__(263);
+
+	var FriendsIndex = React.createClass({
+	  displayName: 'FriendsIndex',
+
+	  getInitialState: function () {
+	    return this.getStateFromStore(this.props);
+	  },
+
+	  getStateFromStore: function (props) {
+	    return { friends: FriendStore.findByUser(props.params.userId) };
+	  },
+
+	  componentDidMount: function () {
+	    this.storeCBToken = FriendsStore.addListener(function () {
+	      this.setState(this.getStateFromStore(this.props));
+	    }.bind(this));
+	  },
+
+	  componentWillUnmount: function () {
+	    this.storeCBToken.remove();
+	  },
+
+	  componentWillMount: function () {
+	    FriendStore.emptyFriends(this.props.params.userId);
+	    this.getStateFromStore(this.props);
+	  },
+
+	  componentWillReceiveProps: function (newProps) {
+	    FriendStore.emptyFriends(newProps.params.userId);
+	    this.setState(this.getStateFromStore(newProps));
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      'Hello from the div.'
+	    );
+	  }
+	});
+
+	module.exports = FriendsIndex;
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    Store = __webpack_require__(214).Store;
+
+	var FriendStore = new Store(Dispatcher);
+
+	module.exports = FriendStore;
 
 /***/ }
 /******/ ]);

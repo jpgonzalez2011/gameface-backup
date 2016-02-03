@@ -11,6 +11,7 @@ var LoggedInNavHeader = require('./components/logged_in_nav_header'),
     About = require('./components/about/about'),
     CurrentUserStore = require('./stores/current_user_store'),
     ProfileTimeline = require('./components/profile_timeline/profile_timeline');
+    FriendsIndex = require('./components/friends/friends_index');
 
 var GameFace = React.createClass({
 
@@ -60,6 +61,7 @@ var router = (
         <Route path="photos" component={PhotosIndex} />
         <Route path="about" component={About} />
         <Route path="timeline" component={ProfileTimeline} />
+        <Route path="friends" component={FriendsIndex} />
       </Route>
     </Route>
   </Router>
