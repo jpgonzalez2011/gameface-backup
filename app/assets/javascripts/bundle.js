@@ -32375,7 +32375,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostForm = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./post_form\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+	    PostForm = __webpack_require__(265),
 	    PostStore = __webpack_require__(254),
 	    PostCommentForm = __webpack_require__(258),
 	    CommentDisplay = __webpack_require__(249);
@@ -32871,14 +32871,123 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    TimelineStore = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../stores/timeline_store\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+	    CurrentUserStore = __webpack_require__(209),
+	    TimelineStore = __webpack_require__(266),
 	    PostForm = __webpack_require__(265),
 	    PostCommentForm = __webpack_require__(258),
 	    PhotoCommentForm = __webpack_require__(250),
 	    CommentDisplay = __webpack_require__(249);
 
 	var Timeline = React.createClass({
-	    displayName: 'Timeline'
+	  displayName: 'Timeline',
+
+	  getInitialState: function () {
+	    return this.getStateFromStore();
+	  },
+
+	  getStateFromStore: function () {
+	    return { items: TimelineStore.allItems() };
+	  },
+
+	  componentDidMount: function () {
+	    this.storeCBToken = TimelineStore.addListener(function () {
+	      this.setState(this.getStateFromStore());
+	    }.bind(this));
+	  },
+
+	  componentWillUnmount: function () {
+	    this.storeCBToken.remove();
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'main-timeline-container group' },
+	      React.createElement(
+	        'div',
+	        { className: 'main-timeline-center' },
+	        React.createElement(PostForm, { userId: CurrentUserStore.currentUser().id }),
+	        React.createElement(
+	          'ul',
+	          { className: 'main-timeline-index' },
+	          this.state.items.map(function (item, i) {
+	            var header;
+	            if (item.type === "Post") {
+	              header = item.poster_name + " to " + item.target_name;
+	              return React.createElement(
+	                'li',
+	                { key: i, className: 'timeline-index-item' },
+	                React.createElement(
+	                  'h1',
+	                  { className: 'timeline-index-item-header' },
+	                  React.createElement(
+	                    'div',
+	                    null,
+	                    header
+	                  ),
+	                  React.createElement(
+	                    'span',
+	                    null,
+	                    item.date_and_time
+	                  )
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: 'timeline-index-item-content' },
+	                  item.content
+	                ),
+	                React.createElement(
+	                  'ul',
+	                  { className: 'timeline-index-item-comments-list' },
+	                  item.comments.map(function (comment, i) {
+	                    return React.createElement(CommentDisplay, { key: i, comment: comment });
+	                  })
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: 'timeline-index-item-comment-form' },
+	                  React.createElement(PostCommentForm, { commentable_id: item.id })
+	                )
+	              );
+	            } else if (item.type === "Photo") {
+	              header = item.uploader;
+	              return React.createElement(
+	                'li',
+	                { key: i, className: 'timeline-index-item' },
+	                React.createElement(
+	                  'h1',
+	                  { className: 'timeline-index-item-header' },
+	                  React.createElement(
+	                    'div',
+	                    null,
+	                    header
+	                  ),
+	                  React.createElement(
+	                    'span',
+	                    null,
+	                    item.date_and_time
+	                  )
+	                ),
+	                React.createElement('img', { className: 'timeline-photo-preview', src: item.medium_url }),
+	                React.createElement(
+	                  'ul',
+	                  { className: 'timeline-index-item-comments-list' },
+	                  item.comments.map(function (comment, i) {
+	                    return React.createElement(CommentDisplay, { key: i, comment: comment });
+	                  })
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: 'timeline-index-item-comment-form' },
+	                  React.createElement(PostCommentForm, { commentable_id: item.id })
+	                )
+	              );
+	            }
+	          })
+	        )
+	      )
+	    );
+	  }
 	});
 
 	module.exports = Timeline;
@@ -32900,7 +33009,7 @@
 	      showFooter: false
 	    };
 	  },
-
+	  //why assign this on WillMount instead of on initialize?
 	  componentWillMount: function () {
 	    this.setState({ posterName: CurrentUserStore.currentUser().fname });
 	  },
@@ -32979,6 +33088,86 @@
 	});
 
 	module.exports = PostForm;
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    Store = __webpack_require__(214).Store,
+	    TimelineConstants = __webpack_require__(268),
+	    TimelineApiUtil = __webpack_require__(267),
+	    PostConstants = __webpack_require__(255),
+	    PhotoConstants = __webpack_require__(243);
+
+	var items = [];
+
+	var TimelineStore = new Store(Dispatcher);
+
+	TimelineStore.allItems = function () {
+	  if (items.length === 0) {
+	    TimelineApiUtil.fetchAllItems();
+	  }
+	  return items;
+	};
+
+	TimelineStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case TimelineConstants.RECEIVED_ITEMS:
+	      items = payload.items;
+	      this.__emitChange();
+	  }
+	};
+
+	module.exports = TimelineStore;
+
+/***/ },
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var TimelineActions = __webpack_require__(269);
+
+	var TimelineApiUtil = {
+	  fetchAllItems: function () {
+	    $.ajax({
+	      type: "GET",
+	      url: "/api/timeline",
+	      dataType: "json",
+	      success: function (data) {
+	        var items = data.timeline;
+	        TimelineActions.receiveItems(items);
+	      }
+	    });
+	  }
+	};
+
+	module.exports = TimelineApiUtil;
+
+/***/ },
+/* 268 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVED_ITEMS: "RECEIVED_ITEMS"
+	};
+
+/***/ },
+/* 269 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    TimelineConstants = __webpack_require__(268);
+
+	var TimelineActions = {
+	  receiveItems: function (items) {
+	    Dispatcher.dispatch({
+	      actionType: TimelineConstants.RECEIVED_ITEMS,
+	      items: items
+	    });
+	  }
+	};
+
+	module.exports = TimelineActions;
 
 /***/ }
 /******/ ]);

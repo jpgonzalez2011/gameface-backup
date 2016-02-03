@@ -9,7 +9,7 @@ var PostForm = React.createClass({
       showFooter: false
     });
   },
-
+  //why assign this on WillMount instead of on initialize?
   componentWillMount: function () {
     this.setState( {posterName: CurrentUserStore.currentUser().fname });
   },

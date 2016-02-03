@@ -1,0 +1,189 @@
+.timeline-container {
+  width: 850px;
+  background: transparent;
+  margin: 0 auto;
+}
+
+.timeline-right-side {
+  float: right;
+  width: 510px;
+}
+
+.timeline-index-list {
+  padding: 0px;
+}
+
+.timeline-index-item {
+  border: 1px solid #ccc;
+  background-color: white;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.timeline-index-item-header {
+  text-align: left;
+  font-size: 12px;
+  display: block;
+  border-bottom: 1px solid #ccc;
+  margin-top: 10px;
+  padding: 0px 12px 0px 10px;
+  font-family: helvetica, arial, sans-serif;
+  line-height: 16.08px;
+  font-weight: 600;
+}
+
+.timeline-index-item-header > div {
+  margin: 0px;
+  padding: 0px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #3a5795;
+}
+
+.timeline-index-item-header > span {
+  margin: 0px;
+  margin-top: -10px;
+  padding: 0px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #ccc;
+}
+
+.timeline-index-item-content {
+  display: block;
+  margin: 0px;
+  padding: 10px 12px 10px 10px;
+}
+
+.post-form-header {
+  display: block;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  padding: 10px 12px 8px 10px;
+  font-family: helvetica, arial, sans-serif;
+  font-size: 12px;
+  line-height: 16.08px;
+  font-weight: 600;
+}
+
+
+.post-form-input {
+  display: block;
+  border-top: none;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  width: 485px;
+  font-size: 14px;
+  line-height: 18px;
+  min-height: 18px;
+  padding: 13px 12px;
+  word-wrap: break-word;
+}
+
+.post-form-input:focus {
+  outline: none;
+}
+
+.post-form-footer {
+  display: block;
+  border: 1px solid #ccc;
+  border-top: none;
+  padding: 7px 12px 5px 10px;
+}
+
+.post-form-button {
+  float: right;
+  color: white;
+  background-color: #3a5795;
+  border: 1px solid black;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 13px;
+}
+
+.timeline-index-item > ul {
+  padding: 0px;
+  border-top: 2px solid #ccc;
+  background-color: white;
+  text-align: left;
+}
+
+.timeline-index-item > ul > li {
+  display: block;
+  width: 508px;
+  border-bottom: 1px solid #ccc;
+}
+
+.timeline-index-item > ul > li > h1 {
+  display: block;
+  width: 500px;
+  height: auto;
+  float: left;
+  text-align: left;
+  font-size: 10px;
+  display: block;
+  margin: 0px;
+  margin-left: 10px;
+  padding: 0px 12px 0px 0px;
+  font-family: helvetica, arial, sans-serif;
+  line-height: 16.08px;
+  font-weight: 600;
+}
+
+
+.timeline-index-item > ul > li > h1 > div {
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  padding-right: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  width: auto;
+  color: #3a5795;
+}
+.timeline-index-item > ul > li > h1 > p {
+  float: left;
+  margin-top: 0px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: -7px;
+}
+
+.timeline-index-item > ul > li > span {
+  float: left;
+  margin: 0px;
+  margin-top: 0px;
+  padding: 0px;
+  margin-left: 10px;
+  font-size: 10px;
+  font-weight: 400;
+  color: #ccc;
+}
+
+.timeline-index-comment-form {
+  display: block;
+  width: 508px;
+  border: 1px solid #ccc;
+}
+
+.comment-form-container {
+  width: 508px;
+  border-top: 1px solid #ccc;
+}
+
+.comment-form-input {
+  border: none;
+  outline: 1px solid #ccc;
+  width: 422px;
+  margin: 5px;
+  font-size: 12px;
+  line-height: 16px;
+  height: 12px;
+  word-wrap: break-word;
+  font-family: helvetica, arial, sans-serif;;
+  cursor: text;
+  padding: 10px;
+  float: right;
+}

@@ -1,0 +1,19 @@
+.main-timeline-container {
+  width: 850px;
+  background: transparent;
+  margin: 0 auto;
+}
+
+.main-timeline-center {
+  float: right;
+  width: 510px;
+}
+
+.main-timeline-index {
+  padding: 0px;
+}
+
+.timeline-photo-preview {
+  width: 300px;
+  height: 300px;
+}
