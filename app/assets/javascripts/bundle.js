@@ -32699,7 +32699,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    FriendStore = __webpack_require__(260);
+	    FriendStore = __webpack_require__(260),
+	    FriendIndexItem = __webpack_require__(271);
 
 	var FriendsIndex = React.createClass({
 	  displayName: 'FriendsIndex',
@@ -32759,20 +32760,7 @@
 	          'ul',
 	          { className: 'friends-list group' },
 	          this.state.friends.map(function (friend, i) {
-	            return React.createElement(
-	              'li',
-	              { className: 'friend-item group', key: i },
-	              React.createElement(
-	                'figure',
-	                { className: 'friend-picture-container' },
-	                React.createElement('img', { className: 'friend-picture', src: friend.profile_small })
-	              ),
-	              React.createElement(
-	                'h2',
-	                { className: 'friend-name' },
-	                friend.full_name
-	              )
-	            );
+	            return React.createElement(FriendIndexItem, { friend: friend, key: i });
 	          })
 	        )
 	      );
@@ -33224,6 +33212,40 @@
 	});
 
 	module.exports = TimelinePostItem;
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var FriendIndexItem = React.createClass({
+	  displayName: "FriendIndexItem",
+
+	  render: function () {
+	    var url = "#/users/" + this.props.friend.id;
+	    return React.createElement(
+	      "a",
+	      { href: url },
+	      React.createElement(
+	        "li",
+	        { className: "friend-item group" },
+	        React.createElement(
+	          "figure",
+	          { className: "friend-picture-container" },
+	          React.createElement("img", { className: "friend-picture", src: this.props.friend.profile_small_url })
+	        ),
+	        React.createElement(
+	          "h2",
+	          { className: "friend-name" },
+	          this.props.friend.full_name
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = FriendIndexItem;
 
 /***/ }
 /******/ ]);

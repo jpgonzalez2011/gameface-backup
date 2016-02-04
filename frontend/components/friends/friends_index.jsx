@@ -1,5 +1,6 @@
 var React = require('react'),
-    FriendStore = require('../../stores/friend_store');
+    FriendStore = require('../../stores/friend_store'),
+    FriendIndexItem = require('./friend_index_item');
 
 var FriendsIndex = React.createClass({
   getInitialState: function () {
@@ -54,12 +55,7 @@ var FriendsIndex = React.createClass({
           <ul className="friends-list group">
             {this.state.friends.map ( function (friend, i) {
                 return (
-                  <li className="friend-item group" key={i}>
-                    <figure className="friend-picture-container">
-                      <img className="friend-picture" src={friend.profile_small} />
-                    </figure>
-                    <h2 className="friend-name">{friend.full_name}</h2>
-                  </li>
+                  <FriendIndexItem friend={friend} key={i} />
                 );
               }
           )}
