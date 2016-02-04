@@ -1,0 +1,42 @@
+.friends-grid-container {
+  width: 332px;
+  height: 400px;
+}
+
+.friends-grid-header {
+  margin: 0px;
+  margin-top: 10px;
+  text-align: left;
+  display: block;
+  font-size: 20px;
+  padding-top: 16px;
+  padding-bottom: 12px;
+  background-color: rgb(237, 240, 245);
+  border: 1px solid #ccc;
+}
+
+.friends-grid {
+  padding: 0;
+  float: left;
+  margin: 0px;
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+.friend-grid-item {
+  float: left;
+  width: 100px;
+  height: 120px;
+  margin: 5px;
+}
+
+.friend-grid-name {
+  display: block;
+  margin: 0px 0px 0px 0px;
+  padding-left: 0px;
+  padding: 0px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: #3a5795;
+}

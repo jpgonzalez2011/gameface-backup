@@ -2,7 +2,8 @@ var React = require('react'),
     PostForm = require('../posts/post_form'),
     PostStore = require('../../stores/post_store'),
     PostCommentForm = require('../comments/post_comment_form'),
-    CommentDisplay = require('../comments/comment_display');
+    CommentDisplay = require('../comments/comment_display'),
+    FriendGrid = require('./timeline_friends_grid');
 
 var ProfileTimeline = React.createClass({
   getInitialState: function () {
@@ -69,7 +70,9 @@ var ProfileTimeline = React.createClass({
             })}
           </ul>
         </div>
-
+        <div className="timeline-left-side">
+          <FriendGrid userId={this.props.params.userId} />
+        </div>
       </div>
     );
   }

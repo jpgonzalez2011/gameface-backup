@@ -22,7 +22,6 @@ var FriendsIndex = React.createClass({
   },
 
   componentWillMount: function () {
-    FriendStore.emptyFriends(this.props.params.userId);
     this.getStateFromStore(this.props);
   },
 

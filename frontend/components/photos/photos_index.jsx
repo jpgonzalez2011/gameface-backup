@@ -23,7 +23,6 @@ var PhotosIndex = React.createClass({
   },
 
   componentWillUnmount: function () {
-    // PhotoStore.emptyPhotos(this.props.params.userId);
     this.storeCBToken.remove();
   },
 

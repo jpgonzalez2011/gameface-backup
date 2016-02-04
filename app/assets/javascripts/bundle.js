@@ -31726,7 +31726,6 @@
 	  },
 
 	  componentWillUnmount: function () {
-	    // PhotoStore.emptyPhotos(this.props.params.userId);
 	    this.storeCBToken.remove();
 	  },
 
@@ -32391,7 +32390,8 @@
 	    PostForm = __webpack_require__(265),
 	    PostStore = __webpack_require__(254),
 	    PostCommentForm = __webpack_require__(258),
-	    CommentDisplay = __webpack_require__(249);
+	    CommentDisplay = __webpack_require__(249),
+	    FriendGrid = __webpack_require__(272);
 
 	var ProfileTimeline = React.createClass({
 	  displayName: 'ProfileTimeline',
@@ -32479,6 +32479,11 @@
 	            );
 	          })
 	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'timeline-left-side' },
+	        React.createElement(FriendGrid, { userId: this.props.params.userId })
 	      )
 	    );
 	  }
@@ -32724,7 +32729,6 @@
 	  },
 
 	  componentWillMount: function () {
-	    FriendStore.emptyFriends(this.props.params.userId);
 	    this.getStateFromStore(this.props);
 	  },
 
@@ -33246,6 +33250,115 @@
 	});
 
 	module.exports = FriendIndexItem;
+
+/***/ },
+/* 272 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    FriendStore = __webpack_require__(260),
+	    FriendGridItem = __webpack_require__(273);
+
+	var FriendGrid = React.createClass({
+	  displayName: 'FriendGrid',
+
+	  getInitialState: function () {
+	    return this.getStateFromStore(this.props);
+	  },
+
+	  getStateFromStore: function (props) {
+	    return { gridFriends: FriendStore.findByUser(props.userId).slice(0, 9) };
+	  },
+
+	  componentDidMount: function () {
+	    this.storeCBToken = FriendStore.addListener(function () {
+	      this.setState(this.getStateFromStore(this.props));
+	    }.bind(this));
+	  },
+
+	  componentWillUnmount: function () {
+	    this.storeCBToken.remove();
+	  },
+
+	  componentWillMount: function () {
+	    this.getStateFromStore(this.props);
+	  },
+
+	  componentWillReceiveProps: function (newProps) {
+	    FriendStore.emptyFriends(newProps.userId);
+	    this.setState(this.getStateFromStore(newProps));
+	  },
+
+	  render: function () {
+	    if (this.state.gridFriends[0] === "no friends yet") {
+	      return React.createElement(
+	        'div',
+	        { className: 'friends-grid-container group' },
+	        React.createElement(
+	          'h1',
+	          { className: 'friends-grid-header' },
+	          'TOP FRIENDS'
+	        ),
+	        'No friends yet!'
+	      );
+	    } else if (this.state.gridFriends === "loading") {
+	      return React.createElement('div', null);
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { className: 'friends-grid-container group' },
+	        React.createElement(
+	          'h1',
+	          { className: 'friends-grid-header' },
+	          'TOP FRIENDS'
+	        ),
+	        React.createElement(
+	          'ul',
+	          { className: 'friends-grid group' },
+	          this.state.gridFriends.map(function (friend, i) {
+	            return React.createElement(FriendGridItem, { friend: friend, key: i });
+	          })
+	        )
+	      );
+	    }
+	  }
+	});
+
+	module.exports = FriendGrid;
+
+/***/ },
+/* 273 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var FriendGridItem = React.createClass({
+	  displayName: "FriendGridItem",
+
+	  render: function () {
+	    var url = "#/users/" + this.props.friend.id;
+	    return React.createElement(
+	      "a",
+	      { href: url },
+	      React.createElement(
+	        "li",
+	        { className: "friend-grid-item group" },
+	        React.createElement(
+	          "figure",
+	          { className: "friend-picture-container" },
+	          React.createElement("img", { className: "friend-picture", src: this.props.friend.profile_small_url })
+	        ),
+	        React.createElement(
+	          "h2",
+	          { className: "friend-grid-name" },
+	          this.props.friend.full_name
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = FriendGridItem;
 
 /***/ }
 /******/ ]);
