@@ -6,6 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 User.destroy_all
+CoverPhoto.destroy_all
+ProfilePicture.destroy_all
 
 User.create!(
   username: "mario", password: "password",
@@ -78,10 +80,6 @@ User.create!(
   fname: "Yoshi", lname: "", date_of_birth: "21/11/1991"
 )
 User.create!(
-  username: "bigboo", password: "password",
-  fname: "Big", lname: "Boo", date_of_birth: "23/10/1988"
-)
-User.create!(
   username: "kingboo", password: "password",
   fname: "King", lname: "Boo", date_of_birth: "14/9/2001"
 )
@@ -98,9 +96,8 @@ User.create!(
   fname: "Lara", lname: "Croft", date_of_birth: "25/10/1996"
 )
 
-CoverPhoto.destroy_all
-ProfilePicture.destroy_all
 
-CoverPhoto.create!(user_id: User.find_by(username: "mario").id, image: File.new("#{Rails.root}/app/assets/images/mario.png"))
-ProfilePicture.create!(user_id: User.find_by(username: "mario").id, image: File.new("#{Rails.root}/app/assets/images/mario.jpg"))
-ProfilePicture.create!(user_id: User.find_by(username: "luigi").id, image: File.new("#{Rails.root}/app/assets/images/200px-Luigi_Artwork_-_Super_Mario_3D_World.png"))
+User.all.each do |user|
+CoverPhoto.create!(user_id: User.find_by(username: "#{user.username}").id, image: File.new("#{Rails.root}/app/assets/images/cover_photos/#{user.username}.jpg"))
+ProfilePicture.create!(user_id: User.find_by(username: "#{user.username}").id, image: File.new("#{Rails.root}/app/assets/images/profile_pictures/#{user.username}.jpg"))
+end
