@@ -1,0 +1,35 @@
+{
+  "name": "gameface",
+  "version": "1.0.0",
+  "description": "[Heroku link][heroku] **NB:** This should be a link to your production site",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "engines": { "node": "4.1.1", "npm": "2.1.x" },
+  "scripts": {"postinstall": "./node_modules/.bin/webpack" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpgonzalez2011/gameface.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jpgonzalez2011/gameface/issues"
+  },
+  "homepage": "https://github.com/jpgonzalez2011/gameface#readme",
+  "dependencies": {
+  "babel-core": "^6.1.4",
+  "babel-loader": "^6.1.0",
+  "babel-preset-react": "^6.1.4",
+  "flux": "^2.1.1",
+  "history": "1.13.x",
+  "react": "^0.14.2",
+  "react-addons-linked-state-mixin": "^0.14.2",
+  "react-dom": "^0.14.2",
+  "react-router": "1.0.2",
+  "webpack": "^1.12.4"
+}
+}

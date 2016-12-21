@@ -1,0 +1,16 @@
+.photo-index-container {
+}
+
+.photo-index-container > ul {
+  width: 850px;
+  padding: 0px;
+  margin: auto;
+}
+
+.photo-index-container > ul > li {
+  width: 198px;
+  height: 198px;
+  border: 2px solid black;
+  margin: 5px;
+  float: left;
+}

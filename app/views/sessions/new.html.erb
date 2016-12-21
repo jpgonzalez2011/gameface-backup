@@ -1,0 +1,52 @@
+
+<header class="sign-in-header group">
+  <header class="sign-in-header-inner group">
+    <h1> GameFaces! </h1>
+    <form class="sign-in-form" action="<%= session_url %>" method="post">
+      <input
+        type="hidden"
+        name="authenticity_token"
+        value="<%= form_authenticity_token %>"
+      >
+      <label for="username">Username</label>
+      <input type="text" name="user[username]" id="username" value="">
+      <label for="password">Password</label>
+      <input type="password" name="user[password]" id="password" value="">
+
+      <button>Submit</button>
+    </form>
+
+    <form class="guest" action="<%= session_url %>" method="post">
+      <input
+        type="hidden"
+        name="authenticity_token"
+        value="<%= form_authenticity_token %>"
+      >
+      <input type="hidden" name="user[username]" value="Mario">
+      <input type="hidden" name="user[password]" value="password">
+      <button> Log in as Mario! </button>
+    </form>
+  </header>
+</header>
+
+<div class="sign-up-container">
+  <div class="sign-up-container-inner group">
+    <h1> Welcome to GameFaces! Sign up below! </h1>
+
+    <form class="sign-up-form" action="<%= users_url %>" method="post">
+      <input
+        type="hidden"
+        name="authenticity_token"
+        value="<%= form_authenticity_token %>"
+      >
+      <input type="text" name="user[username]" id="username" value="Username">
+      <input type="password" name="user[password]" id="password" value="Password">
+      <input type="text" name="user[fname]" id="fname" value="First Name">
+      <input type="text" name="user[lname]" id="lname" value="Last Name">
+      <label for="date_of_birth">Birthday</label>
+      <input type="date" name="user[date_of_birth]" id="date_of_birth" value="">
+
+      <button>Submit</button>
+    </form>
+  </div>
+</div>
